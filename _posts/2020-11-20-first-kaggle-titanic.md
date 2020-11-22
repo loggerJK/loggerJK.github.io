@@ -1,7 +1,7 @@
 ---
 title : "첫 캐글 도전기 : 타이타닉 예제"
 date : 2020-11-20
-categories : kaggle titanic data science
+categories : kaggle
 ---
 
 # 1. 데이터 분석
