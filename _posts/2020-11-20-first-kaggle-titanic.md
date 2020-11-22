@@ -10,9 +10,13 @@ categories : kaggle
 - Survived 변수는 정답 label로써
   - train set에는 포함
   - test set에는 미포함
+
+
 ```python
 > train_df.columns
 ```
+
+
 ```python
     Index(['PassengerId', 'Survived', 'Pclass', 'Name', 'Sex', 'Age', 'SibSp',
         'Parch', 'Ticket', 'Fare', 'Cabin', 'Embarked'],
@@ -50,10 +54,14 @@ Name: Survived, dtype: int64
 ```
 
 - 각 Column Data에 Nan값이 들어 있는지를 확인한다
+
+
 ```python
 # NaN값이 들어있는 columns를 확인한다
 train_df.isnull().sum(axis=0)
 ```
+
+
 ```python
 PassengerId      0
 Survived         0
@@ -97,6 +105,8 @@ dtype: int64
 ## 1.3 Data PreProcessing
 0. NaN 데이터 처리하기
 - pandas.DataFrame.fillna() 를 이용해 Age의 NaN 값을 채울 수 있다
+
+
 ```python
 train["Age"].fillna(train["Age"].mean(), inplace=True)
 test["Age"].fillna(train["Age"].mean(), inplace=True)
@@ -108,6 +118,8 @@ test["Age"].fillna(train["Age"].mean(), inplace=True)
   - 말이 이상하기는 한데 암튼...
 
 1. Sex : One-hot Encoding
+
+
 ```python
 # male, female 값을 각각 0과 1로 인코딩한다
 sex_i = 3
@@ -129,12 +141,16 @@ for data in set:
 ```
 2. Data Type Change : int32? --> float64
     - 사유 : 텐서플로를 벡엔드로 사용하는 Keras는 int를 입력으로 받지 않음
+
+
 ```python
 # 데이터 형변환
 train = train.astype(np.float64)
 test = test.astype(np.float64)
 ```
 3. Training Data 준비
+
+
 ```python
 # 훈련용 변수와 정답 레이블을 분리한다
 x_train = train[:,1:]
@@ -142,6 +158,8 @@ y_train = train[:,0]
 ```
 
 # 2. Keras 모델 설계
+
+
 ```python
 # keras모델 설계
 model = models.Sequential()
@@ -153,6 +171,8 @@ model.add(layers.Dense(1, activation="sigmoid"))
 
 model.compile(optimizer="rmsprop", loss="binary_crossentropy", metrics=["binary_accuracy"])
 ```
+
+
 ```python
 history = model.fit(
     x_train, y_train, epochs=200, batch_size=20, validation_split=0.2, shuffle = True, verbose=1
@@ -162,6 +182,8 @@ history_dict = history.history
 history_dict.keys()
 ```
 # 3. 결과 분석
+
+
 ```python
 acc = history.history['binary_accuracy']
 val_acc = history.history['val_binary_accuracy']
@@ -204,18 +226,24 @@ plt.show()
 # 4. Train 데이터 예측 / submission.csv 생성
 - predict() 수행 후,
 - 결과 (result)를 1차원으로 변환
+
+
 ```python
 result = model.predict(test)
 result = result.reshape(418)
 # result.shape
 ```
 - submission.csv의 형식과 동일하도록 pandas를 이용해 DataFrame을 생성한 후 저장
+
+
 ```python
 my_submission = pd.DataFrame({'PassengerId': test_df.PassengerId, 'Survived': result})
 my_submission.to_csv('submission.csv', index=False)
 ```
 # 5. 배운 점
-- Data PreProcessing은 매우 중요하다
+
+
+- Data PreProcessing은 매우 중요하다  
   - Kaggle에는 보통 잘 정제된 Data들이 올라오는 편
   - 이러한 데이터들에도 NaN과 같은 데이터들이 있는데,
   - 변수들간의 상간관계를 분석해서 이러한 결측치들을 어떻게 채울지 등이 중요!
