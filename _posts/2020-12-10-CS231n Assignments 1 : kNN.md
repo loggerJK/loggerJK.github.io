@@ -1,7 +1,7 @@
 ---
-title: CS231n Assignments 1
+title: 'CS231n Assignments 1 : kNN'
 date: 2020-12-10
-categories: Deep Learning
+categories: DeepLearning
 tags: [cs231n, deep learning, kNN]
 toc: true
 toc_sticky: true
