@@ -156,7 +156,7 @@ def svm_loss_naive(W, X, y, reg):
   </div>
 </details>
 
-## svm_loss_vectorize : 벡터 연산을 이용하여 작성하기
+## 1-2. svm_loss_vectorize : 벡터 연산을 이용하여 작성하기
 
 아마 SVM과제 중에서 제일 애를 먹었던 부분이 아닌가 싶다. Matrix Equation에 대한 직관이 부족해서 vectorize를 하는데 시간이 꽤 오래 걸리는 편인데... 이렇게 공부하면서라도 실력이 늘었으면 좋겠다3
 
@@ -203,4 +203,107 @@ $$ \begin{align} \bullet \,\, dW_j & =  S^\prime_{1,j} X^T_1 + S^\prime_{2,j} X^
 - $$dW = X^T S_j$$
 
 ### $$dW_{y_i}$$ 코드의 vectorize
+
+- 놓치지 말아야 할 포인트 : $$ y_i $$는 $$ i $$에 고유하게 대응되는 상수값이다. 즉, $$ i $$가 변하면 $$ y_i $$도 변한다. 
+
+- $$dW_{y_i} = -(S^\prime \text{의 i번째 행 margin의 개수}) \times X^T_i$$
+
+
+- 정답 label에 해당하는 margin 값의 위치는 $$S^\prime_{i,y_i}$$로 나타낼 수 있다. 
+
+- $$ row \,\, index = i, \, column \,\, index = y_i$$ 라는 점을 이용하여, 
+
+1. $$S^\prime_{i,y_i}$$ =  $$ - $$($$S^\prime$$의 $$i$$번째 행에서 margin의 개수) 
+2. 나머지 = 0
+
+인 martix $$S^{\prime\prime}$$을 생각해보자. 이 matrix를 관찰해보면 다음 그림과 같은 대응 관계를 가진다.
+
+![Imgur](https://i.imgur.com/xaqXXMa.png){: width='50%', height='50%'}
+
+- 우리가 최종적으로 원하는 것은 $$ dW = \begin{bmatrix} dW_1 \quad dW_2 \quad  dW_3 \quad  \cdots \quad  dW_C \end{bmatrix} $$ 으로, 다음 vector equation을 이용해 한번에 구할 수 있다.
+
+- $$ dW = X^T S^{\prime\prime} $$
+
+### 두 코드의 통합
+
+두 matrix $$ S^\prime $$과 $$ S^{\prime\prime} $$을 살펴보자.
+- 한 쪽이 의미있는 값을 가지는 경우에, 대응되는 다른 쪽은 값이 0이고,
+- 결과적으로 똑같이 $$ X^T $$와 행렬 곱을 수행했을 때, 그 결과값으로 dW를 출력한다
+- 이 두 dW는 결국 나중에 서로 합쳐진다
+
+$$ \therefore $$ 두 matrix를 합쳐서 한번에 계산할 수 있다는 결론이 나온다.
+
+![alt](https://i.imgur.com/JxmvEwW.png)
+
+$$ \therefore \,\, dW = X^T M $$
+
+### 코드 구현 : 평균과 Regularization까지
+
+<details>
+  <summary>코드 보기</summary>
+  <div markdown="1">
+
+```python
+def svm_loss_vectorized(W, X, y, reg):
+    """
+  Structured SVM loss function, vectorized implementation.
+
+  Inputs and outputs are the same as svm_loss_naive.
+  """
+    loss = 0.0
+    dW = np.zeros(W.shape)  # initialize the gradient as zero
+
+    #############################################################################
+    # TODO:                                                                     #
+    # Implement a vectorized version of the structured SVM loss, storing the    #
+    # result in loss.                                                           #
+    #############################################################################
+    # Compute the loss
+    num_classes = W.shape[1]
+    num_train = X.shape[0]
+    scores = X.dot(W)
+    correct_class_scores = scores[np.arange(num_train), y]
+    # print(correct_class_scores.shape)
+    correct_class_scores = correct_class_scores.reshape(num_train, 1)
+    # print(correct_class_scores.shape)
+    margin = np.maximum(0, scores - correct_class_scores + 1)
+    margin[np.arange(num_train), y] = 0  # 정답 라벨은 0으로 만든다
+    loss += margin.sum()
+    loss /= num_train
+    loss += reg * np.sum(W * W)
+
+    margin[margin > 0] = 1
+    valid_margin_counts = margin.sum(axis=1)
+
+    # print(margin.shape)
+    # print(valid_margin_counts.shape)
+
+    margin[np.arange(num_train), y] -= valid_margin_counts
+
+    dW += X.T.dot(margin)
+    dW /= num_train
+    dW += reg * 2 * W
+
+    #############################################################################
+    # TODO:                                                                     #
+    # Implement a vectorized version of the gradient for the structured SVM     #
+    # loss, storing the result in dW.                                           #
+    #                                                                           #
+    # Hint: Instead of computing the gradient from scratch, it may be easier    #
+    # to reuse some of the intermediate values that you used to compute the     #
+    # loss.                                                                     #
+    #############################################################################
+    pass
+    #############################################################################
+    #                             END OF YOUR CODE                              #
+    #############################################################################
+
+    return loss, dW
+```
+  </div>
+</details>
+
+
+
+
 
