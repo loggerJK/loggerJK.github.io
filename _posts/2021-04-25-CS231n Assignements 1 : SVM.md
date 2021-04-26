@@ -302,7 +302,7 @@ def svm_loss_vectorized(W, X, y, reg):
 ```
   </div>
 </details>
-
+  
 
 
 
