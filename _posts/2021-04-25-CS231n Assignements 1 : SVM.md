@@ -85,7 +85,7 @@ $$\frac{dL}{dW_{y_i}} = -\text{(margin 항의 개수)} \times x_i$$
 - Score Matrix $$S$$를 순회하는데
 - 첫번재 for문을 이용해서 data point $$x_i$$에 대한 score vector를 순회하고 (즉, row 순회)
 - 두번째 for문을 이용해서 $$x_i$$에 해당하는 C개의 score를 순회하면서 (column 순회, 정답 레이블에 해당하는 칸은 제외한다)
-  - 만약 $$margin > 0$$이라면
+  - 만약 0이 아닌 $$margin$$
     - loss 값을 업데이트한다
     - $$\frac{dL}{dW_{y_i}}$$ 값을 업데이트 한다
     - $$\frac{dL}{dW_j}$$ 값을 업데이트 한다
@@ -158,7 +158,7 @@ def svm_loss_naive(W, X, y, reg):
 
 ## 1-2. svm_loss_vectorize : 벡터 연산을 이용하여 작성하기
 
-아마 SVM과제 중에서 제일 애를 먹었던 부분이 아닌가 싶다. Matrix Equation에 대한 직관이 부족해서 vectorize를 하는데 시간이 꽤 오래 걸리는 편인데... 이렇게 공부하면서라도 실력이 늘었으면 좋겠다3
+아마 SVM과제 중에서 제일 애를 먹었던 부분이 아닌가 싶다. Matrix Equation에 대한 직관이 부족해서 vectorize를 하는데 시간이 꽤 오래 걸리는 편인데...   이렇게 공부하면서라도 실력이 늘었으면 좋겠다.
 
 ### loss 값 코드의 vectorize
 loss 코드의 vectorize는 비교적 쉬운 편이다
@@ -302,7 +302,7 @@ def svm_loss_vectorized(W, X, y, reg):
 ```
   </div>
 </details>
-  
+
 
 
 
