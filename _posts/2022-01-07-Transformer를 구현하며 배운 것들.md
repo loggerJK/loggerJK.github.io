@@ -102,7 +102,7 @@ class Decoder(nn.Module):
 self.dec_layers = nn.ModuleList([DecoderLayer(hidden_dim, num_head, inner_dim) for _ in range(N)])
 ```
 
-그러면 Pytorch에서 정상적으로 layer들을 인식한다. 쓸 때는 일반적인 반복문처럼 `for layer in self.dec_layers:` 같이 사용하면 된다.
+그러면 Pytorch에서 정상적으로 layer들을 인식한다. 쓸 때는 일반적인 반복문처럼 `for layer in self.dec_layers:`으로 사용하면 된다.
 
 # Pytorch에서 += 연산자의 위험성
 
