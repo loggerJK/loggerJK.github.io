@@ -98,11 +98,11 @@ author:
   avatar           : "/assets/images/bio-photo.jpg"
   bio              : "인생 날로 먹고 싶어요 낼름"
   location         : "Seoul, Korea"
-  email            :  jiwon7258@korea.ac.kr 
+  email            :  jiwon7258@gmail.com 
   links:
-    - label: "Email"
-      icon: "fas fa-fw fa-envelope-square"
-      url: "jiwon7258@gmail.com"
+    # - label: "Email"
+      # icon: "fas fa-fw fa-envelope-square"
+      # url: "jiwon7258@gmail.com"
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
