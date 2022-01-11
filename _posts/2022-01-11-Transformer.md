@@ -522,6 +522,172 @@ class Transformer(nn.Module):
   </div>
 </details>
 
+# Task 1 : 영한 기계 번역
+
+- 데이터셋 : [korean-english-news-v1](https://github.com/jungyeul/korean-parallel-corpora/tree/master/korean-english-news-v1)
+
+- 모델
+
+  - Vocab Size : 10000
+  - Encoder : 3
+  - Decoder : 2
+  - hidden_dim : 64
+  - inner_dim : 128
+
+- Training Code :
+- Inference Code :
+- 학습 결과 :
+
+```
+en = In return, the North would take first steps to disarm in 60 days, the Japan-based Choson Sinbo said, citing an unnamed source.
+answer = 신문은 익명의 소식통을 인용해 그 댓가로 북한이 60일이후 핵 무장 첫 조치를 취할 것이라고 보도했다.
+ko = ['김계에따르면 김계정은 북한 핵폐국면을 북한 핵 프로그램으로 북한이 핵폐화된 북한 핵 시설 불능화 조치를 취할 것이라고 밝혔다.']
+
+en = In response, Serbia ordered its ambassador to the United States to return home, the Serbian Embassy said.
+answer = 이에 반발한 세르비아는 미국 주재 세르비아 대사에게 귀국을 명령했다.
+ko = ['한편 세르비아 주재 미국 대사관은 세르비아와 세르비아로부터 독립을 선언한 바 있다.']
+
+en = "Never again will there be a mismanaged natural disaster," he said, later assuring the crowd that "it will never happen again in this country; you have my commitment and my promise.
+answer = 그는 “이제 더 이상 자연재해에 소홀히 대처해서는 안 된다”며 “이 같은 불미스러운 사건은 더 이상 발생하지 않을 것이라고 약속할 수 없다”고 덧붙였다.
+ko = ['그는 “우리는 우리가 올림픽을 위해 비행기를 기다려할 수 없다”며 “우리는 우리가 계속 유지할 수 없다”고 말했다.']
+
+en = Scotland Yard confirmed to CNN that two men have been charged with trying to blackmail an unnamed member of the royal family.
+answer = 런던경찰청은 남자 2명이 영국왕실 가족 중 1명에게 협박 음모를 꾸민 혐의를 받고 있다고 확인했다.
+ko = ['영국 경찰은 영국 해병대 소속 기소된 용의자로 지목된 용의자로 지목한 용의자로 지목된 용의자로 지목했다.']
+
+en = Pino said he had seen rays leap into the air, but added, "it's very rare for them to collide with objects."
+answer = 피노는 “가오리가 공중으로 뛰어 오르는 것을 본 적이 있지만 어떤 대상과 충돌하는 일은 매우 드물다”고 말했다.
+ko = ['그는 “이렇게 오래됐지만 다른 종말론자들은 매우 잘 알고 있다”며 “이 나무에 부딪혀있는 나무에 부딪혀있는 나무에 부딪혀있는 나무로 움직일 수 있다”고 말했다.']
+
+en = She has been treated in the past for pericarditis, a viral inflammation of the heart.
+answer = 브랙스톤은 과거에도 심막염, 심장 부위의 바이러스성 염증을 앓은 바 있다.
+ko = ['그는 또 다른 병력이 붙인 화학적 목적을 갖고 있는 화학성 화학물인 화학물인 화학물인다.']
+
+en = One source said Russia had some concerns about appointing Blair, but Russian President Vladimir Putin personally approved Blair's selection. Blair refused to acknowledge the appointment when asked about it at a
+answer = 한 소식통은 러시아가 블레어 총리의 중동평화 특사 임명을 우려하는 입장을 보였지만 블라드미르 푸틴 러시아 대통령이 개인적으로 그의 취임을 찬성, 문제가 일단락됐다고 전했다.
+ko = ['라이스 장관은 러시아 대통령궁에서 열린 기자회견에서 러시아는 EU의 발언에 대해 “러시아 개혁을 거부한 것은 블라디미르 푸틴 러시아 대통령이 러시아 대통령이 됐다”고 말했다.']
+
+en = "The U.N. must do more than issue statements of concern," said Kate Allen, director of Amnesty International UK.
+answer = 유엔 안보리는 이달 초 성명에서 "평화적 시위를 강제진압한 미얀마를 강력히 비난한다"고 밝혔다.
+ko = ['로라 부시 여사는 “우리는 이 같은 일을 제대로 될 것”이라며 “이라크는 이라크 정책을 통해 우리는 그들의 윤리적”이라고 말했다.']
+
+en = "If you're back at the backside of that crowd, you're like five hours away from going up the hill," said Jack Soden, chief executive of Elvis Presley Enterprises, the company that manages Graceland and its sprawling tourist complex.
+answer = 그레이스 랜드를 운영하고 있는 엘비스 프레슬리 엔터프라이즈 이사장 잭 소든은 " 이 행렬을 피해 뒤로 돌아간다면 언덕까지 올라가는데 5시간 가량 걸릴 것"이라고 말했다.
+ko = ['클리블랜드에서 “이 있는 스키어 스키어 스키어 스키어 스키장은 스키장에서 가장 큰 스키를 즐길 수 있다”며 “이 물에 잠겼다”고 말했다.']
+
+en = The International Federation of the Red Cross and the Vietnamese government estimated that about 10 million Vietnamese had been affected by Typhoon Lekima, said Joe Lowry, a Red Cross official from Ninh Binh.
+answer = 국제적십자사 직원인 조 로리는 베트남 정부와 국제적십자사의 자료를 인용, 1000만명이 태풍 피해를 입었다고 밝혔다.
+ko = ['베트남 정부는 베트남에서 약 300만명이 대피했다고 보도했다.']
+
+```
+
+전반적으로 영어 문장의 '주제, 문맥' 정도는 파악을 하는 것을 볼 수 있다.
+
+# Task 2 : 챗봇 문답
+
+- 데이터셋 : [Chatbot_data_for_Korean v1.0](https://github.com/songys/Chatbot_data)
+
+- 모델 :
+
+  - Vocab Size : 10000
+  - Encoder/Decoder : 2
+  - hidden_dim : 256
+  - inner_dim : 512
+
+- Training Code :
+- Inference Code :
+- 학습 결과 :
+
+```
+Q = 쉬는날인데 왜 만나자고 안하지
+A = ['이제 일어날 때예요.']
+Q = 마지막으로 편지까지 썼는데
+A = ['그 사람도 설렐 거예요.']
+Q = 맞는 선택일까
+A = ['잘 찾아보세요.']
+Q = 좋아하는 사람이 생기면 좋을 줄 알았는데 우울하기만 해.
+A = ['그 사람도 설렐 거예요.']
+Q = 이제 청첩장 돌려도 되겠지?
+A = ['이제 좀 괜찮아졌길 바랍니다.']
+Q = 안 끝나
+A = ['감기 조심하세요.']
+Q = 결국 핸드폰 번호 바꿨어
+A = ['저도 밥 먹고 먹고 먹고 먹고 잘 볼 수 없어요']
+Q = 엄마랑 아빠처럼 살고 싶다
+A = ['저도 밥 먹고 먹고 먹고 먹고 잘 볼 수 있을']
+Q = 마지막 도전
+A = ['그 사람도 설렐 거예요.']
+Q = 정말 잊은걸까?
+A = ['그 분이 나타나면 꼭 잡으세요!']
+Q = 영화 볼래?
+A = ['이제 일어날 때예요.']
+Q = 고민이 있어
+A = ['이제 좀 괜찮아졌길 바랍니다.']
+Q = 게임하고싶은데 할래?
+A = ['그 사람도 설렐 거예요.']
+```
+
+음.... 잘 되는 거 같기도 하고.... 괜찮은 거랑 이상한거랑 좀 반반인 것 같다... 이상한 게 더 많나?
+
+# Task 3 : Bible
+
+데이터셋이 좀 별로인거 같아서 뭐가 있을까 고민하다가... 최후의 태스크로 성경 번역을 골랐다. 생각해보니 인류 최대의 오픈 소스 데이터셋이 여기 있었는데 이걸 모르고 있었다.
+
+지금까지의 태스크 중에 제일 완성도가 높은 것 같아서, Github에도 이 Task를 Training하는 버전의 코드로 올려놓았다.
+
+- Dataset : [korean-parallel-corpora/bible](https://github.com/jungyeul)
+
+  - Sentencepice
+  - Vocab Size : 10K
+  - Train : Valid = 9 : 1
+
+- Training
+  - Encoder/Decoder : 2
+  - hidden_dim = 256
+  - inner_dim = 512
+  - Epoch : 70
+  - Learning Rate : 1e-4
+  - Scheduler : CosineAnnealingLR (Tmax = 100, min = 1e-5)
+
+<p align="center">
+<img src=https://i.imgur.com/CFMuitM.png alt=img width=80% height=80% />
+</p>
+
+- Training Result
+
+  - Train_Loss : 2.64
+  - Train accuracy : 0.203
+  - Valid_Loss : 4.46
+  - Valid accuracy : 0.136
+
+- Good Example
+
+```
+en =  " 'This is what the Sovereign LORD says: In the first month on the first day you are to take a young bull without defect and purify the sanctuary.
+answer =  "나 주 하나님이 말한다. 너는 첫째 달 초하루에는 언제나 소 떼 가운데서 흠 없는 수송아지 한 마리를 골라다가 성소를 정결하게 하여라.
+ko = ['나 주 하나님이 말한다. 그 날에는 수송아지 일곱 마리와 숫양 두 마리와 일 년 된 어린 숫양 한 마리를 흠 없는 것으로 바쳐라.']
+
+en =  Solomon reigned in Jerusalem over all Israel forty years.
+answer =  솔로몬은 예루살렘에서 사십 년 동안 온 이스라엘을 다스렸다.
+ko = ['솔로몬은 예루살렘에서 마흔 해 동안 다스렸다.']
+
+en =  then hear from heaven their prayer and their plea, and uphold their cause.
+answer =  주께서는 하늘에서 그들의 기도와 간구를 들으시고, 그들의 사정을 살펴보아 주십시오.
+ko = ['그러나 주님은, 하늘에서 그들의 기도와 간구를 들으시고, 그들의 사정을 살펴 주십시오.']
+```
+
+- Bad Example
+
+```
+en =  Obed-Edom also had sons: Shemaiah the firstborn, Jehozabad the second, Joah the third, Sacar the fourth, Nethanel the fifth,
+answer =  오벳에돔의 아들은, 맏아들 스마야와, 둘째 여호사밧과, 셋째 요아와, 넷째 사갈과, 다섯째 느다넬과,
+ko = ['오벳에돔과 아사의 아들 여호하난이 보수하였는데, 그 다음은 단에서부터 스바와 드라빔과 스바와 드라빔과 스바와 드라빔과 스바와 드라빔과 스바와 드라빔과 스바와 드라빔과 스바와 드라빔과 스바와 드라빔과 스바와 드라빔과 스바와 드라빔과 스바와 드라빔이다.']
+
+en =  "Go down, sit in the dust, Virgin Daughter of Babylon; sit on the ground without a throne, Daughter of the Babylonians. No more will you be called tender or delicate.
+answer =  처녀 딸 바빌론아, 내려와서 티끌에 앉아라. 딸 바빌로니아야, 보좌를 잃었으니, 땅에 주저앉아라. 너의 몸매가 유연하고 맵시가 있다고들 하였지만, 이제는 아무도 그런 말을 하지 않을 것이다.
+ko = ['"너는 바빌론 도성 바빌론 도성아, 바빌론 도성아, 바빌론 도성 안에 있는 도성 안에 있는 네 오른손에는 칼이나 쳐라. 네 오른손에는 칼이나 기근이나 기근이나 기근이나 기근이나 기근이나 기근이나 기근이나 굶은 아니다.']
+```
+
 # 후기
 
 확실히 코드로 구현하니까 헷갈리던 부분들이 많이 정리가 된다. 모델 짜는 것 자체는 2~3일 정도밖에 걸리지 않았던 것 같다. 하지만 아직 PyTorch에 익숙하지 않아서 그런지 잔버그들이 좀 많았고, 이를 해결하는데 시행착오를 좀 겪어서 결과적으로는 약 일주일정도만에 완성한 것 같다. Transformer가 (내 생각엔) 다른 구조들보다는 그래도 간단한 편이어서 구현하기 괜찮았던 것 같다. 만약 Swin Transformer의 Shifted Window 같은 거 구현하라고 하면 어우 벌써부터 머리가 깨진다 ^^.....
