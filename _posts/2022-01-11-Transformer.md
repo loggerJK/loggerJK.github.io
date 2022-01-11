@@ -522,6 +522,8 @@ class Transformer(nn.Module):
   </div>
 </details>
 
+***
+
 # Task 1 : 영한 기계 번역
 
 - 데이터셋 : [korean-english-news-v1](https://github.com/jungyeul/korean-parallel-corpora/tree/master/korean-english-news-v1)
@@ -659,6 +661,9 @@ A = ['그 사람도 설렐 거예요.']
   - Train accuracy : 0.203
   - Valid_Loss : 4.46
   - Valid accuracy : 0.136
+  
+<br>
+
 
 - Good Example
 
