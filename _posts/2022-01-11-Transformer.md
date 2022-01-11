@@ -522,7 +522,7 @@ class Transformer(nn.Module):
   </div>
 </details>
 
-***
+---
 
 # Task 1 : 영한 기계 번역
 
@@ -651,9 +651,7 @@ A = ['그 사람도 설렐 거예요.']
   - Learning Rate : 1e-4
   - Scheduler : CosineAnnealingLR (Tmax = 100, min = 1e-5)
 
-<p align="center">
-<img src=https://i.imgur.com/CFMuitM.png alt=img width=80% height=80% />
-</p>
+![img](https://i.imgur.com/CFMuitM.png){: width = 80% height = 80%}
 
 - Training Result
 
@@ -661,9 +659,8 @@ A = ['그 사람도 설렐 거예요.']
   - Train accuracy : 0.203
   - Valid_Loss : 4.46
   - Valid accuracy : 0.136
-  
-<br>
 
+<br>
 
 - Good Example
 
