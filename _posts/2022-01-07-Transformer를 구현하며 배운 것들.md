@@ -22,6 +22,8 @@ encoder_layer.apply(apply_xavier)
 ```
 
 ```
+Output:
+
 Linear(in_features=128, out_features=128, bias=True)
 Linear(in_features=128, out_features=128, bias=True)
 Linear(in_features=128, out_features=128, bias=True)
@@ -41,6 +43,8 @@ for param in encoder_layer.named_parameters():
 ```
 
 ```
+Output:
+
 multiheadattention.fcQ.weight
 multiheadattention.fcQ.bias
 multiheadattention.fcK.weight
@@ -67,6 +71,8 @@ for layer in encoder_layer.named_parameters():
 ```
 
 ```
+Output:
+
 multiheadattention.fcQ.weight
 multiheadattention.fcK.weight
 multiheadattention.fcV.weight
