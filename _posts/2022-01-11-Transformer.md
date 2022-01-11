@@ -660,8 +660,6 @@ A = ['그 사람도 설렐 거예요.']
   - Valid_Loss : 4.46
   - Valid accuracy : 0.136
 
-<br>
-
 - Good Example
 
 ```
