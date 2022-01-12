@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://loggerjk.github.io/sitemap.xml
