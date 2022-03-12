@@ -7,7 +7,7 @@ toc : true
 toc_sticky : true
 ---
 
-$$ A = BC \\ L = f(A) $$ 
+$$A = BC \\ L = f(A)$$ 
 라고 하자.
 
 $$\frac{dL}{dB} = \frac{dL}{dA} C^T $$
