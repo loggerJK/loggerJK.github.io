@@ -16,7 +16,7 @@ $indent-var: 0.8em !default;
 $serif: Georgia, Times, serif !default;
 $sans-serif: "Noto Sans KR", -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI",
   "Helvetica Neue", "Lucida Grande", Arial, sans-serif !default;
-$monospace: "Source Code Pro", "Nanum Gothic Coding", Monaco, Consolas, "Lucida Console", monospace !default;
+$monospace: monospace, "Source Code Pro", "Nanum Gothic Coding", Monaco, Consolas, "Lucida Console", !default;
 
 /* sans serif typefaces */
 $sans-serif-narrow: $sans-serif !default;
