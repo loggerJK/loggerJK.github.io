@@ -6,7 +6,16 @@ tags : [scene representation, view synthesis, image-based rendering, volume rend
 toc : true
 toc_sticky : true
 ---
-
+# 궁금증
+- $(x,y,z)$의 범위는 어떻게 되나요?
+  - normailized to lie in $[-1,1]$ (9p)
+  - 부록 A를 보자
+- $r(t) = o + td$에서 $o$는 뭔가용...?
+- Alpha Compositing
+  - [위키백과](https://ko.wikipedia.org/wiki/%EC%95%8C%ED%8C%8C_%EC%B1%84%EB%84%90)
+- Inverse Transform Sampling
+  - 아무튼 샘플링이다
+- NDC (Normalized Device Coordinate)
 # 글쓴이의 당부
 NeRF : Representing Scenes as Neural Radiance Fields for View Synthesis 논문을 공부용으로 번역한 글입니다. 고작 학부 재학생 수준의 제멋대로인 번역으로 가독성은 별로 좋지 않습니다. 5절까지 번역되어 있습니다. 웬만하면 원문을 읽으시거나 유튜브에서 관련 동영상을 찾아보시길 권장드립니다.
 
@@ -46,8 +55,10 @@ NeRF : Representing Scenes as Neural Radiance Fields for View Synthesis 논문�
 > 핵심적인 공식
 > $F_\Theta : (\mathbf{x,d}) \rightarrow (\mathbf{c}, \sigma)$ 
 
-우리는 표현(representation)이 multiview consistent하도록 할 필요가 있다. 따라서 volume density $\sigma$는 좌표 $\mathbf{x}$의 함수로만 정의되고, RGB 컬러 $\mathbf{c}$는 $\mathbf{x}$와 $\mathbf{d}$의 함수로 정의되도록 하였다. 이러한 구조를 달성하기 위해, MLP 네트워크 $F_\Theta$는 먼저 8개의 FC(Fully Connected) 레이어에 3D 좌표 $\mathbf{x}$를 통과시켜서 $\sigma$와 256차원의 feature vector를 얻는다. (이때, 활성화 함수는 ReLU를 사용하고 각 레이어의 출력은 256 차원이다.) 이때 얻은 feature vector를 camrea ray의 viewding direction $\mathbf{d}$와 concat하여 벡터를 얻은후, 다시 하나의 FC 레이어에 넘겨주고, view-dependent한 RGB 컬러 $\mathbf{c}$를 얻는다. (이때 FC 레이어의 활성화 함수는 ReLU, 128차원이다)
-![](https://images.velog.io/images/logger_j_k/post/621c681c-82ad-4916-98aa-2c405a8db573/image.png)
+우리는 표현(representation)이 multiview consistent하도록 할 필요가 있다. 따라서 volume density $\sigma$는 좌표 $\mathbf{x}$의 함수로만 정의되고, RGB 컬러 $\mathbf{c}$는 $\mathbf{x}$와 $\mathbf{d}$의 함수로 정의되도록 하였다. 이러한 구조를 달성하기 위해, MLP 네트워크 $F_\Theta$는 먼저 8개의 FC(Fully Connected) 레이어에 3D 좌표 $\mathbf{x}$를 통과시켜서 $\sigma$와 256차원의 feature vector를 얻는다. (이때, 활성화 함수는 ReLU를 사용하고 각 레이어의 출력은 256 차원이다.) 이때 얻은 feature vector를 camrea ray의 viewding direction $\mathbf{d}$와 concat하여 벡터를 얻은후, 다시 하나의 FC 레이어에 넘겨주고, view-dependent한 RGB 컬러 $\mathbf{c}$를 얻는다. (이때 FC 레이어의 활성화 함수는 ReLU, 128차원이다)./ 
+
+![Figure 7](../assets/images/2022-03-08-[번역]NeRF%20:%20Representing%20Scenes%20as%20Neural%20Radiance%20Fields%20%20for%20View%20Synthesis.md/Figure%207.png)
+
 
 Fig.3는 우리의 방법이 non-Lambertain 효과를 위해서 어떻게 시점(viewing direction)을 활용하는지 보여준다.
 ![](https://images.velog.io/images/logger_j_k/post/05bf455d-2e51-479b-a077-5d5a9f86d3e3/image.png)Fig.3 : 시점을 고려한 빛(view-dependent emitted radiance)의 시각화. NeRF는 공간적 위치 $\mathbf{x}$와 시점 $\mathbf{d}$를 고려한 5차원 함수를 이용해 RGB 컬러를 얻는다. 이 그림에서, 우리는 *배*의 두가지 점에서 시점에 따른 색 분포를 비교해보고자 한다. (a)와 (b)는 두 고정된 3D 점에서 카메라 위치에 따른 차이를 보여준다. NeRF는 두 점에서 바뀌는 반사광(specular apperance)을 예측할 수 있으며, (c)는 모든 시점에 걸친 색 분포를 보여준다.
@@ -59,7 +70,7 @@ Fig.4 : 위 사진은 입력 좌표를 넘겨줄 때 고차원의 positional enc
 # 4. Radiance Field와 Volume Rendering
 5D NeRF는 어떤 장면을 volume desnity와 directional emitted radiance(역주 - 간단하게 말해서 $\mathbf{(\sigma, c)}$)를 가지는 공간상의 점들로 표현한다. NeRF는 전통적인 볼륨 렌더링 (classical volume rendering) 원리를 이용해서 장면을 지나는 빛의 색을 렌더링한다. volume density $\mathbf{\sigma(x)}$는 특정 위치 $\mathbf{x}$의 아주 작은 입자에서 빛이 멈출 차분 확률(differential probability)를 의미한다.(역주 - 간단하게 말하면, 얼마나 빛을 멈추게 할만큼 밀도가 높고 딱딱한가). $t_n$부터 $t_f$까지, 카메라의 빛 $\mathbf{r(t) = o + td}$에 대한 예상 컬러 $\mathbf{C(r)}$은 다음의 수식으로 표현할 수 있다.
 
->$\mathbf{C(r)} = \displaystyle\int_{t_n}^{t_f} T(t) \sigma(\mathbf{r}(t))\mathbf{c(r}(t),\mathbf{d})dt \quad\quad(1)\\ \text{where } T(t) = \text{exp}\left(-\displaystyle\int_{t_n}^{t_f} \sigma(\mathbf{r}(s))ds\right)$
+>$\mathbf{C(r)} = \displaystyle\int_{t_n}^{t_f} T(t) \sigma(\mathbf{r}(t))\mathbf{c(r}(t),\mathbf{d})dt \quad\quad(1)\\ \text{where } T(t) = \text{exp}\left(-\displaystyle\int_{t_n}^{t} \sigma(\mathbf{r}(s))ds\right)$
 
 >(역주 - 간단하게 $T(t)\sigma\mathbf(r(t))$를 weight로 해석하여 각 컬러에 대한 가중합 정도로 생각할 수 있다.)
 
@@ -67,7 +78,7 @@ $T(t)$는 $t_n$부터 $t$까지 빛을 따라서 누적된 투과도를 의미�
 
 우리는 이 연속적인 적분값을 구적법(quadrature)를 이용하여 수학적으로 근사(estimate)할 것이다. MLP는 위치의 고정된 이산 집합에서만 동작하기 때문에 (be quried at a fixed discrete set of locations), 이산적인 voxel grid의 렌더링에 흔히 사용되는 deterministic quadrature는 해상도에 있어서 제약이 있을 수 밖에 없다. 대신, 우리는 다음과 같은 stratifed sampling 접근법을 사용한다 : [$t_n, t_f$]를 N개의 칸(bin)으로 균등하게 나눈 다음, 각 칸에서 균등 분포를 이용하여 하나의 샘플을 뽑는다.
 
-> $t_i \sim	 \mathcal{U} \left[t_n + \frac{i-1}{N}(t_f - t_n), t_n + \frac{i}{N}(t_f - t_n)\right]\quad\quad(2)$ 
+> $$t_i \sim	 \mathcal{U} \left[t_n + \frac{i-1}{N}(t_f - t_n), t_n + \frac{i}{N}(t_f - t_n)\right]\quad\quad(2)$$
 
 비록 적분값을 근사하기 위해서 샘플들의 이산 집합을 이용하지만, 최적화 과정에서 MLP가 연속적인 위치에서 평가되는 결과를 가져오기 때문에 (reuslts in the MLP being evaluated at continuous postions over the course of optimization) stratified sampling은 결국 연속적인 장면의 표현을 가능하게 한다. 우리는 이렇게 뽑힌 샘플들을 이용하여 $C\mathbf(r)$을 근사하기 위해 Max의 volume rendering review에서 논의된 quadrature rule을 사용한다.
 
@@ -81,13 +92,13 @@ $\delta_i = t_{i+1} - t_i$는 인접 샘플 간의 거리를 의미한다. $(\ma
 ## 5.1 Positional Encoding
 비록 neural network이 함수 근사에 일반적으로 잘 사용되지만, 우리는 네트워크 $F_\Theta$를 바로 입력좌표 $xyz\theta\phi$로만 운영하는 것은 잘 작동하지 않는 다는 것을 확인할 수 있었다. 이는 Rahaman의 최근 연구에서도 동일하게 나타나는데, 깊은 네트워크가 lower-frequency function을 학습하는 것에만 편항되어 있다는 것을 보여주었다. (역주 - 전반적으로 네트워크의 표현력이 낮다는 이야기) 그들은 또한 high frequency function을 이용하여 입력을 고차원으로 변환하면, 네트워크가 데이터를 더 잘 학습하고 표현력도 좋아진다는 것을 보였다.
 
-우리는 이러한 발견을 neural scene representation 측면에서 레버리지(leverage)하여, $F_\Theta$를 다음과 같이 두 함수의 합성으로 변형한다. $F_\Theta = F_\Theta' \circ \gamma$. (전자는 학습되지만 후자는 학습되지 않는 함수이다.) 그리고 이 방법이 성능을 상당히 개선함을 보인다. $\gamma$는 $\mathbb{R}$에서 $\mathbb{R}^2$으로의 매핑 함수이고, $F_\Theta'$는 일반적인 MLP이다. 우리가 사용하는 인코딩 형식은 수식적으로 다음과 같다 :
+우리는 이러한 발견을 Neural Scene Representation 분야에서 활용하기로 하고, $F_\Theta$를 다음과 같이 두 함수의 합성으로 변형한다. $F_\Theta = F_\Theta' \circ \gamma$. (전자는 학습되지만 후자는 학습되지 않는 함수이다.) 그리고 이 방법이 성능을 상당히 개선함을 보인다. $\gamma$는 $\mathbb{R}$에서 $\mathbb{R}^{2L}$으로의 매핑 함수이고, $F_\Theta'$는 일반적인 MLP이다. 우리가 사용하는 인코딩 형식은 수식적으로 다음과 같다 :
 
 > $\displaystyle\gamma(p) = \left(\sin(2^0\pi p), \; \cos(2^0 \pi p), \; \cdots \; \sin(2^{L-1} \pi p), \; \cos(2^{L-1}\pi p)\right) \quad\quad (4)$
 
 함수 $\gamma(\cdot)$은 ([-1,1]로 정규화된) 세개의 좌표 값 $\mathbf{x}$와 ([-1,1]의 값을 가지는) Cartesian 시점 방향 단위 벡터 $\mathbf{d}$에 적용된다. 우리는 실험에서 $\gamma(\mathbf{x})$에 대해서 $L = 10$, $\gamma(\mathbf{d})$에 대해서 $L = 4$를 적용했다.
 
-비슷한 maaping이 유명한 Transformer 아키텍처에도 적용되는데, 그쪽에서도 역시 Positional encoding이라고 부른다. 하지만 Transformer에서는 목적이 조금 다른데, 순서를 포함하지 않고 있는 구조의 입력으로 사용하여 시퀀스의 토큰마다 이산적인 위치를 부여하도록 사용된다. 이와 대조적으로, 우리는 연속적인 입력 좌표를 좀 더 고차원으로 매핑하여 MLP가 higher frequency function을 더 잘 근사하도록 하기 위해 사용한다. 사영(projection)에서 3D 단백질 구조를 모델링 하는 문제의 과제에서도 비슷한 입력 좌표 매핑을 이용한다.
+비슷한 mapping이 유명한 Transformer 아키텍처에도 적용되는데, 그쪽에서도 역시 Positional encoding이라고 부른다. 하지만 Transformer에서는 목적이 조금 다른데, 순서를 포함하지 않고 있는 구조의 입력으로 사용하여 시퀀스의 토큰마다 이산적인 위치를 부여하도록 사용된다. 이와 대조적으로, 우리는 연속적인 입력 좌표를 좀 더 고차원으로 매핑하여 MLP가 higher frequency function을 더 잘 근사하도록 하기 위해 사용한다. 사영(projection)에서 3D 단백질 구조를 모델링 하는 문제의 과제에서도 비슷한 입력 좌표 매핑을 이용한다.
 
 ## 5.2 Hirearchial volume sampling
 카메라 빛을 따라 N개의 지점에서 neural radiance field network의 값을 구해 렌더링 하는 전략은 사실 비효율적이다. 렌더링 이미지에 별 기여를 하지 않는 빈 공간과 차광된 공간이 여전이 반복해서 샘플링되기 때문이다. 우리는 volume rendering에 대한 이전의 연구에서 영감을 받아, 최종 렌더링에 대한 예상 기여도에 비례하여 샘플들을 할당하는 방법을 통해 렌더링 효율을 증가시키는 hirearchial representation을 제안한다.
@@ -100,7 +111,7 @@ $\delta_i = t_{i+1} - t_i$는 인접 샘플 간의 거리를 의미한다. $(\ma
 
 $$\hat{w}_i = w_i / \sum_{j=1}^{N_c} w_j$$
 
-가중치들을 정규화하면, 빛을 따라 piecewise-constant PDF(조각마다 상수 확률밀도함수)를 얻을 수 있다. Inverse transform sampling을 이용해 이 분포로부터 다시 두번째 위치 집합 $N_f$개의 위치를 샘플링한다. 그리고 첫번째 집합과 두번째 집합의 합집합으로 fine 네트워크의 값을 얻는다. 그리고 방정식 (3)과 $N_c + N_f$개의 샘플들을 이용하여 최종적으로 렌더링된 빛의 색 $\hat{C}_f(\mathbf{r})$를 얻는다. 이 과정은 색이 뚜렷할 것으로 예상되는 지점에서 더 많은 샘플링을 하도록 한다. 이는 importance sampling과 목표가 비슷하다. 하지만 우리는 각 샘플을 전체 적분에 대한 독립적인 확률 추정치로 생각하는 대신, 샘플된 값을 모든 정의역에 대한 비균등 이산화로 사용한다. (We use the sampled values as a nonuniform discretization of the whole integration domain rather than treating each sample as an independent probabilistic estimate of the entire integral)(역주 - 뭔소린지 모르겠다...)
+가중치들을 정규화하면, 빛을 따라 piecewise-constant PDF를 얻을 수 있다. (역주 - $\hat{w}_i$를 확률로 해석할 수 있다. $N_c$개의 합 = $1$) Inverse transform sampling을 이용해 이 분포로부터 다시 두번째 위치 집합 $N_f$개의 위치를 샘플링한다. 그리고 첫번째 집합과 두번째 집합의 합집합으로 fine 네트워크의 값을 얻는다. 그리고 방정식 (3)과 $N_c + N_f$개의 샘플들을 이용하여 최종적으로 렌더링된 빛의 색 $\hat{C}_f(\mathbf{r})$를 얻는다. 이 과정은 색이 뚜렷할 것으로 예상되는 지점에서 더 많은 샘플링을 하도록 한다. 이는 importance sampling과 목표가 비슷하다. 하지만 우리는 각 샘플을 전체 적분에 대한 독립적인 확률 추정치로 생각하는 대신, 샘플된 값을 모든 정의역에 대한 비균등 이산화로 사용한다. (We use the sampled values as a nonuniform discretization of the whole integration domain rather than treating each sample as an independent probabilistic estimate of the entire integral)(역주 - 뭔소린지 모르겠다...)
 
 ## 5.3 구현 과정의 세부사항
 우리는 장면마다 서로 다른 네트워크를 최적화한다. 이 작업은 장면을 촬영한 RGB 이미지들의 데이터셋, 대응하는 카메라 위치, 고유한 파라미터, 장면 경계(scene bounds)를 필요로 한다.
