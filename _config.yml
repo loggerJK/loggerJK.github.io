@@ -96,7 +96,7 @@ analytics:
 author:
   name             : "Jiwon Kang"
   avatar           : "/assets/images/bio-photo.jpg"
-  bio              : "인생 날로 먹고 싶어요 낼름"
+  bio              : ""
   location         : "Seoul, Korea"
   email            :  jiwon7258@gmail.com 
   links:
@@ -280,7 +280,8 @@ defaults:
     values:
       layout: single
       author_profile: true
-      read_time: true
+      # read_time: true
+      show_date : true
       comments: # true
       share: true
       related: true
