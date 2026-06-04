@@ -1,0 +1,246 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Jiwon Kang -- Academic CV
+% Self-contained single-file template (compile with pdflatex).
+% Style adapted to a CVLAB-house academic CV layout.
+% NOTE: resume.cls is no longer used by this file.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[11pt,letterpaper]{article}
+
+%==================== GEOMETRY & ENCODING ====================
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[letterpaper,left=0.75in,right=0.75in,top=0.75in,bottom=0.75in]{geometry}
+
+%==================== FONTS ====================
+\usepackage{lmodern}              % math symbols stay Latin Modern (matches reference)
+\usepackage{charter}              % body text = Bitstream Charter (reference font); loaded AFTER lmodern so it wins for text
+\usepackage{microtype}
+\usepackage[parfill]{parskip}
+
+%==================== COLOR ====================
+\usepackage{xcolor}
+\definecolor{linkblue}{HTML}{1565C0}
+\definecolor{cvgray}{gray}{0.45}
+\definecolor{rulegray}{gray}{0.0}
+
+%==================== TABLES / LISTS ====================
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\usepackage[normalem]{ulem}
+
+%==================== ICONS (graceful fallback if fontawesome5 missing) ====================
+\IfFileExists{fontawesome5.sty}{\usepackage{fontawesome5}}{%
+  \providecommand{\faGlobe}{[web]}\providecommand{\faGraduationCap}{[scholar]}%
+  \providecommand{\faEnvelope}{[email]}\providecommand{\faGithub}{[github]}%
+  \providecommand{\faLinkedin}{[linkedin]}\providecommand{\faHome}{[home]}}
+
+%==================== SECTION HEADERS (Title-Case bold + rule) ====================
+\usepackage{titlesec}
+\titleformat{\section}
+  {\large\bfseries}{}{0em}{}
+  [\vspace{2pt}{\color{rulegray}\titlerule[0.8pt]}]
+\titlespacing*{\section}{0pt}{10pt}{6pt}
+
+%==================== HYPERLINKS (load last) ====================
+\usepackage[hidelinks,breaklinks=true]{hyperref}
+\hypersetup{
+  colorlinks=true,
+  urlcolor=linkblue,
+  linkcolor=linkblue,
+  citecolor=linkblue,
+  pdftitle={Jiwon Kang -- Curriculum Vitae},
+  pdfauthor={Jiwon Kang}
+}
+
+%==================== MACROS ====================
+% Update this whenever you edit the CV content (do NOT use \today).
+\newcommand{\lastupdate}{June 2, 2026}
+\newcommand{\cvgap}{\hspace{1.5em}}
+
+\newcommand{\cvheader}{%
+  {\Huge\bfseries Jiwon Kang}\par
+  \vspace{2pt}
+  {\color{cvgray}\small Last update: \lastupdate}\par
+  \vspace{6pt}
+  {\small
+    % \href{https://TODO.github.io}{\faGlobe\ Personal Website}\cvgap   % TODO: personal website
+    \href{https://scholar.google.com/citations?user=A2PurdIAAAAJ}{\faGraduationCap\ Google Scholar}\cvgap
+    \href{mailto:jiwon7258@kaist.ac.kr}{\faEnvelope\ jiwon7258@kaist.ac.kr}\cvgap
+    \href{https://github.com/loggerJK}{\faGithub\ loggerJK}%
+    % \cvgap\href{https://linkedin.com/in/TODO}{\faLinkedin\ LinkedIn}   % TODO: LinkedIn
+  }\par
+  \vspace{10pt}
+}
+
+% Education / Experience entry: \cventry{Title}{Date}{2nd-line-left}{2nd-line-right}
+% Pass {}{} for the 2nd line to omit it (robust empty test).
+\makeatletter
+\newcommand{\cventry}[4]{%
+  \textbf{#1}\hfill{#2}\par
+  \def\cv@second{#3}%
+  \ifx\cv@second\@empty\else #3\hfill{#4}\par\fi
+}
+\makeatother
+
+\newlist{cvbullets}{itemize}{1}
+\setlist[cvbullets]{label=\textbullet, leftmargin=1.4em, topsep=2pt,
+                    itemsep=1pt, parsep=0pt, before=\small}
+
+% Publication helpers
+\newcommand{\me}[1]{\textbf{\textit{\uline{#1}}}}   % CV owner's name
+\newcommand{\eqc}{\textsuperscript{*}}              % equal contribution
+\newcommand{\corr}{\textsuperscript{\dag}}          % corresponding author
+\newcommand{\publegend}{%
+  {\color{cvgray}\small *: Equal Contribution,\quad \dag: Corresponding Author}\par
+  \vspace{4pt}%
+}
+\newcommand{\pubgroup}[1]{\vspace{4pt}{\large\bfseries #1}\par\vspace{2pt}}
+
+% Reusable full link blob (Paper | Project Page | Code). Inline a subset if some URLs are unknown.
+\newcommand{\publinks}[3]{%
+  \small\color{linkblue}%
+  \href{#1}{Paper}~\textbar~\href{#2}{Project Page}~\textbar~\href{#3}{Code}%
+}
+
+% \pubitem{label}{title}{links}{authors}{venue}
+% Title (bold) wraps in the flexible X column; links pin top-right on line 1.
+\newcommand{\pubitem}[5]{%
+  \begingroup
+  \setlength{\tabcolsep}{0pt}%
+  \noindent
+  \begin{tabularx}{\linewidth}{@{}>{\RaggedRight\arraybackslash}X r@{}}
+    \textbf{#1\ #2} & #3
+  \end{tabularx}\par
+  \vspace{1pt}%
+  #4\par
+  \textit{#5}\par
+  \vspace{6pt}%
+  \endgroup
+}
+
+%==================== DOCUMENT ====================
+\begin{document}
+\pagestyle{empty}
+
+\cvheader
+
+%-------------------- RESEARCH INTERESTS --------------------
+\section{Research Interests}
+My research focuses on generative models---particularly diffusion- and flow-based
+methods---and their applications across vision, 3D, and multimodal domains.
+I am broadly interested in:
+\begin{cvbullets}
+  \item Diffusion \& Generative AI (Guidance, Sampling, Image / Audio generation)
+  \item 3D Vision (Novel View Synthesis, NeRF, Gaussian Splatting)
+  \item Unified Multimodal Models
+\end{cvbullets}
+
+%-------------------- EDUCATION --------------------
+\section{Education}
+\cventry{Integrated M.S./Ph.D. in Artificial Intelligence}{Mar. 2025 -- Present}
+        {Kim Jaechul Graduate School of AI, KAIST}{Advisor: \href{https://cvlab.kaist.ac.kr}{Seungryong Kim} (CVLAB)}
+\vspace{4pt}
+\cventry{B.S. in Computer Science and Engineering}{Mar. 2019 -- Feb. 2025}
+        {Korea University, Seoul}{}
+\begin{cvbullets}
+  \item Double Major in Statistics \quad GPA: 4.24 / 4.5
+  \item Undergraduate Research Intern, \href{https://cvlab.kaist.ac.kr}{CVLAB}
+        (Sep. 2022 -- Feb. 2025), Advisor: Seungryong Kim
+\end{cvbullets}
+
+%-------------------- PUBLICATIONS --------------------
+\section{Publications}
+\publegend
+
+\pubgroup{International Conference}
+
+\pubitem{[C3]}
+  {APPLE: Attribute-Preserving Pseudo-Labeling for Diffusion-Based Face Swapping}
+  {}
+  {\me{Jiwon Kang}\eqc, Yeji Choi\eqc, JoungBin Lee, Wooseok Jang, Jinhyeok Choi, Taekeun Kang, Yongjae Park, Myungin Kim, Seungryong Kim\corr}
+  {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026).}
+  % {\small\color{linkblue}\href{https://arxiv.org/abs/2601.15288}{Paper}~\textbar~\href{https://cvlab-kaist.github.io/APPLE/}{Project Page}}
+
+\pubitem{[C2]}
+  {A Noise is Worth Diffusion Guidance}
+  {} % TODO: add Paper / Project Page / Code links
+  {Donghoon Ahn\eqc, \me{Jiwon Kang}\eqc, Sanghyun Lee, Jaewon Min, Wooseok Jang, Minjae Kim, Hyungwon Cho, Sayak Paul, SeonHwa Kim, Eunju Cha\corr, Kyong Hwan Jin\corr, Seungryong Kim\corr}
+  {International Conference on Learning Representations (ICLR 2026).}
+
+\pubitem{[C1]}
+  {Where and How to Perturb: On the Design of Perturbation Guidance in Diffusion and Flow Models}
+  {} % TODO: add links
+  {Donghoon Ahn\eqc, \me{Jiwon Kang}\eqc, Sanghyun Lee, Minjae Kim, Wooseok Jang, Jaewon Min, Sangwu Lee, Sayak Paul, Seungryong Kim\corr}
+  {Conference on Neural Information Processing Systems (NeurIPS 2025).}
+
+\pubgroup{Workshop}
+
+\pubitem{[W1]}
+  {Self-Evolving Neural Radiance Fields}
+  {} % TODO: add links
+  {Jaewoo Jung\eqc, Jisang Han\eqc, \me{Jiwon Kang}\eqc, Seongchan Kim, Min-Seop Kwak, Seungryong Kim\corr}
+  {ICCV 2025 Workshop on Wild3D: 3D Modeling, Reconstruction, and Generation in the Wild.}
+
+\pubgroup{Preprints \& Under Review}
+
+\pubitem{[P3]}
+  {Exploring Whisper as a Continuous Tokenizer for Text-to-Speech}
+  {} % TODO: add links
+  {\me{Jiwon Kang}, Heeji Yoon, Woo-Young Kang, Sunghun Kang, Jihwan Eom, Jaeyeol Jeon, Byungseok Roh, Seungryong Kim\corr}
+  {Under Review.}
+
+\pubitem{[P2]}
+  {Transferability Between Understanding and Generation in Unified Multimodal Models}
+  {} % TODO: add links
+  {\me{Jiwon Kang}\eqc, Heeji Yoon\eqc, Jaewoo Jung, Jaewon Min, Minkyeong Jeon, Biyeon Hwang, Sangwon Jung, Seungryong Kim\corr}
+  {Under Review.}
+
+\pubitem{[P1]}
+  {RAIN-GS: Relaxing Accurate Initialization Constraint for 3D Gaussian Splatting}
+  % {\small\color{linkblue}\href{https://github.com/cvlab-kaist/RAIN-GS}{Code}}
+  {}
+  {Jaewoo Jung\eqc, Jisang Han\eqc, Honggyu An\eqc, \me{Jiwon Kang}\eqc, Seonghoon Park\eqc, Seungryong Kim\corr}
+  {Under Review.}
+
+%-------------------- HONORS (TODO: confirm accuracy before un-commenting) --------------------
+% \section{Honors \& Awards}
+% \cventry{Outstanding Paper Award (Silver), IPIU 2024}{Feb. 2024}{}{}
+% \cventry{1st Place, Seoul Asan Hospital HeLP Challenge (Stroke DWI Segmentation)}{Oct. 2021}{}{}
+
+%-------------------- INVITED TALKS (TODO) --------------------
+% \section{Invited Talks}
+% \cventry{Talk Title}{Date}{Hosting Venue}{}
+
+%-------------------- ACADEMIC SERVICES (TODO) --------------------
+% \section{Academic Services}
+% {\bfseries Conference Reviewer}
+% \begin{cvbullets}
+%   \item Conference Name (ACRONYM), Year
+% \end{cvbullets}
+
+%-------------------- TEACHING (TODO: confirm) --------------------
+% \section{Teaching Experience}
+% \begin{cvbullets}
+%   \item Teaching Assistant, Computer Vision Learning Course, Samsung Electronics (Sep. 2023)
+%   \item Teaching Assistant, Visual Question Answering, Samsung Electronics (Sep. 2023)
+% \end{cvbullets}
+
+%-------------------- EXTRACURRICULAR --------------------
+\section{Extracurricular Activities}
+\cventry{AIKU (Artificial Intelligence Society of Korea University)}{Sep. 2022 -- Aug. 2023}
+        {Co-founder and Vice President}{}
+\begin{cvbullets}
+  \item Academic research society for undergraduate students
+\end{cvbullets}
+
+%-------------------- TECHNICAL SKILLS / COURSEWORK (TODO) --------------------
+% \section{Technical Skills}
+% \begin{cvbullets}
+%   \item Programming: Python, C/C++
+%   \item Frameworks: PyTorch, JAX
+% \end{cvbullets}
+
+\end{document}

@@ -1,4 +1,506 @@
----
-layout: home
-author_profile: true
----
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>Jiwon Kang</title>
+
+  <meta name="description" content="Jiwon Kang — Integrated M.S./Ph.D. student at KAIST AI (CVLAB). Research on diffusion & generative models, 3D vision, and unified multimodal models.">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Jiwon Kang">
+  <meta property="og:description" content="Integrated M.S./Ph.D. student at KAIST AI (CVLAB). Diffusion & generative models, 3D vision, multimodal models.">
+  <meta property="og:url" content="https://loggerjk.github.io/">
+  <meta property="og:image" content="https://loggerjk.github.io/images/portrait.jpg">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Jiwon Kang">
+  <meta name="twitter:description" content="Integrated M.S./Ph.D. student at KAIST AI (CVLAB). Diffusion & generative models, 3D vision, multimodal models.">
+  <meta name="twitter:image" content="https://loggerjk.github.io/images/portrait.jpg">
+
+  <!-- TODO(optional): add a favicon at /images/favicon.png and re-enable these. -->
+  <!--
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <link rel="apple-touch-icon" href="/images/favicon.png">
+  -->
+
+  <!-- TODO(optional): Google Analytics. Replace G-XXXXXXX with Jiwon's own GA4 id and uncomment.
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', 'G-XXXXXXX');
+  </script>
+  -->
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@400;500;600&family=Google+Sans:wght@700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="/css/fontawesome.all.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet">
+  <link href="/css/bulma.min.css" rel="stylesheet">
+  <link href="/css/index.css" rel="stylesheet">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script defer src="/js/fontawesome.all.min.js"></script>
+  <script src="/js/index.js"></script>
+</head>
+
+<body>
+
+  <nav class="site-nav">
+    <ul>
+      <li><a href="./" class="nav-link active">Home</a></li>
+      <li><a href="./cv.html" class="nav-link">CV</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-body container is-max-desktop">
+      <div class="columns is-vcentered">
+
+        <div class="column is-4">
+          <div class="portrait">
+            <img src="/images/portrait.jpg" />
+          </div>
+        </div>
+
+        <div class="column">
+          <h1 class="title">
+            <b>Hello, I'm Jiwon Kang</b>
+          </h1>
+          <div class="content has-text-justified">
+            <p>I am an Integrated M.S./Ph.D. student at <a href="https://gsai.kaist.ac.kr/">KAIST AI</a> (Kim Jaechul Graduate School of AI), advised by <a href="https://cvlab.kaist.ac.kr/members/faculty">Seungryong Kim</a> (<a href="https://cvlab.kaist.ac.kr/">CVLAB</a>). My research focuses on generative models &mdash; particularly diffusion- and flow-based methods &mdash; and their applications across vision, 3D, and multimodal domains. I am broadly interested in Diffusion &amp; Generative AI (guidance, sampling, image/audio generation), 3D Vision (novel view synthesis, NeRF, Gaussian Splatting), and Unified Multimodal Models.</p>
+
+            <div class="buttons">
+              <a class="external-link button is-light" href="./JiwonCV.pdf">
+                <span class="icon"><i class="fas fa-file"></i></span>
+                <span>CV</span>
+              </a>
+
+              <a class="external-link button is-light"
+                href="https://scholar.google.com/citations?user=A2PurdIAAAAJ">
+                <span class="icon"><i class="ai ai-google-scholar"></i></span>
+                <span>Scholar</span>
+              </a>
+
+              <a class="external-link button is-light" href="https://github.com/loggerJK">
+                <span class="icon"><i class="fab fa-github"></i></span>
+                <span>Github</span>
+              </a>
+
+              <!-- TODO(optional): Jiwon has no X / LinkedIn listed. Add a URL and uncomment to enable.
+              <a class="external-link button is-light" href="https://twitter.com/USERNAME">
+                <span class="icon"><i class="fab fa-twitter"></i></span>
+                <span>X</span>
+              </a>
+
+              <a class="external-link button is-light" href="https://linkedin.com/in/USERNAME">
+                <span class="icon"><i class="fab fa-linkedin"></i></span>
+                <span>Linkedin</span>
+              </a>
+              -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- News. -->
+  <div class="hr">
+    <div class="container">
+      <hr>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+        <h2 class="title is-3">News</h2>
+        <div class="content">
+          <ul id="news-list">
+
+            <li class="news-item news-recent">
+              <b>Mar 2026</b>: 🎉 Our work, <a href="#APPLE"><em>APPLE</em></a>, has been accepted @ <a href="https://cvpr.thecvf.com/"><em>CVPR 2026</em></a> !!
+            </li>
+
+            <li class="news-item news-recent">
+              <b>Jan 2026</b>: 🎉 Our work, <a href="#ANoise"><em>A Noise is Worth Diffusion Guidance</em></a>, has been accepted @ <a href="https://iclr.cc/"><em>ICLR 2026</em></a> !!
+            </li>
+
+            <li class="news-item news-recent">
+              <b>Sep 2025</b>: 🎉 Our work, <a href="#WhereHowPerturb"><em>Where and How to Perturb</em></a>, has been accepted @ <a href="https://neurips.cc/"><em>NeurIPS 2025</em></a> !!
+            </li>
+
+            <li class="news-item news-old" style="display: none;">
+              <b>Sep 2025</b>: Our work, <a href="#SE-NeRF"><em>Self-Evolving NeRF (SE-NeRF)</em></a>, has been accepted @ <a href="https://3d-in-the-wild.github.io/"><em>Wild3D</em></a>, workshop on 3D Modeling, Reconstruction, and Generation in the Wild, <a href="https://iccv.thecvf.com/"><em>ICCV 2025</em></a>.
+            </li>
+
+            <li class="news-item news-old" style="display: none;">
+              <b>Mar 2025</b>: 🏫 I started my Integrated M.S./Ph.D. at <a href="https://gsai.kaist.ac.kr/"><em>KAIST AI</em></a>, joining <a href="https://cvlab.kaist.ac.kr/"><em>CVLAB</em></a> advised by Seungryong Kim.
+            </li>
+
+          </ul>
+          <button id="toggle-news-btn" class="button is-small is-light">
+            <span class="icon"><i class="fas fa-chevron-down"></i></span>
+            <span>Show All News</span>
+          </button>
+        </div>
+
+      <!-- ============================================================
+           Experience section — hidden for now (no industry experience yet).
+           To enable: remove this comment wrapper and fill in entries.
+      <h2 class="title is-3">Experience</h2>
+      <div class="experience-list">
+        <div class="experience-entry">
+          <div class="experience-main">
+            <div class="experience-title">
+              Company / Lab, Location
+            </div>
+            <div class="experience-desc">Advisor: <a href="#">Name</a></div>
+          </div>
+          <div class="experience-date">Mon &ndash; Mon Year</div>
+        </div>
+      </div>
+      ============================================================ -->
+
+      <h2 class="title is-3">Publications</h2>
+      <p class="pub-note"><span class="author-me">*</span> denotes equal contribution. &nbsp;·&nbsp; <span class="author-me">†</span> denotes corresponding author.</p>
+
+
+      <h3 class="title is-5 year-header">2026</h3>
+
+      <div id="APPLE" class="publication-block columns new-publication">
+
+        <div class="column is-2">
+          <div class="publication-image ">
+            <img alt="APPLE: Attribute-Preserving Pseudo-Labeling for Diffusion-Based Face Swapping" src="./images/placeholder.svg" />
+            <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="content">
+            <h3 class="publication-title">
+              <span class="tag is-danger is-rounded" style="margin-bottom:8px;">NEW !</span>
+              <br>
+              APPLE: Attribute-Preserving Pseudo-Labeling for Diffusion-Based Face Swapping
+            </h3>
+
+            <div class="publication-authors">
+              <span class="author-block author-me">Jiwon Kang*,</span>
+              <span class="author-block">Yeji Choi*,</span>
+              <span class="author-block">JoungBin Lee,</span>
+              <span class="author-block">Wooseok Jang,</span>
+              <span class="author-block">Jinhyeok Choi,</span>
+              <span class="author-block">Taekeun Kang,</span>
+              <span class="author-block">Yongjae Park,</span>
+              <span class="author-block">Myungin Kim,</span>
+              <span class="author-block"><a href="https://cvlab.kaist.ac.kr/members/faculty">Seungryong Kim†</a></span>
+            </div>
+
+            <div class="publication-venue">
+              <span class="venue-badge venue-cvpr">CVPR</span>
+            </div>
+
+            <p class="publication-description"></p>
+
+            <!-- TODO: add links when available.
+            <div class="publication-links buttons field has-addons">
+              <a class="external-link button is-small is-ghost" href="#"><span class="icon"><i class="ai ai-arxiv"></i></span><span>arXiv</span></a>
+            </div>
+            -->
+          </div>
+        </div>
+      </div>
+
+      <div id="ANoise" class="publication-block columns ">
+
+        <div class="column is-2">
+          <div class="publication-image ">
+            <img alt="A Noise is Worth Diffusion Guidance" src="./images/placeholder.svg" />
+            <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="content">
+            <h3 class="publication-title">
+              A Noise is Worth Diffusion Guidance
+            </h3>
+
+            <div class="publication-authors">
+              <span class="author-block"><a href="https://sunovivid.github.io/">Donghoon Ahn*</a>,</span>
+              <span class="author-block author-me">Jiwon Kang*,</span>
+              <span class="author-block">Sanghyun Lee,</span>
+              <span class="author-block">Jaewon Min,</span>
+              <span class="author-block">Wooseok Jang,</span>
+              <span class="author-block">Minjae Kim,</span>
+              <span class="author-block">Hyungwon Cho,</span>
+              <span class="author-block">Sayak Paul,</span>
+              <span class="author-block">SeonHwa Kim,</span>
+              <span class="author-block">Eunju Cha†,</span>
+              <span class="author-block">Kyong Hwan Jin†,</span>
+              <span class="author-block"><a href="https://cvlab.kaist.ac.kr/members/faculty">Seungryong Kim†</a></span>
+            </div>
+
+            <div class="publication-venue">
+              <span class="venue-badge venue-iclr">ICLR</span>
+            </div>
+
+            <p class="publication-description"></p>
+
+            <!-- TODO: add Project Page / PDF / arXiv links when available. -->
+          </div>
+        </div>
+      </div>
+
+
+      <h3 class="title is-5 year-header">2025</h3>
+
+      <div id="WhereHowPerturb" class="publication-block columns ">
+
+        <div class="column is-2">
+          <div class="publication-image ">
+            <img alt="Where and How to Perturb: On the Design of Perturbation Guidance in Diffusion and Flow Models" src="./images/placeholder.svg" />
+            <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="content">
+            <h3 class="publication-title">
+              Where and How to Perturb: On the Design of Perturbation Guidance in Diffusion and Flow Models
+            </h3>
+
+            <div class="publication-authors">
+              <span class="author-block"><a href="https://sunovivid.github.io/">Donghoon Ahn*</a>,</span>
+              <span class="author-block author-me">Jiwon Kang*,</span>
+              <span class="author-block">Sanghyun Lee,</span>
+              <span class="author-block">Minjae Kim,</span>
+              <span class="author-block">Wooseok Jang,</span>
+              <span class="author-block">Jaewon Min,</span>
+              <span class="author-block">Sangwu Lee,</span>
+              <span class="author-block">Sayak Paul,</span>
+              <span class="author-block"><a href="https://cvlab.kaist.ac.kr/members/faculty">Seungryong Kim†</a></span>
+            </div>
+
+            <div class="publication-venue">
+              <span class="venue-badge venue-neurips">NeurIPS</span>
+            </div>
+
+            <p class="publication-description"></p>
+
+            <!-- TODO: add Project Page / PDF / arXiv links when available. -->
+          </div>
+        </div>
+      </div>
+
+      <div id="SE-NeRF" class="publication-block columns ">
+
+        <div class="column is-2">
+          <div class="publication-image ">
+            <img alt="Self-Evolving Neural Radiance Fields" src="./images/SE-NeRF.png" />
+            <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="content">
+            <h3 class="publication-title">
+              <a href="https://cvlab-kaist.github.io/SE-NeRF/">Self-Evolving Neural Radiance Fields</a>
+            </h3>
+
+            <div class="publication-authors">
+              <span class="author-block"><a href="https://crepejung00.github.io/">Jaewoo Jung*</a>,</span>
+              <span class="author-block"><a href="https://onground-korea.github.io/">Jisang Han*</a>,</span>
+              <span class="author-block author-me">Jiwon Kang*,</span>
+              <span class="author-block"><a href="https://github.com/deep-overflow">Seongchan Kim</a>,</span>
+              <span class="author-block"><a href="https://mskwak01.github.io/">Min-Seop Kwak</a>,</span>
+              <span class="author-block"><a href="https://cvlab.kaist.ac.kr/members/faculty">Seungryong Kim†</a></span>
+            </div>
+
+            <div class="publication-venue">
+              <span class="venue-badge venue-iccvw">ICCVW</span>
+            </div>
+
+            <p class="publication-description"></p>
+
+            <div class="publication-links buttons field has-addons">
+              <a class="external-link button is-small is-ghost" href="https://cvlab-kaist.github.io/SE-NeRF/">
+                <span class="icon"><i class="fas fa-globe-asia"></i></span>
+                <span>Project Page</span>
+              </a>
+              <a class="external-link button is-small is-ghost" href="https://arxiv.org/pdf/2312.01003.pdf">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <span>PDF</span>
+              </a>
+              <a class="external-link button is-small is-ghost" href="https://arxiv.org/abs/2312.01003">
+                <span class="icon"><i class="ai ai-arxiv"></i></span>
+                <span>arXiv</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <h3 class="title is-5 year-header">Preprints &amp; Under Review</h3>
+
+      <div id="Whisper" class="publication-block columns ">
+
+        <div class="column is-2">
+          <div class="publication-image ">
+            <img alt="Exploring Whisper as a Continuous Tokenizer for Text-to-Speech" src="./images/placeholder.svg" />
+            <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="content">
+            <h3 class="publication-title">
+              Exploring Whisper as a Continuous Tokenizer for Text-to-Speech
+            </h3>
+
+            <div class="publication-authors">
+              <span class="author-block author-me">Jiwon Kang,</span>
+              <span class="author-block">Heeji Yoon,</span>
+              <span class="author-block">Woo-Young Kang,</span>
+              <span class="author-block">Sunghun Kang,</span>
+              <span class="author-block">Jihwan Eom,</span>
+              <span class="author-block">Jaeyeol Jeon,</span>
+              <span class="author-block">Byungseok Roh,</span>
+              <span class="author-block"><a href="https://cvlab.kaist.ac.kr/members/faculty">Seungryong Kim†</a></span>
+            </div>
+
+            <div class="publication-venue">
+              <span class="venue-badge" style="background:#607d8b;">Under Review</span>
+            </div>
+
+            <p class="publication-description"></p>
+          </div>
+        </div>
+      </div>
+
+      <div id="Transferability" class="publication-block columns ">
+
+        <div class="column is-2">
+          <div class="publication-image ">
+            <img alt="Transferability Between Understanding and Generation in Unified Multimodal Models" src="./images/placeholder.svg" />
+            <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="content">
+            <h3 class="publication-title">
+              Transferability Between Understanding and Generation in Unified Multimodal Models
+            </h3>
+
+            <div class="publication-authors">
+              <span class="author-block author-me">Jiwon Kang*,</span>
+              <span class="author-block"><a href="https://yoon-heez.github.io/">Heeji Yoon*</a>,</span>
+              <span class="author-block"><a href="https://crepejung00.github.io/">Jaewoo Jung</a>,</span>
+              <span class="author-block">Jaewon Min,</span>
+              <span class="author-block"><a href="https://sites.google.com/view/minjeon/home">Minkyeong Jeon</a>,</span>
+              <span class="author-block">Biyeon Hwang,</span>
+              <span class="author-block">Sangwon Jung,</span>
+              <span class="author-block"><a href="https://cvlab.kaist.ac.kr/members/faculty">Seungryong Kim†</a></span>
+            </div>
+
+            <div class="publication-venue">
+              <span class="venue-badge" style="background:#607d8b;">Under Review</span>
+            </div>
+
+            <p class="publication-description"></p>
+          </div>
+        </div>
+      </div>
+
+      <div id="RAIN-GS" class="publication-block columns ">
+
+        <div class="column is-2">
+          <div class="publication-image ">
+            <img alt="RAIN-GS: Relaxing Accurate Initialization Constraint for 3D Gaussian Splatting" src="./images/RAIN-GS.png" />
+            <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
+          </div>
+        </div>
+
+        <div class="column">
+          <div class="content">
+            <h3 class="publication-title">
+              <a href="https://cvlab-kaist.github.io/RAIN-GS/">RAIN-GS: Relaxing Accurate Initialization Constraint for 3D Gaussian Splatting</a>
+            </h3>
+
+            <div class="publication-authors">
+              <span class="author-block"><a href="https://crepejung00.github.io/">Jaewoo Jung*</a>,</span>
+              <span class="author-block"><a href="https://onground-korea.github.io/">Jisang Han*</a>,</span>
+              <span class="author-block"><a href="https://hg010303.github.io/">Honggyu An*</a>,</span>
+              <span class="author-block author-me">Jiwon Kang*,</span>
+              <span class="author-block"><a href="https://github.com/seong0905">Seonghoon Park*</a>,</span>
+              <span class="author-block"><a href="https://cvlab.kaist.ac.kr/members/faculty">Seungryong Kim†</a></span>
+            </div>
+
+            <div class="publication-venue">
+              <span class="venue-badge venue-arxiv">arXiv</span>
+              <span class="award-badge">350+ Stars</span>
+            </div>
+
+            <p class="publication-description"></p>
+
+            <div class="publication-links buttons field has-addons">
+              <a class="external-link button is-small is-ghost" href="https://cvlab-kaist.github.io/RAIN-GS/">
+                <span class="icon"><i class="fas fa-globe-asia"></i></span>
+                <span>Project Page</span>
+              </a>
+              <a class="external-link button is-small is-ghost" href="https://arxiv.org/pdf/2403.09413.pdf">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <span>PDF</span>
+              </a>
+              <a class="external-link button is-small is-ghost" href="https://arxiv.org/abs/2403.09413">
+                <span class="icon"><i class="ai ai-arxiv"></i></span>
+                <span>arXiv</span>
+              </a>
+              <a class="external-link button is-small is-ghost" href="https://github.com/cvlab-kaist/RAIN-GS">
+                <span class="icon"><i class="fa fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- Teaser lightbox (click-to-enlarge pop-up). Media is injected by js/index.js. -->
+  <div id="teaser-lightbox" class="teaser-modal" aria-hidden="true">
+    <div class="teaser-modal-bg"></div>
+    <div class="teaser-modal-content"></div>
+    <button type="button" class="teaser-modal-close" aria-label="Close">&times;</button>
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="content footer-links has-text-centered">
+        <a href="mailto:jiwon7258@kaist.ac.kr">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a class="external-link" href="https://github.com/loggerJK">
+          <i class="fab fa-github"></i>
+        </a>
+        <a class="external-link" href="https://scholar.google.com/citations?user=A2PurdIAAAAJ">
+          <i class="ai ai-google-scholar"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+
+</html>
