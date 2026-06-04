@@ -1,0 +1,27 @@
+# LaTeX compilation artifacts (keep CV.tex source and CV.pdf output tracked)
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.synctex(busy)
+*.toc
+*.lof
+*.lot
+*.bbl
+*.blg
+*.bcf
+*.run.xml
+*.nav
+*.snm
+*.vrb
+*.idx
+*.ind
+*.ilg
+*.fff
+*.fdb_latexmk
+*.figlist
+*.makefile
+*.dpth
+*.auxlock

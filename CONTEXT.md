@@ -15,11 +15,46 @@
 - **`blog-backup/`** = 이전 Jekyll(Minimal Mistakes) 기술 블로그 아카이브 (비노출)
 - **`CV_LATEX/`** = CV의 LaTeX 소스 (`CV.tex` → `CV.pdf`)
 
+**레퍼런스(템플릿·디자인 출처): https://crepejung00.github.io/ (Jaewoo Jung, 같은 CVLAB 동료).** 이 사이트의 레이아웃·CSS·구조는 해당 사이트를 미러링해 내용만 교체한 것.
+
 아키텍처·명령어·주의사항 상세는 `CLAUDE.md` 참고.
 
 ---
 
 ## Changelog
+
+### 2026-06-04 — 티저 이미지 고화질 교체 (700px → ~3000px)
+- 이전 sips 700px 리사이즈가 확대 시 저화질이라, 원본 재수집 후 **긴 변 3000px**로 다운스케일(고화질, 라이트박스 확대에도 선명). 원본은 8342×1833(APPLE)·9900×3120(NoiseRefine)로 과대 → 11MB/4MB라 그대로는 부적합.
+- `images/APPLE`: PNG(3MB) → **고화질 JPEG로 변환**(`APPLE.jpg`, 544KB, q92) 후 `index.html` src를 `APPLE.png`→`APPLE.jpg`로 수정, `APPLE.png` 삭제.
+- 최종: `APPLE.jpg` 544KB(3000×659), `NoiseRefine.jpg` 564KB(3000×945), `HeadHunter.jpg` 448KB(1194×1398, 원본 유지). 합 ~1.5MB.
+
+### 2026-06-04 — cv.html Research Interests 섹션 주석 처리
+- HTML CV(`cv.html`)의 Research Interests 섹션을 `<!-- ... -->`로 주석 처리(홈페이지에 이미 동일 내용 존재). 렌더 섹션: Education → Experience → Publications → Extracurricular. 되살리려면 주석 래퍼 제거.
+
+### 2026-06-04 — CV_LATEX LaTeX 임시파일 git 추적 제외 (staged, 미커밋)
+- `CV_LATEX/.gitignore` 신규: `*.aux *.fdb_latexmk *.fls *.log *.out *.synctex.gz *.toc *.bbl *.bcf *.run.xml` 등 LaTeX 중간 산출물 무시. `CV.tex`(소스)·`CV.pdf`(결과물)는 계속 추적.
+- 기존 추적 중이던 6개 임시파일(`CV.aux, CV.fdb_latexmk, CV.fls, CV.log, CV.out, CV.synctex.gz`)을 `git rm --cached`로 추적 해제(디스크엔 유지). → 다음 커밋 시 반영.
+
+### 2026-06-04 — 회사명 Kakao,Seoul / CV 제목-링크 간격 / LinkedIn / 티저 세로중앙 (※ 아직 커밋/푸시 안 함)
+- 회사명 `Kakao` → `Kakao, Seoul` (index.html Experience, cv.html, CV.tex).
+- **CV PDF 제목-링크 겹침 수정**: `CV.tex` `\pubitem` tabularx 컬럼 스펙에 `@{\hspace{1.5em}}` 추가 → 긴 제목(APPLE)과 `Paper|Project Page|Code` 링크가 붙던 문제 해소.
+- **LinkedIn 추가** (https://www.linkedin.com/in/jiwon-kang-b02b0911b/): `CV.tex` 헤더(주석 해제), `index.html` hero 버튼 + footer, `cv.html` 헤더 링크 + footer.
+- **홈페이지 티저 세로 중앙 정렬**: `css/index.css`에 `.publication-block.columns { align-items: center; }` (7개 블록 일괄, Bulma 기본 stretch → center).
+- `JiwonCV.pdf` 재빌드.
+
+### 2026-06-04 — Kakao 인턴 경력 + 3개 논문 티저/링크 반영 (※ 아직 커밋/푸시 안 함)
+- **레퍼런스 출처 명시**(요청1): 저장소 개요에 https://crepejung00.github.io/ 추가.
+- **Kakao 연구 인턴(Mar–May 2026) 반영**(요청2):
+  - `index.html`: 주석 처리됐던 Experience 섹션을 노출 + Kakao 항목(공식 CI 로고 `images/kakao-logo.svg`), News에 "started a research internship at Kakao" 추가, Whisper 논문에 'Work done at Kakao' 표기(로고 포함).
+  - `cv.html`: Education 다음에 Experience(Kakao + 로고) 섹션 추가, Whisper 베뉴 `Under Review · Kakao`.
+  - `CV_LATEX/CV.tex`: Education↔Publications 사이 `\section{Experience}`(Kakao, Research Intern, Whisper bullet) 추가, `\lastupdate` June 4 2026 → `latexmk`로 빌드 → `JiwonCV.pdf` 갱신.
+  - `css/index.css`: `.title-logo.logo-kakao { height:15px }` 추가. 로고는 Wikimedia "Kakao CI yellow.svg"(공식, #ffcd00) 사용(첨부 이미지 파일 접근 불가하여 동일 CI 다운로드).
+- **3개 논문 티저 이미지 + 링크**(요청, 별도): 프로젝트 페이지에서 매핑·수집.
+  - APPLE → `cvlab-kaist.github.io/APPLE/` (arXiv 2601.15288, Code cvlab-kaist/APPLE), teaser `images/APPLE.png`.
+  - "A Noise is Worth Diffusion Guidance" → `cvlab-kaist.github.io/NoiseRefine/` (arXiv 2412.03895, Code cvlab-kaist/NoiseRefine), teaser `images/NoiseRefine.jpg`.
+  - "Where and How to Perturb" → `cvlab-kaist.github.io/HeadHunter/` (arXiv 2506.10978, Code cvlab-kaist/HeadHunter), teaser `images/HeadHunter.jpg`.
+  - 티저는 `sips -Z 700`으로 리사이즈(원본 최대 10.7MB → 50–220KB).
+  - `index.html`: placeholder→실제 티저 교체 + Project Page/PDF/arXiv/Code 버튼 추가. `cv.html`: 제목에 프로젝트 페이지 링크. `CV.tex`: `\publinks{arXiv}{Project}{Code}` 채움 → PDF 재빌드.
 
 ### 2026-06-04 — 전체 변경사항 커밋 & 푸시 (GitHub Pages 배포)
 - 아래 모든 변경(블로그 백업, 정적 홈페이지 전환, CLAUDE/CONTEXT 도입)을 `master`에 커밋 후 `origin/master`로 푸시 → GitHub Pages 자동 배포(`https://loggerjk.github.io`).

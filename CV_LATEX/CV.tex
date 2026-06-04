@@ -57,7 +57,7 @@
 
 %==================== MACROS ====================
 % Update this whenever you edit the CV content (do NOT use \today).
-\newcommand{\lastupdate}{June 2, 2026}
+\newcommand{\lastupdate}{June 4, 2026}
 \newcommand{\cvgap}{\hspace{1.5em}}
 
 \newcommand{\cvheader}{%
@@ -69,8 +69,8 @@
     % \href{https://TODO.github.io}{\faGlobe\ Personal Website}\cvgap   % TODO: personal website
     \href{https://scholar.google.com/citations?user=A2PurdIAAAAJ}{\faGraduationCap\ Google Scholar}\cvgap
     \href{mailto:jiwon7258@kaist.ac.kr}{\faEnvelope\ jiwon7258@kaist.ac.kr}\cvgap
-    \href{https://github.com/loggerJK}{\faGithub\ loggerJK}%
-    % \cvgap\href{https://linkedin.com/in/TODO}{\faLinkedin\ LinkedIn}   % TODO: LinkedIn
+    \href{https://github.com/loggerJK}{\faGithub\ loggerJK}\cvgap
+    \href{https://www.linkedin.com/in/jiwon-kang-b02b0911b/}{\faLinkedin\ LinkedIn}%
   }\par
   \vspace{10pt}
 }
@@ -111,7 +111,7 @@
   \begingroup
   \setlength{\tabcolsep}{0pt}%
   \noindent
-  \begin{tabularx}{\linewidth}{@{}>{\RaggedRight\arraybackslash}X r@{}}
+  \begin{tabularx}{\linewidth}{@{}>{\RaggedRight\arraybackslash}X @{\hspace{1.5em}} r@{}}
     \textbf{#1\ #2} & #3
   \end{tabularx}\par
   \vspace{1pt}%
@@ -151,6 +151,13 @@ I am broadly interested in:
         (Sep. 2022 -- Feb. 2025), Advisor: Seungryong Kim
 \end{cvbullets}
 
+%-------------------- EXPERIENCE --------------------
+\section{Experience}
+\cventry{Kakao, Seoul}{Mar. 2026 -- May 2026}{Research Intern}{}
+\begin{cvbullets}
+  \item Worked on \textit{Exploring Whisper as a Continuous Tokenizer for Text-to-Speech} (under review).
+\end{cvbullets}
+
 %-------------------- PUBLICATIONS --------------------
 \section{Publications}
 \publegend
@@ -159,20 +166,20 @@ I am broadly interested in:
 
 \pubitem{[C3]}
   {APPLE: Attribute-Preserving Pseudo-Labeling for Diffusion-Based Face Swapping}
-  {}
+  {\publinks{https://arxiv.org/abs/2601.15288}{https://cvlab-kaist.github.io/APPLE/}{https://github.com/cvlab-kaist/APPLE}}
   {\me{Jiwon Kang}\eqc, Yeji Choi\eqc, JoungBin Lee, Wooseok Jang, Jinhyeok Choi, Taekeun Kang, Yongjae Park, Myungin Kim, Seungryong Kim\corr}
   {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026).}
   % {\small\color{linkblue}\href{https://arxiv.org/abs/2601.15288}{Paper}~\textbar~\href{https://cvlab-kaist.github.io/APPLE/}{Project Page}}
 
 \pubitem{[C2]}
   {A Noise is Worth Diffusion Guidance}
-  {} % TODO: add Paper / Project Page / Code links
+  {\publinks{https://arxiv.org/abs/2412.03895}{https://cvlab-kaist.github.io/NoiseRefine/}{https://github.com/cvlab-kaist/NoiseRefine}}
   {Donghoon Ahn\eqc, \me{Jiwon Kang}\eqc, Sanghyun Lee, Jaewon Min, Wooseok Jang, Minjae Kim, Hyungwon Cho, Sayak Paul, SeonHwa Kim, Eunju Cha\corr, Kyong Hwan Jin\corr, Seungryong Kim\corr}
   {International Conference on Learning Representations (ICLR 2026).}
 
 \pubitem{[C1]}
   {Where and How to Perturb: On the Design of Perturbation Guidance in Diffusion and Flow Models}
-  {} % TODO: add links
+  {\publinks{https://arxiv.org/abs/2506.10978}{https://cvlab-kaist.github.io/HeadHunter/}{https://github.com/cvlab-kaist/HeadHunter}}
   {Donghoon Ahn\eqc, \me{Jiwon Kang}\eqc, Sanghyun Lee, Minjae Kim, Wooseok Jang, Jaewon Min, Sangwu Lee, Sayak Paul, Seungryong Kim\corr}
   {Conference on Neural Information Processing Systems (NeurIPS 2025).}
 

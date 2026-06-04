@@ -6,7 +6,7 @@ html { scroll-behavior: smooth; }
 .title { font-family: 'Google Sans'; font-weight: 700; }
 
 .portrait { border-radius: 2%; overflow: hidden; }
-.portrait img { transform: scale(1.2); }
+.portrait img { transform: scale(0.75); }
 
 .footer .footer-links a { font-size: 25px; color: #000; }
 
@@ -26,6 +26,8 @@ html { scroll-behavior: smooth; }
 .title-logo.logo-adobe { height: 22px; }
 .title-logo.logo-eth { height: 14px; }
 .title-logo.logo-cvg { height: 28px; }
+.title-logo.logo-kakao { height: 15px; margin-left: 4px; }
+.publication-block.columns { align-items: center; }
 
 .cv-entry .cv-entry-title { display: flex; align-items: center; flex-wrap: wrap; gap: 0.5em; }
 
