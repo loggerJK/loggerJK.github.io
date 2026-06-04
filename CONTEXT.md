@@ -23,6 +23,10 @@
 
 ## Changelog
 
+### 2026-06-04 — 커밋 & 푸시 (배포) `c818fec2`
+- 아래 세션 변경 전체(Kakao 경력, 티저/링크, LinkedIn, Kakao,Seoul, CV 간격, 티저 세로중앙, Research Interests 주석, 티저 고화질, LaTeX 임시파일 추적제외)를 `master`에 커밋 후 `origin/master` 푸시 → GitHub Pages 배포.
+- `assets/kakao.png`(사용자 추가, 사이트 미참조)는 사용자 요청으로 **삭제**(빈 `assets/` 디렉토리도 제거). 홈 Kakao 로고는 공식 `images/kakao-logo.svg` 사용.
+
 ### 2026-06-04 — 티저 이미지 고화질 교체 (700px → ~3000px)
 - 이전 sips 700px 리사이즈가 확대 시 저화질이라, 원본 재수집 후 **긴 변 3000px**로 다운스케일(고화질, 라이트박스 확대에도 선명). 원본은 8342×1833(APPLE)·9900×3120(NoiseRefine)로 과대 → 11MB/4MB라 그대로는 부적합.
 - `images/APPLE`: PNG(3MB) → **고화질 JPEG로 변환**(`APPLE.jpg`, 544KB, q92) 후 `index.html` src를 `APPLE.png`→`APPLE.jpg`로 수정, `APPLE.png` 삭제.
