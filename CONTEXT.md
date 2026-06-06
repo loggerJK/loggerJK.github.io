@@ -23,7 +23,16 @@
 
 ## Changelog
 
-### 2026-06-06 — 프로필 사진 교체+다운스케일, CSS scale 조정, CV Education 불릿 재정렬 (커밋 예정)
+### 2026-06-06 — 검색 노출(SEO) 필수 메타데이터 추가 (커밋 예정)
+- 배경: 기본 메타(title/description/OG/Twitter)·Google·Naver 검증파일은 이미 있으나, 색인·발견에 핵심인 4종이 누락. 사용자 요청으로 **필수 4종만** 추가(favicon·GA 제외).
+- **`robots.txt`**(신규): 전체 크롤 허용 + `/blog-backup/`(아카이브 블로그) 제외 + `Sitemap:` 위치 명시.
+- **`sitemap.xml`**(신규): `/`(priority 1.0)·`/cv.html`(0.8) 2개 URL, `lastmod 2026-06-06`(고정). `.nojekyll`라 루트에서 그대로 서빙됨.
+- **canonical**: `index.html`→`https://loggerjk.github.io/`, `cv.html`→`…/cv.html` (중복 URL 정리, og:url와 일치).
+- **JSON-LD schema.org `Person`**(index.html `<head>`): name·jobTitle·affiliation(KAIST)·alumniOf(Korea University)·knowsAbout·sameAs(Scholar/GitHub/LinkedIn). 값은 모두 페이지에 이미 있던 것 사용, 한글 별칭은 미표기(추측 회피).
+- 검증: 로컬 서빙 robots/sitemap 200, sitemap XML well-formed, JSON-LD 유효(json.loads), canonical grep 각 1건 확인.
+- **수동 후속(사용자)**: Google Search Console(검증 완료 상태)에서 `https://loggerjk.github.io/sitemap.xml` 제출 + 홈 "색인 요청". 실제 색인은 며칠 소요.
+
+### 2026-06-06 — 프로필 사진 교체+다운스케일, CSS scale 조정, CV Education 불릿 재정렬 (커밋 완료 `1d11b149`)
 - **프로필 사진**(`images/portrait.jpg`): 사용자가 새 사진(설산 배경)으로 교체. 원본 3024×4032 / 1.87MB로 과대(이전 110KB, 표시폭 ~290px 대비 17배) → 긴 변 1000px(750×1000)·q85로 **다운스케일 → 189KB**(2x retina ~580px에 충분히 선명, repo 이미지 경량화 컨벤션 유지). og:image·twitter:image는 동일 파일 참조라 자동 갱신.
 - **`css/index.css`**: `.portrait img { transform: scale(0.75) → scale(1.0) }` (사용자 변경) — 새 사진을 프레임에 꽉 맞춤. 헤드리스 Chrome 렌더로 hero 정상 확인.
 - **CV.tex Education 불릿 재정렬**(사용자 변경): "Double Major \quad GPA" 합쳐진 줄 → `GPA: 4.24/4.5` · `Double Major in Statistics` · `Undergraduate Research Intern @ CVLAB …` 3개 불릿으로 분리. IDE LaTeX 확장이 CV.pdf 자동 재컴파일 → `JiwonCV.pdf` 재동기화(shasum 일치). gs 렌더로 불릿 분리 + `\null` 정렬 동시 확인.
