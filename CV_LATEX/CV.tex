@@ -78,10 +78,16 @@
 % Education / Experience entry: \cventry{Title}{Date}{2nd-line-left}{2nd-line-right}
 % Pass {}{} for the 2nd line to omit it (robust empty test).
 \makeatletter
+% One entry line: left text, right text flush to the margin.
+% \parfillskip=0pt so the trailing \hfill takes ALL the stretch (date reaches the right edge).
+% Trailing \null (a zero-width box) keeps the last node a box, so \par never deletes the
+% dangling \hfill when #2 is empty -- otherwise that single line would over-justify (interword
+% glue stretched across the full width).
+\newcommand{\cv@line}[2]{{\parfillskip=0pt\relax\noindent#1\hfill#2\null\par}}
 \newcommand{\cventry}[4]{%
-  \textbf{#1}\hfill{#2}\par
+  \cv@line{\textbf{#1}}{#2}%
   \def\cv@second{#3}%
-  \ifx\cv@second\@empty\else #3\hfill{#4}\par\fi
+  \ifx\cv@second\@empty\else\cv@line{#3}{#4}\fi
 }
 \makeatother
 
@@ -146,8 +152,9 @@ I am broadly interested in:
 \cventry{B.S. in Computer Science and Engineering}{Mar. 2019 -- Feb. 2025}
         {Korea University, Seoul}{}
 \begin{cvbullets}
-  \item Double Major in Statistics \quad GPA: 4.24 / 4.5
-  \item Undergraduate Research Intern, \href{https://cvlab.kaist.ac.kr}{CVLAB}
+  \item GPA: 4.24 / 4.5
+  \item Double Major in Statistics
+  \item Undergraduate Research Intern @ \href{https://cvlab.kaist.ac.kr}{CVLAB}
         (Sep. 2022 -- Feb. 2025), Advisor: Seungryong Kim
 \end{cvbullets}
 

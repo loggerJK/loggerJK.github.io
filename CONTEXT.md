@@ -23,6 +23,23 @@
 
 ## Changelog
 
+### 2026-06-06 — 프로필 사진 교체+다운스케일, CSS scale 조정, CV Education 불릿 재정렬 (커밋 예정)
+- **프로필 사진**(`images/portrait.jpg`): 사용자가 새 사진(설산 배경)으로 교체. 원본 3024×4032 / 1.87MB로 과대(이전 110KB, 표시폭 ~290px 대비 17배) → 긴 변 1000px(750×1000)·q85로 **다운스케일 → 189KB**(2x retina ~580px에 충분히 선명, repo 이미지 경량화 컨벤션 유지). og:image·twitter:image는 동일 파일 참조라 자동 갱신.
+- **`css/index.css`**: `.portrait img { transform: scale(0.75) → scale(1.0) }` (사용자 변경) — 새 사진을 프레임에 꽉 맞춤. 헤드리스 Chrome 렌더로 hero 정상 확인.
+- **CV.tex Education 불릿 재정렬**(사용자 변경): "Double Major \quad GPA" 합쳐진 줄 → `GPA: 4.24/4.5` · `Double Major in Statistics` · `Undergraduate Research Intern @ CVLAB …` 3개 불릿으로 분리. IDE LaTeX 확장이 CV.pdf 자동 재컴파일 → `JiwonCV.pdf` 재동기화(shasum 일치). gs 렌더로 불릿 분리 + `\null` 정렬 동시 확인.
+
+### 2026-06-05 — CV PDF `\cv@line` 빈 우측칸 줄 과대정렬(over-justify) 수정 (커밋 예정)
+- 증상: Extracurricular의 "Co-founder and Vice President" 줄이 양쪽정렬로 단어 사이가 벌어지고 President가 우측 끝에 붙음(사용자 캡처). 같은 결함이 Education "Korea University, Seoul", Experience "Research Intern" 줄에도 잠복(모두 `\cventry` 4번째 인자=빈칸).
+- 원인: `\cv@line`(CV.tex:83)이 `#1\hfill#2\par` 구조인데, `#2`가 비면 `텍스트\hfill\par`이 되고 TeX `line_break`가 **문단 끝 trailing glue 노드를 제거**(penalty로 변환)하여 매달린 `\hfill` 삭제 → `\parfillskip=0pt`라 끝 신축이 없어 단어 사이 glue가 늘어나 과대정렬. 우측칸이 채워진 줄(날짜·Advisor)은 마지막 노드가 텍스트라 정상.
+- 수정: `\cv@line` 끝에 `\null`(폭0 박스) 추가 → 마지막 노드가 box라 `\hfill`이 삭제되지 않음. 빈 `#2`면 `\hfill`이 신축 흡수→좌측정렬, 채워진 `#2`면 날짜 우측 flush 그대로. 인접 주석에 이유 명시.
+- 검증: `latexmk` 재빌드(2p, 신규 경고 없음; 기존 `\pubitem` 30pt Overfull 3건만 잔존, 무관). ghostscript로 p1/p2 PNG 렌더 → 3개 줄 좌측정렬·날짜 우측 flush 확인. `JiwonCV.pdf` 동기화(shasum 일치).
+
+### 2026-06-04 — CV PDF Education/Experience 날짜 우측 정렬 수정 (미커밋)
+- 증상: `CV.tex` Education·Experience의 오른쪽 날짜가 우측 여백까지 안 붙고 안쪽에서 끝남.
+- 원인: `\cventry`의 `\textbf{#1}\hfill{#2}\par`에서 줄 끝 `\parfillskip`(fil)이 `\hfill`(fil)과 늘림을 나눠 가져 flush 안 됨.
+- 수정: `\cv@line` 헬퍼 도입 — `{\parfillskip=0pt\relax\noindent#1\hfill#2\par}`로 `\hfill`이 전체 늘림을 가져 날짜가 우측 끝에 flush. `latexmk` 빌드 + `qlmanage` PNG 렌더로 정렬 확인. `JiwonCV.pdf` 갱신.
+- 참고: `\makebox[\linewidth]`는 정렬은 되나 30pt Overfull 경고 → `\parfillskip=0` 채택(경고 없음). Publications `\pubitem` 30pt 경고 7건은 tabularx 트라이얼 산물(무해, 렌더 정상, 기존부터 존재).
+
 ### 2026-06-04 — 커밋 & 푸시 (배포) `c818fec2`
 - 아래 세션 변경 전체(Kakao 경력, 티저/링크, LinkedIn, Kakao,Seoul, CV 간격, 티저 세로중앙, Research Interests 주석, 티저 고화질, LaTeX 임시파일 추적제외)를 `master`에 커밋 후 `origin/master` 푸시 → GitHub Pages 배포.
 - `assets/kakao.png`(사용자 추가, 사이트 미참조)는 사용자 요청으로 **삭제**(빈 `assets/` 디렉토리도 제거). 홈 Kakao 로고는 공식 `images/kakao-logo.svg` 사용.

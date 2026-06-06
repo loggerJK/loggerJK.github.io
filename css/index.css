@@ -6,7 +6,7 @@ html { scroll-behavior: smooth; }
 .title { font-family: 'Google Sans'; font-weight: 700; }
 
 .portrait { border-radius: 2%; overflow: hidden; }
-.portrait img { transform: scale(0.75); }
+.portrait img { transform: scale(1.0); }
 
 .footer .footer-links a { font-size: 25px; color: #000; }
 
