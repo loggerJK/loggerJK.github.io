@@ -23,6 +23,15 @@
 
 ## Changelog
 
+### 2026-06-23 — Transferability 논문 ECCV 2026 accept 반영 (커밋 예정)
+- 배경: "Transferability Between Understanding and Generation in Unified Multimodal Models" 논문이 **ECCV 2026**에 accept. 기존엔 3곳(`index.html`, `cv.html`, `CV_LATEX/CV.tex`) 모두 "Under Review" preprint 취급 → accepted-conference 섹션으로 승격.
+- `images/image.png`(사용자가 채팅에 첨부한 실제 티저, 1954×928·934KB) → `images/Transferability.png`로 rename, 기존 `placeholder.svg` 대체.
+- `index.html`: Transferability 블록을 "Preprints & Under Review"에서 `2026` 섹션 최상단(APPLE보다 위)으로 이동. venue를 `Under Review`(인라인 회색) → `<span class="venue-badge venue-eccv">ECCV</span>`로 교체. **`NEW !` 태그를 APPLE → Transferability로 이전**(가장 최근 accept이므로). 링크 버튼은 아직 arXiv/project page 없어 미추가.
+- `cv.html`: 동일 블록을 "Preprints & Under Review" → `International Conference` 서브섹션 최상단(APPLE보다 위)으로 이동, `pub-venue`를 `Under Review` → `ECCV, 2026`로 변경.
+- `CV_LATEX/CV.tex`: `\pubitem{[P2]}`(Preprints 그룹) → `\pubitem{[C4]}`로 relabel, `\pubgroup{International Conference}` 최상단(`[C3]` APPLE보다 위)으로 이동. venue를 `Under Review.` → `European Conference on Computer Vision (ECCV 2026).`로. Preprints 잔여 항목 재번호화(`[P3]` Whisper → `[P2]`, `[P1]` RAIN-GS 유지)로 번호 공백 제거. `\lastupdate`를 `June 4, 2026` → `June 23, 2026`으로 갱신.
+- `latexmk -pdf CV.tex` 재빌드(2p, 기존 7건 Overfull 30pt 경고만 잔존·무해) → `JiwonCV.pdf` 재동기화(shasum 일치).
+- 검증: ghostscript로 CV.pdf p1/p2 렌더 확인(`[C4]` 최상단·ECCV 텍스트·`[P2]`/`[P1]` 공백 없음), 로컬 서버로 `index.html`/`cv.html`/`images/Transferability.png` 200 확인, grep으로 NEW! 태그 1개·venue-eccv 1건·순서 확인.
+
 ### 2026-06-06 — 검색 노출(SEO) 필수 메타데이터 추가 (커밋 예정)
 - 배경: 기본 메타(title/description/OG/Twitter)·Google·Naver 검증파일은 이미 있으나, 색인·발견에 핵심인 4종이 누락. 사용자 요청으로 **필수 4종만** 추가(favicon·GA 제외).
 - **`robots.txt`**(신규): 전체 크롤 허용 + `/blog-backup/`(아카이브 블로그) 제외 + `Sitemap:` 위치 명시.
