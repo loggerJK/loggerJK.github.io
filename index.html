@@ -74,7 +74,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Source+Sans+3:wght@400;500;600&family=Google+Sans:wght@700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600&family=Google+Sans:wght@700&family=Noto+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link href="/css/fontawesome.all.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css" rel="stylesheet">
   <link href="/css/bulma.min.css" rel="stylesheet">
@@ -94,8 +94,9 @@
     </ul>
   </nav>
 
-  <section class="hero">
-    <div class="hero-body container is-max-desktop">
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="card-hero">
       <div class="columns is-vcentered">
 
         <div class="column is-4">
@@ -144,37 +145,33 @@
           </div>
         </div>
       </div>
+      </div>
     </div>
   </section>
 
   <!-- News. -->
-  <div class="hr">
-    <div class="container">
-      <hr>
-    </div>
-  </div>
-
   <section class="section">
     <div class="container is-max-desktop">
+      <div class="card-section">
         <h2 class="title is-3">News</h2>
         <div class="content">
           <ul id="news-list">
             
             <li class="news-item news-recent">
-              <b>Mar 2026</b>: 💼 I started a research internship at <a href="https://www.kakaocorp.com/"><em>Kakao</em></a>.
+              <b>Mar 2026</b>: <span class="news-icon-badge news-icon-badge--blue"><i class="fas fa-briefcase news-icon" aria-hidden="true"></i></span> I started a research internship at <a href="https://www.kakaocorp.com/"><em>Kakao</em></a>.
             </li>
 
             <li class="news-item news-recent">
-              <b>Feb 2026</b>: 🎉 Our work, <a href="#APPLE"><em>APPLE</em></a>, has been accepted @ <a href="https://cvpr.thecvf.com/"><em>CVPR 2026</em></a> !!
+              <b>Feb 2026</b>: <span class="news-icon-badge news-icon-badge--amber"><i class="fas fa-trophy news-icon" aria-hidden="true"></i></span> Our work, <a href="#APPLE"><em>APPLE</em></a>, has been accepted @ <a href="https://cvpr.thecvf.com/"><em>CVPR 2026</em></a> !!
             </li>
 
 
             <li class="news-item news-recent">
-              <b>Jan 2026</b>: 🎉 Our work, <a href="#ANoise"><em>A Noise is Worth Diffusion Guidance</em></a>, has been accepted @ <a href="https://iclr.cc/"><em>ICLR 2026</em></a> !!
+              <b>Jan 2026</b>: <span class="news-icon-badge news-icon-badge--amber"><i class="fas fa-trophy news-icon" aria-hidden="true"></i></span> Our work, <a href="#ANoise"><em>A Noise is Worth Diffusion Guidance</em></a>, has been accepted @ <a href="https://iclr.cc/"><em>ICLR 2026</em></a> !!
             </li>
 
             <li class="news-item news-recent">
-              <b>Sep 2025</b>: 🎉 Our work, <a href="#WhereHowPerturb"><em>Where and How to Perturb</em></a>, has been accepted @ <a href="https://neurips.cc/"><em>NeurIPS 2025</em></a> !!
+              <b>Sep 2025</b>: <span class="news-icon-badge news-icon-badge--amber"><i class="fas fa-trophy news-icon" aria-hidden="true"></i></span> Our work, <a href="#WhereHowPerturb"><em>Where and How to Perturb</em></a>, has been accepted @ <a href="https://neurips.cc/"><em>NeurIPS 2025</em></a> !!
             </li>
 
             <li class="news-item news-old" style="display: none;">
@@ -182,7 +179,7 @@
             </li>
 
             <li class="news-item news-old" style="display: none;">
-              <b>Mar 2025</b>: 🏫 I started my Integrated M.S./Ph.D. at <a href="https://gsai.kaist.ac.kr/"><em>KAIST AI</em></a>, joining <a href="https://cvlab.kaist.ac.kr/"><em>CVLAB</em></a> advised by Seungryong Kim.
+              <b>Mar 2025</b>: <span class="news-icon-badge news-icon-badge--violet"><i class="fas fa-graduation-cap news-icon" aria-hidden="true"></i></span> I started my Integrated M.S./Ph.D. at <a href="https://gsai.kaist.ac.kr/"><em>KAIST AI</em></a>, joining <a href="https://cvlab.kaist.ac.kr/"><em>CVLAB</em></a> advised by Seungryong Kim.
             </li>
 
           </ul>
@@ -191,7 +188,9 @@
             <span>Show All News</span>
           </button>
         </div>
+      </div>
 
+      <div class="card-section">
       <h2 class="title is-3">Experience</h2>
       <div class="experience-list">
         <div class="experience-entry">
@@ -205,6 +204,7 @@
           <div class="experience-date">Mar &ndash; May 2026</div>
         </div>
       </div>
+      </div>
 
       <h2 class="title is-3">Publications</h2>
       <p class="pub-note"><span class="author-me">*</span> denotes equal contribution. &nbsp;·&nbsp; <span class="author-me">†</span> denotes corresponding author.</p>
@@ -212,11 +212,11 @@
 
       <h3 class="title is-5 year-header">2026</h3>
 
-      <div id="Transferability" class="publication-block columns new-publication">
+      <div id="Transferability" class="publication-card columns new-publication">
 
         <div class="column is-2">
-          <div class="publication-image ">
-            <img alt="Transferability Between Understanding and Generation in Unified Multimodal Models" src="./images/Transferability.png" />
+          <div class="publication-image" tabindex="0" role="button" aria-label="View larger image">
+            <img alt="Transferability Between Understanding and Generation in Unified Multimodal Models" src="./images/Transferability.png" onerror="this.onerror=null; this.src='./images/placeholder.svg'; this.closest('.publication-image').classList.add('img-fallback');" />
             <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
           </div>
         </div>
@@ -224,8 +224,8 @@
         <div class="column">
           <div class="content">
             <h3 class="publication-title">
-              <span class="tag is-danger is-rounded" style="margin-bottom:8px;">NEW !</span>
-              <br>
+              <!-- <span class="tag-new">NEW</span> -->
+              <!-- <br> -->
               Transferability Between Understanding and Generation in Unified Multimodal Models
             </h3>
 
@@ -249,11 +249,11 @@
         </div>
       </div>
 
-      <div id="APPLE" class="publication-block columns new-publication">
+      <div id="APPLE" class="publication-card columns">
 
         <div class="column is-2">
-          <div class="publication-image ">
-            <img alt="APPLE: Attribute-Preserving Pseudo-Labeling for Diffusion-Based Face Swapping" src="./images/APPLE.jpg" />
+          <div class="publication-image" tabindex="0" role="button" aria-label="View larger image">
+            <img alt="APPLE: Attribute-Preserving Pseudo-Labeling for Diffusion-Based Face Swapping" src="./images/APPLE.jpg" onerror="this.onerror=null; this.src='./images/placeholder.svg'; this.closest('.publication-image').classList.add('img-fallback');" />
             <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
           </div>
         </div>
@@ -304,11 +304,11 @@
         </div>
       </div>
 
-      <div id="ANoise" class="publication-block columns ">
+      <div id="ANoise" class="publication-card columns ">
 
         <div class="column is-2">
-          <div class="publication-image ">
-            <img alt="A Noise is Worth Diffusion Guidance" src="./images/NoiseRefine.jpg" />
+          <div class="publication-image" tabindex="0" role="button" aria-label="View larger image">
+            <img alt="A Noise is Worth Diffusion Guidance" src="./images/NoiseRefine.jpg" onerror="this.onerror=null; this.src='./images/placeholder.svg'; this.closest('.publication-image').classList.add('img-fallback');" />
             <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
           </div>
         </div>
@@ -365,11 +365,11 @@
 
       <h3 class="title is-5 year-header">2025</h3>
 
-      <div id="WhereHowPerturb" class="publication-block columns ">
+      <div id="WhereHowPerturb" class="publication-card columns ">
 
         <div class="column is-2">
-          <div class="publication-image ">
-            <img alt="Where and How to Perturb: On the Design of Perturbation Guidance in Diffusion and Flow Models" src="./images/HeadHunter.jpg" />
+          <div class="publication-image" tabindex="0" role="button" aria-label="View larger image">
+            <img alt="Where and How to Perturb: On the Design of Perturbation Guidance in Diffusion and Flow Models" src="./images/HeadHunter.jpg" onerror="this.onerror=null; this.src='./images/placeholder.svg'; this.closest('.publication-image').classList.add('img-fallback');" />
             <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
           </div>
         </div>
@@ -420,11 +420,11 @@
         </div>
       </div>
 
-      <div id="SE-NeRF" class="publication-block columns ">
+      <div id="SE-NeRF" class="publication-card columns ">
 
         <div class="column is-2">
-          <div class="publication-image ">
-            <img alt="Self-Evolving Neural Radiance Fields" src="./images/SE-NeRF.png" />
+          <div class="publication-image" tabindex="0" role="button" aria-label="View larger image">
+            <img alt="Self-Evolving Neural Radiance Fields" src="./images/SE-NeRF.png" onerror="this.onerror=null; this.src='./images/placeholder.svg'; this.closest('.publication-image').classList.add('img-fallback');" />
             <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
           </div>
         </div>
@@ -471,11 +471,11 @@
 
       <h3 class="title is-5 year-header">Preprints &amp; Under Review</h3>
 
-      <div id="Whisper" class="publication-block columns ">
+      <div id="Whisper" class="publication-card columns ">
 
         <div class="column is-2">
-          <div class="publication-image ">
-            <img alt="Exploring Whisper as a Continuous Tokenizer for Text-to-Speech" src="./images/placeholder.svg" />
+          <div class="publication-image" tabindex="0" role="button" aria-label="View larger image">
+            <img alt="Exploring Whisper as a Continuous Tokenizer for Text-to-Speech" src="./images/placeholder.svg" onerror="this.onerror=null; this.closest('.publication-image').classList.add('img-fallback');" />
             <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
           </div>
         </div>
@@ -498,7 +498,7 @@
             </div>
 
             <div class="publication-venue">
-              <span class="venue-badge" style="background:#607d8b;">Under Review</span>
+              <span class="venue-badge">Under Review</span>
               <span class="award-badge" style="display:inline-flex; align-items:center; gap:5px;">Work done at <img src="/images/kakao-logo.svg" alt="Kakao" style="height:13px; width:auto; vertical-align:middle;"></span>
             </div>
 
@@ -507,11 +507,11 @@
         </div>
       </div>
 
-      <div id="RAIN-GS" class="publication-block columns ">
+      <div id="RAIN-GS" class="publication-card columns ">
 
         <div class="column is-2">
-          <div class="publication-image ">
-            <img alt="RAIN-GS: Relaxing Accurate Initialization Constraint for 3D Gaussian Splatting" src="./images/RAIN-GS.png" />
+          <div class="publication-image" tabindex="0" role="button" aria-label="View larger image">
+            <img alt="RAIN-GS: Relaxing Accurate Initialization Constraint for 3D Gaussian Splatting" src="./images/RAIN-GS.png" onerror="this.onerror=null; this.src='./images/placeholder.svg'; this.closest('.publication-image').classList.add('img-fallback');" />
             <span class="teaser-zoom-hint"><i class="fas fa-search-plus"></i></span>
           </div>
         </div>

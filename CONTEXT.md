@@ -23,6 +23,44 @@
 
 ## Changelog
 
+### 2026-06-23 — Hero 섹션 가로폭 정렬 + 미사용 폰트 import 정리 (커밋 예정)
+- 배경: 사용자가 (1) "Hello, I'm Jiwon Kang" hero 섹션의 가로 크기가 다른 섹션(News/Experience/Publications)이랑 다르다, (2) Noto Sans가 안 먹히는 것 같다(영문 본문 폰트를 더 깔끔한 걸로 추천해달라)고 요청.
+- **원인 1 (실제 CSS 버그)**: `index.html`의 hero가 `<section class="hero"><div class="hero-body container is-max-desktop">` 구조였음. Bulma `.hero-body`는 자체 `padding:1.5rem`(상하좌우 24px)을 갖는데, 이게 이미 `max-width:1152px`로 제한된 `.container.is-max-desktop`과 같은 박스 안에 적용되어 있었음. 반면 News/Experience/Publications는 `<section class="section">`(Bulma `padding:3rem 1.5rem`→태블릿 이상 `3rem 3rem`)이 패딩을 담당하고, 그 안의 `.container.is-max-desktop`은 자체 패딩이 없음 — 그 결과 hero 콘텐츠 폭이 다른 섹션보다 약 48px(24px×2) 좁았음. `cv.html`은 원래 `hero`/`hero-body` 없이 `<main class="cv-page container is-max-desktop">` 하나만 쓰고 있어 이 버그가 없었음.
+  - 수정: `index.html`의 hero 래퍼를 `<section class="section"><div class="container is-max-desktop">`로 교체(News/Pub과 동일한 Bulma 클래스 조합). `.card-hero` 자체 CSS는 변경 없음 — 래퍼만 맞추면 자동으로 폭이 일치.
+- **원인 2 (폰트 버그 아님, 보는 방식 문제)**: 헤드리스 Chrome으로 직접 검증 — `index.html`을 `file://`로 더블클릭해서 열면, 루트 절대경로(`/css/...`)가 저장소 폴더가 아니라 파일시스템 루트(`/css/index.css`)를 가리켜서 **`bulma.min.css`/`index.css`/`fontawesome.all.min.css`가 전부 404** → 커스텀 CSS가 하나도 안 먹혀서 `body{font-family:"Noto Sans"}` 규칙조차 적용 안 됨 → 브라우저 기본 폰트로 렌더링되어 "화려하다"고 느껴진 것. `document.fonts.check()`로 재확인한 결과, `python3 -m http.server`로 정상 서빙하면 Noto Sans가 정확히 로드/적용됨 — 폰트 선택 자체는 문제 없었음. 사용자 확인 후 Noto Sans 유지로 결정.
+  - 정리: 그 과정에서 발견된, 어디서도 참조되지 않는 미사용 Google Fonts import `Cormorant+Garamond`/`Crimson+Pro`를 `index.html`에서 제거(`cv.html`은 원래부터 Source Sans 3/Google Sans/Noto Sans만 import해서 이미 깨끗했음 — 이제 두 페이지 폰트 import가 동일해짐).
+- 콘텐츠 불변 검증 통과(텍스트 diff: 기존 Round 1/2 diff와 동일, 신규 drift 0건). `css/index.css`는 변경 없음(`.hero`/`.hero-body` 셀렉터는 원래 거기 존재하지 않았음 — 순수 HTML 마크업 수정).
+
+### 2026-06-23 — StyleSeed Round 3: 카드 가시성 + 논문 카드 줄간격 리듬 수정 (커밋 예정)
+- 배경: 사용자가 논문 카드(ICLR "A Noise is Worth Diffusion Guidance") 스크린샷으로 피드백 — "1) line 간격이 너무 좁거나 불균형, 2) Card Design이 조금 더 눈에 띄면 좋겠어".
+- **원인 1 (버그)**: Round 1에서 `--surface-page: #FAFAFA`를 정의했지만 실제로 `body` 배경에 적용한 적이 없었음 — page와 card(`--surface-card: #FFFFFF`)가 둘 다 흰색이라 카드 경계가 거의 안 보였음(있는 건 거의 안 보이는 그림자뿐). `body { background: var(--surface-page); }` 적용으로 해결.
+- **원인 2 (불균형)**: `.publication-title`은 `margin:0`, `.publication-authors`는 `line-height` 자체가 없어 타이트한 기본값 상속, `.publication-venue`는 `margin-top:0`만 명시, 게다가 논문 7개 중 6개가 빈 `<p class="publication-description"></p>`를 갖고 있어 보이지 않는 한 줄 높이가 카드마다 일관성 없이 끼어듦. → `.publication-title`(`margin-bottom:0.5em`+`line-height:1.4`), `.publication-authors`(`line-height:1.65`+`margin-bottom:0.5em`), `.publication-venue`(`margin:0 0 0.5em 0`), `.publication-description:empty{display:none}`(보이지 않는 빈 단락 제거), `.publication-links`(중복 margin-top 제거)로 일관된 리듬 확립.
+- **카드 강조**: `--shadow-card`를 더 또렷한 2-layer 그림자로 강화(여전히 StyleSeed 15% 상한 내), `--shadow-hover/elevated/modal`도 card<hover<elevated<modal로 단계적으로 재조정. `.card-hero`/`.card-section`/`.publication-card`에 `1px solid var(--border-subtle)` 테두리 추가(그림자만으론 약했던 경계를 보강). `.publication-card`에 hover 시 `translateY(-2px)`+`--shadow-hover` 살짝 뜨는 효과 추가("Snap" 모션 토큰 재사용, `prefers-reduced-motion`에서 자동 비활성).
+- 전부 `css/index.css`만 수정(HTML 변경 없음) — 콘텐츠 불변 검증 통과(텍스트 diff Round 1/2와 동일, 신규 drift 0건).
+- **`STYLESEED.md`** Shadow language 섹션을 새 값으로 갱신 + 배경/테두리/hover 변경 사항 기록.
+
+### 2026-06-23 — StyleSeed Round 2: 토스(Toss) 스타일 컬러 복원 (커밋 예정)
+- 배경: Round 1(StyleSeed 전면 적용) 결과에 대해 사용자 피드백 — "색이 너무 단조롭고 구분이 명확하지 않다". 구체적으로 (1) 논문 venue 배지가 전부 회색이라 한눈에 구별 안 됨, (2) 전체적인 톤이 너무 절제되어 있음. Toss 디자인(비비드한 토스 블루 + venue별 파스텔 카테고리 칩)을 참고 방향으로 제시. Plan mode에서 3가지 lock: **accent를 Toss Blue `#3182F6`로 교체**, **venue 배지는 파스텔 톤으로 색 구별 복원**(과거의 채도 높은 rainbow가 아닌 연한 배경+진한 텍스트), **"Under Review"는 그대로 회색 유지**(확정 venue=카테고리는 색을 갖지만, 심사중 상태는 StyleSeed의 "status=심각도, 평상시는 회색" 원칙을 그대로 따름).
+- **`css/index.css` accent 토큰 교체**: `--brand` `#1A73E8`→`#3182F6`, `--brand-tint`→`#EAF2FE`, `--brand-hover`→`#1B6FE0`, `--brand-active`→`#1559B8`. Round 1에서 모든 accent 사용처가 이미 이 변수로 중앙화되어 있어 토큰 값만 교체(구조 변경 없음) — 링크·버튼·NEW 태그·focus ring·`.new-publication` 테두리·`:target` 하이라이트·nav active 등 전부 자동 반영.
+- **venue 배지 파스텔 팔레트 복원**: 기존에 삭제했던 `.venue-badge.venue-{cvpr,iccv,iccvw,eccv,neurips,iclr,iclrw,icml,aaai,wacv,ipiu,arxiv}` 10규칙을 연한 배경+진한 텍스트 페어로 재추가(예: CVPR `#E3EEFD`/`#1454B8`, ECCV `#DFF5F1`/`#0E7A68` 등, 전체 표는 `STYLESEED.md` 참고). 베이스 `.venue-badge`(무수정자, 즉 "Under Review")는 그대로 중립 회색 유지. `index.html`의 `venue-{name}` 클래스는 Round 1부터 마크업에 그대로 있어 HTML 변경 없이 CSS만 추가.
+- **News 아이콘 배지 신규**: Round 1에서 이모지→FA 아이콘으로 바꾼 뒤 단색 회색이었던 3개 아이콘(briefcase/trophy/graduation-cap)에 토스식 원형 틴트 배지(`.news-icon-badge--{blue,amber,violet}`) 추가 — venue 팔레트와 동일 색상군 재사용(새 색 추가 없음), "전체 톤이 단조롭다" 피드백 보강.
+- **`STYLESEED.md`**: Key Color를 Toss Blue로 갱신, "Venue taxonomy palette" 섹션 신규 추가(파스텔 표 + "Under Review는 회색 유지" 근거 명시 — accent=인터랙션, venue 팔레트=분류라는 두 색 체계가 공존함을 문서화).
+- `cv.html`은 변경 없음(논문 목록이 배지 없는 텍스트 행이라 영향 없음; accent 토큰 변경만 사이트 전체에 자동 반영).
+- **검증**: 헤드리스 Chrome 데스크톱/모바일 재스크린샷으로 venue별 색 구분·"Under Review" 회색 유지·NEW 태그/링크 토스 블루 확인. `grep`으로 팔레트 표 외 잔존 hex 0건. 텍스트 콘텐츠 diff로 논문 데이터 무변경 재확인(Round 1과 동일 절차).
+
+### 2026-06-23 — StyleSeed 디자인 규칙 전면 적용 (구조까지) (커밋 예정)
+- 배경: 사용자가 외부 디자인 시스템 "StyleSeed"(`https://styleseed-demo.vercel.app/llms-full.txt`) 규칙을 사이트 전체에 적용 요청. StyleSeed는 모바일 대시보드/SaaS 앱(카드 전부, KPI 그리드, 도넛 차트, bottom nav)을 가정하므로, 차트/KPI/폼/430px 모바일 프레임 등 해당 없는 항목은 의식적으로 스킵하고 명시(`STYLESEED.md` 참고). Plan mode에서 사용자와 핵심 색상·모션 스타일을 먼저 lock: **accent `#1A73E8`**(Academic Blue, 기존 CVPR 배지 색)·**venue 배지 전부 그레이스케일 통일**(rainbow 금지 규칙 엄격 준수)·**모션 "Snap"**(100–150ms, ease-out, 최소 움직임)·**구조까지 전면 적용**(모든 콘텐츠를 카드 안에).
+- **`css/index.css`**: `:root`에 토큰 추가(accent/tint, 5단계 그레이스케일 `--gray-900~300`, surface, radius `--radius-pill/sm/lg/card`, shadow `--shadow-card/hover/elevated/modal`, motion `--dur-fast/normal` + `--ease-snap`). 기존 `#000/#111/#171717/#333/#404040/#555/#666/#888/#4a4a4a` 등 산발적 회색·검정 리터럴을 전부 토큰으로 교체("no pure black" 준수). 라이트박스 모달 그림자가 50% 투명도였던 것을 `--shadow-modal`(12%)로 완화. venue 배지 12개 컨퍼런스별 색상 규칙 삭제 → 단일 회색 pill(`--surface-inactive` bg + `--gray-700` text)로 통일, award 배지도 동일하게 중립화. `.new-publication`의 노란 배경(`#fffbea`/`#fff3cd`)을 accent-border-only로 교체(accent 채움 금지 규칙 준수), `:target` 스크롤 하이라이트도 노랑→`--brand-tint`로. `NEW !` Bulma 빨간 태그 → `.tag-new`(accent 텍스트+tint 배경, 채움 없음).
+- **카드 시스템**: `.card-hero`/`.card-section`/`.publication-card`(StyleSeed Four Section Types A/B/D) 추가. `index.html`의 Hero·News·Experience를 각각 카드로 감싸고, 7개 논문 항목(`.publication-block`→`.publication-card`로 rename)을 각각 카드화. News 앞 `<hr>` 구분선 삭제(섹션 간 구분자 금지 규칙, 카드 margin이 대신함). `cv.html`도 헤더(`.card-hero`, CV는 24px 압축 패딩)·Education/Experience/Publications/Extracurricular(각각 `.card-section`)에 동일 적용. **`CLAUDE.md`의 "재사용" 가이드와 충돌하는 유일한 의도적 예외**로 명시(`.publication-block`→`.publication-card` rename).
+- **접근성/모션**: `:focus-visible` 전역 규칙 신규(이전엔 전무). `.publication-image`(라이트박스 트리거)에 `tabindex="0" role="button" aria-label`+`js/index.js`에 Enter/Space 키다운 핸들러 추가(이전엔 마우스 전용). 터치 타겟 44×44px 확보(라이트박스 닫기 버튼, news 토글, footer 아이콘). `prefers-reduced-motion` 전역 CSS 오버라이드 신규 + News "Show All" jQuery `slideDown/slideUp`은 CSS 미디어쿼리가 안 먹으므로 `js/index.js`에 `matchMedia` 분기 추가.
+- **이미지 에러 상태**: 7개 논문 썸네일에 `onerror` 추가(깨지면 기존 `images/placeholder.svg`로 폴백 + `.img-fallback` 클래스로 살짝 dim). 라이트박스에 주입되는 `<video>`에 `error` 핸들러 추가("Video unavailable." 폴백, 비동기 로딩이 없는 정적 사이트에 맞는 유일한 실질적 에러 상태).
+- **이모지 → 아이콘**: News 항목의 💼/🎉/🏫 이모지를 Font Awesome 아이콘(`fa-briefcase`/`fa-trophy`/`fa-graduation-cap`, `currentColor`)으로 교체 — StyleSeed Golden Rule #11(UI 아이콘에 이모지 금지) 준수.
+- **기타 정리**: APPLE 항목에 남아있던 `.new-publication`(ECCV 추가 시 Transferability로 NEW 이전했는데 클래스만 잔존) 제거. Whisper venue의 인라인 `style="background:#607d8b"` 제거(전역 회색 pill로 통일).
+- **`STYLESEED.md`**(신규, 루트): 실제 적용된 값(accent/grayscale/radius/shadow/motion/섹션타입 매핑/스코프 제외 항목/콘텐츠 불변 조건)을 StyleSeed 템플릿대로 기록.
+- **`CLAUDE.md`**: `.publication-block`→`.publication-card` rename 및 신규 토큰/카드 시스템 도입을 반영하는 문장 추가.
+- **검증**: 헤드리스 Chrome으로 데스크톱(1280px)·모바일(390px) 스크린샷 렌더 확인(카드·배지·NEW 태그·아이콘 정상). `grep`으로 pure-black/rainbow 잔존 0건, `--gray-400`(AA 경계) 사용처 점검 후 본문/네비 링크 색을 `--gray-500`로 교정(AA 통과). **콘텐츠 불변 검증**: HTML 태그 제거 후 텍스트 diff — `cv.html`은 byte-for-byte 동일, `index.html`은 의도된 변경(이모지 제거, "NEW !"→"NEW")만 차이 확인, 논문 제목/저자/링크/venue 텍스트는 전혀 변경 없음.
+- **스코프 제외(StyleSeed 규칙 중 미적용, `STYLESEED.md`에 명시)**: KPI 그리드, 도넛/바 차트, bottom nav, input 필드 규칙(폼 없음), 430px 모바일 프레임 가정, 로딩 스켈레톤(비동기 데이터 없음). `CV_LATEX/CV.tex`/`JiwonCV.pdf`는 LaTeX 고유 디자인이라 이번 작업 범위 밖(미수정).
+
 ### 2026-06-23 — Transferability 논문 ECCV 2026 accept 반영 (커밋 예정)
 - 배경: "Transferability Between Understanding and Generation in Unified Multimodal Models" 논문이 **ECCV 2026**에 accept. 기존엔 3곳(`index.html`, `cv.html`, `CV_LATEX/CV.tex`) 모두 "Under Review" preprint 취급 → accepted-conference 섹션으로 승격.
 - `images/image.png`(사용자가 채팅에 첨부한 실제 티저, 1954×928·934KB) → `images/Transferability.png`로 rename, 기존 `placeholder.svg` 대체.

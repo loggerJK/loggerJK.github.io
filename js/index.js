@@ -19,7 +19,11 @@ $(document).ready(function() {
         $(this).find('img').css('display', 'inline-block');
     });
 
-    // Teaser lightbox: click a publication thumbnail to enlarge it in-page.
+    function prefersReducedMotion() {
+        return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    }
+
+    // Teaser lightbox: click (or Enter/Space) a publication thumbnail to enlarge it in-page.
     var $lightbox = $('#teaser-lightbox');
     var $lightboxContent = $lightbox.find('.teaser-modal-content');
 
@@ -30,7 +34,10 @@ $(document).ready(function() {
         if ($video.length) {
             var src = $video.find('source').attr('src') || $video.attr('src');
             $media = $('<video autoplay loop muted playsinline controls></video>')
-                .attr('src', src);
+                .attr('src', src)
+                .on('error', function() {
+                    $(this).replaceWith($('<div class="lightbox-error">Video unavailable.</div>'));
+                });
         } else {
             $media = $('<img>')
                 .attr('src', $img.attr('src'))
@@ -51,6 +58,12 @@ $(document).ready(function() {
     $('.publication-image').click(function() {
         openLightbox($(this));
     });
+    $('.publication-image').keydown(function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openLightbox($(this));
+        }
+    });
     $lightbox.find('.teaser-modal-bg, .teaser-modal-close').click(closeLightbox);
     $(document).keydown(function(e) {
         if (e.key === 'Escape') closeLightbox();
@@ -60,12 +73,13 @@ $(document).ready(function() {
     var newsExpanded = false;
     $('#toggle-news-btn').click(function() {
         newsExpanded = !newsExpanded;
+        var instant = prefersReducedMotion();
         if (newsExpanded) {
-            $('.news-old').slideDown();
+            if (instant) { $('.news-old').show(); } else { $('.news-old').slideDown(150); }
             $(this).addClass('expanded');
             $(this).find('span:last-child').text('Show Less');
         } else {
-            $('.news-old').slideUp();
+            if (instant) { $('.news-old').hide(); } else { $('.news-old').slideUp(150); }
             $(this).removeClass('expanded');
             $(this).find('span:last-child').text('Show All News');
         }
