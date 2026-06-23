@@ -58,7 +58,7 @@ Cards also get a crisp `1px solid var(--border-subtle)` border (Round 3) — pai
 `prefers-reduced-motion: reduce` collapses all CSS transitions/animations globally; the jQuery-driven News "Show All" toggle is bypassed via a `matchMedia` check in `js/index.js` (jQuery's `slideDown`/`slideUp` aren't covered by the CSS media query).
 
 ## Type scale
-Existing font sizes were left as-is (Noto Sans body, Google Sans 700 headings, Source Sans 3 nav) — only color/radius/shadow/motion were tokenized, to avoid regressing a content-dense page's line lengths/wraps.
+Existing font sizes were left as-is (Lato body, Google Sans 700 headings, Source Sans 3 nav) — only color/radius/shadow/motion were tokenized, to avoid regressing a content-dense page's line lengths/wraps. Body font was Noto Sans through Round 4; switched to Lato (weights 400/700) in Round 5 — Lato has no 500/600 weight on Google Fonts, so the existing `font-weight: 600` rules (badges, titles, `.author-me`) render at the browser's nearest loaded weight (700).
 
 ## Density
 Desktop-first responsive, single breakpoint at 768px (no 430px mobile-frame assumption). Card/hero padding scales down at the breakpoint (32px→20px-ish via existing rules) rather than adopting StyleSeed's mobile spacing numbers verbatim.

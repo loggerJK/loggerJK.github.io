@@ -23,6 +23,14 @@
 
 ## Changelog
 
+### 2026-06-23 — 본문 폰트를 Lato로 교체 (커밋 예정)
+- 사용자 요청: "지금 상태에서 font Lato로 바꿔봐줄수 있니?" — Noto Sans 유지로 확정했던 직전 결정을 뒤집고 Lato로 변경.
+- `index.html` / `cv.html` Google Fonts import에서 `Noto+Sans:wght@400;500;600;700`를 `Lato:wght@400;700`로 교체. Lato는 Google Fonts에서 100/300/400/700/900 weight만 제공(500/600 없음) — 본문에서 강조용으로 쓰던 `font-weight:600` 규칙(`.venue-badge`, `.award-badge`, `.publication-title`, `.author-me`, `.experience-title`, `.cv-entry-title`, `.cv-subsection-title` 등)은 브라우저가 로드된 weight 중 가장 가까운 700으로 매칭해 렌더링됨 — 별도 CSS 수정 없이 자연스럽게 처리됨.
+- `css/index.css`: `body`와 `.cv-page`의 `font-family`를 `"Noto Sans"` → `"Lato"`로 교체(이 두 곳이 Noto Sans를 참조하던 유일한 셀렉터였음, grep으로 확인).
+- 헤드리스 Chrome으로 Lato 400/700 weight가 실제로 로드되는지(`document.fonts.check`/`document.fonts.load`) 검증, 두 페이지 스크린샷으로 렌더링 확인.
+- 콘텐츠 불변 검증 통과(`index.html`/`cv.html` 텍스트 diff 0줄 — `<link>` href 속성과 CSS font-family 값만 바뀌어서 본문 텍스트엔 영향 없음).
+- `STYLESEED.md` Type scale 섹션 갱신(Lato로 명시 + weight 매칭 설명 추가).
+
 ### 2026-06-23 — Hero 섹션 가로폭 정렬 + 미사용 폰트 import 정리 (커밋 예정)
 - 배경: 사용자가 (1) "Hello, I'm Jiwon Kang" hero 섹션의 가로 크기가 다른 섹션(News/Experience/Publications)이랑 다르다, (2) Noto Sans가 안 먹히는 것 같다(영문 본문 폰트를 더 깔끔한 걸로 추천해달라)고 요청.
 - **원인 1 (실제 CSS 버그)**: `index.html`의 hero가 `<section class="hero"><div class="hero-body container is-max-desktop">` 구조였음. Bulma `.hero-body`는 자체 `padding:1.5rem`(상하좌우 24px)을 갖는데, 이게 이미 `max-width:1152px`로 제한된 `.container.is-max-desktop`과 같은 박스 안에 적용되어 있었음. 반면 News/Experience/Publications는 `<section class="section">`(Bulma `padding:3rem 1.5rem`→태블릿 이상 `3rem 3rem`)이 패딩을 담당하고, 그 안의 `.container.is-max-desktop`은 자체 패딩이 없음 — 그 결과 hero 콘텐츠 폭이 다른 섹션보다 약 48px(24px×2) 좁았음. `cv.html`은 원래 `hero`/`hero-body` 없이 `<main class="cv-page container is-max-desktop">` 하나만 쓰고 있어 이 버그가 없었음.

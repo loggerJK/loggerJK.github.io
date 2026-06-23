@@ -41,7 +41,7 @@
   --ease-snap: ease-out;
 }
 
-body { font-family: "Noto Sans", sans-serif; background: var(--surface-page); }
+body { font-family: "Lato", sans-serif; background: var(--surface-page); }
 
 html { scroll-behavior: smooth; }
 
@@ -217,7 +217,7 @@ button:focus-visible,
 }
 
 /* ── CV page ─────────────────────────────────────── */
-.cv-page { font-family: 'Noto Sans', sans-serif; font-size: 16px; line-height: 1.65; color: var(--gray-900); padding: 2rem 1.5rem; }
+.cv-page { font-family: 'Lato', sans-serif; font-size: 16px; line-height: 1.65; color: var(--gray-900); padding: 2rem 1.5rem; }
 .cv-page .cv-page-header { display: flex; flex-direction: row; justify-content: space-between; align-items: center; gap: 1.5em; }
 .cv-page .cv-page-header .cv-header-name { font-family: 'Google Sans', sans-serif; font-size: 2.2em; font-weight: 700; color: var(--gray-900); line-height: 1.1; margin: 0; }
 .cv-page .cv-page-header .cv-header-position { color: var(--gray-700); font-size: 1em; margin-top: 0.3em; }
