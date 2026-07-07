@@ -25,3 +25,4 @@
 *.makefile
 *.dpth
 *.auxlock
+.DS_Store

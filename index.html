@@ -110,10 +110,10 @@
             <b>Hello, I'm Jiwon Kang</b>
           </h1>
           <div class="content has-text-justified">
-            <p>I am an Integrated M.S./Ph.D. student at <a href="https://gsai.kaist.ac.kr/">KAIST AI</a> (Kim Jaechul Graduate School of AI), advised by <a href="https://cvlab.kaist.ac.kr/members/faculty">Seungryong Kim</a> (<a href="https://cvlab.kaist.ac.kr/">CVLAB</a>). My research focuses on generative models &mdash; particularly diffusion- and flow-based methods &mdash; and their applications across vision, 3D, and multimodal domains. I am broadly interested in Diffusion &amp; Generative AI (guidance, sampling, image/audio generation), 3D Vision (novel view synthesis, NeRF, Gaussian Splatting), and Unified Multimodal Models.</p>
-
+            <p>I am an Integrated M.S./Ph.D. student at <a href="https://gsai.kaist.ac.kr/">KAIST AI</a> (Kim Jaechul Graduate School of AI), advised by <a href="https://cvlab.kaist.ac.kr/members/faculty">Seungryong Kim</a> (<a href="https://cvlab.kaist.ac.kr/">CVLAB</a>). My research mainly focuses on generative models and their applications (image generation, guidance, sampling), 3D Vision (novel view synthesis, NeRF, Gaussian Splatting), and Unified Multimodal Models.</p>
+            
             <div class="buttons">
-              <a class="external-link button is-light" href="./JiwonCV.pdf">
+              <a class="external-link button is-light" href="./CV_LATEX/CV.pdf">
                 <span class="icon"><i class="fas fa-file"></i></span>
                 <span>CV</span>
               </a>
@@ -203,7 +203,11 @@
               Kakao, Seoul
               <img src="/images/kakao-logo.svg" alt="Kakao" class="title-logo logo-kakao">
             </div>
-            <div class="experience-desc">Research Intern &nbsp;·&nbsp; Worked on <a href="#Whisper">Exploring Whisper as a Continuous Tokenizer for Text-to-Speech</a></div>
+            <div class="experience-desc">Research Intern
+              <ul class="experience-desc-list">
+                <li>Worked on Text-to-Speech research, repurposing Whisper features as a continuous tokenizer for TTS</li>
+              </ul>
+            </div>
           </div>
           <div class="experience-date">Mar &ndash; May 2026</div>
         </div>
@@ -248,7 +252,25 @@
               <span class="venue-badge venue-eccv">ECCV</span>
             </div>
 
-            <p class="publication-description"></p>
+            <ul class="publication-desc-list">
+              <li>Investigated how understanding and generation capabilities (e.g., counting) transfer to one another within unified multimodal models.</li>
+              <li>Showed that transferability depends on the model architecture, and proposed a practical post-training strategy for unified multimodal models that leverages transferability.</li>
+            </ul>
+
+            <div class="publication-links buttons field has-addons">
+              <a class="external-link button is-small is-ghost" href="https://cvlab-kaist.github.io/UMM_Transferability/">
+                <span class="icon"><i class="fas fa-file-pdf"></i></span>
+                <span>Paper</span>
+              </a>
+              <a class="external-link button is-small is-ghost" href="https://cvlab-kaist.github.io/UMM_Transferability/">
+                <span class="icon"><i class="fas fa-globe-asia"></i></span>
+                <span>Project Page</span>
+              </a>
+              <a class="external-link button is-small is-ghost" href="https://cvlab-kaist.github.io/UMM_Transferability/">
+                <span class="icon"><i class="fa fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -284,7 +306,10 @@
               <span class="venue-badge venue-cvpr">CVPR</span>
             </div>
 
-            <p class="publication-description"></p>
+            <ul class="publication-desc-list">
+              <li>Prior diffusion-based face swapping methods focused on changing facial identity, failing to preserve facial attributes.</li>
+              <li>Proposed a novel pseudo-labeling framework that preserves facial attributes while swapping identities, achieving Pareto-optimal results.</li>
+            </ul>
 
             <div class="publication-links buttons field has-addons">
               <a class="external-link button is-small is-ghost" href="https://cvlab-kaist.github.io/APPLE/">
@@ -342,7 +367,10 @@
               <span class="venue-badge venue-iclr">ICLR</span>
             </div>
 
-            <p class="publication-description"></p>
+            <ul class="publication-desc-list">
+              <li>Showed that classifier-free guidance can be replaced by refining the initial noise.</li>
+              <li>Enabled high-quality generation without a guidance pass, highlighting the importance of the initial noise in diffusion models.</li>
+            </ul>
 
             <div class="publication-links buttons field has-addons">
               <a class="external-link button is-small is-ghost" href="https://cvlab-kaist.github.io/NoiseRefine/">
@@ -400,7 +428,10 @@
               <span class="venue-badge venue-neurips">NeurIPS</span>
             </div>
 
-            <p class="publication-description"></p>
+            <ul class="publication-desc-list">
+              <li>Systematically studied perturbation guidance in diffusion and flow models.</li>
+              <li>Showed that perturbing different layers/heads in a diffusion model exhibits different effects on the generated samples, which can be systematically combined to improve user-specified attributes via the proposed framework.</li>
+            </ul>
 
             <div class="publication-links buttons field has-addons">
               <a class="external-link button is-small is-ghost" href="https://cvlab-kaist.github.io/HeadHunter/">
@@ -452,7 +483,9 @@
               <span class="venue-badge venue-iccvw">ICCVW</span>
             </div>
 
-            <p class="publication-description"></p>
+            <ul class="publication-desc-list">
+              <li>Proposed a self-training framework that lets a NeRF improve itself from few input views via pseudo-label distillation.</li>
+            </ul>
 
             <div class="publication-links buttons field has-addons">
               <a class="external-link button is-small is-ghost" href="https://cvlab-kaist.github.io/SE-NeRF/">
@@ -467,6 +500,10 @@
                 <span class="icon"><i class="ai ai-arxiv"></i></span>
                 <span>arXiv</span>
               </a>
+              <a class="external-link button is-small is-ghost" href="https://github.com/cvlab-kaist/SE-NeRF">
+                <span class="icon"><i class="fa fab fa-github"></i></span>
+                <span>Code</span>
+              </a>
             </div>
           </div>
         </div>
@@ -475,6 +512,7 @@
 
       <h3 class="title is-5 year-header">Preprints &amp; Under Review</h3>
 
+      <!--
       <div id="Whisper" class="publication-card columns ">
 
         <div class="column is-2">
@@ -506,10 +544,14 @@
               <span class="award-badge" style="display:inline-flex; align-items:center; gap:5px;">Work done at <img src="/images/kakao-logo.svg" alt="Kakao" style="height:13px; width:auto; vertical-align:middle;"></span>
             </div>
 
-            <p class="publication-description">Work done during a research internship at Kakao.</p>
+            <ul class="publication-desc-list">
+              <li>Repurpose Whisper encoder features as a continuous tokenizer for text-to-speech.</li>
+              <li>Work done during a research internship at Kakao.</li>
+            </ul>
           </div>
         </div>
       </div>
+      -->
 
       <div id="RAIN-GS" class="publication-card columns ">
 
@@ -540,7 +582,9 @@
               <span class="award-badge">350+ Stars</span>
             </div>
 
-            <p class="publication-description"></p>
+            <ul class="publication-desc-list">
+              <li>Relaxed the accurate point-cloud initialization requirement of 3D Gaussian Splatting, enabling training from sparse or random initialization.</li>
+            </ul>
 
             <div class="publication-links buttons field has-addons">
               <a class="external-link button is-small is-ghost" href="https://cvlab-kaist.github.io/RAIN-GS/">

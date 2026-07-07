@@ -23,6 +23,48 @@
 
 ## Changelog
 
+### 2026-07-07 — Experience 항목 role/desc 구분용 불릿 추가
+- 배경: 직전 수정(바로 아래 항목)에서 `<br>`로만 줄바꿈했더니 "Research Intern"과 "Worked on..." 두 줄이 시각적으로 구분되지 않는다는 피드백. 원본 `<li>` 시도의 의도(불릿으로 구분)는 맞았으나 `<ul>` 없이 썼던 게 문제였으므로, 이번엔 제대로 된 `<ul>`로 감싸 disc 불릿을 정상 렌더링.
+- **`index.html`**: `.experience-desc` 안에서 `Research Intern<br>Worked on...` → `Research Intern` 텍스트 다음에 `<ul class="experience-desc-list"><li>Worked on...</li></ul>` 중첩 구조로 변경.
+- **`css/index.css`**: `.experience-entry .experience-main .experience-desc a:hover` 규칙 바로 뒤에 `.experience-desc-list`(disc, margin-left 1.1em로 들여쓰기) / `.experience-desc-list li`(margin 0) 규칙 신규 추가. 색상·글자크기는 `.experience-desc`(gray-500, 0.9em)에서 상속받아 "Research Intern"과 동일 톤 유지 — 논문 카드용 `.publication-desc-list`(gray-700)와는 별도 클래스로 분리.
+
+### 2026-07-07 — Experience 섹션 레이아웃 깨짐(불릿 점) 수정
+- 배경: 사용자가 `index.html`의 Experience 카드(Kakao)에서 불릿 점(dot) 때문에 레이아웃이 깨진다고 리포트. 원인은 `<div class="experience-desc">` 안에 `<ul>`/`<ol>` 부모 없이 `<li>`가 단독으로 들어가 있었던 것 — 브라우저는 부모 리스트 유무와 무관하게 `<li>`에 UA 스타일시트로 `display: list-item`(기본 disc 마커)을 적용하는데, `.experience-desc`(`css/index.css` L91-93)에는 이를 리셋하는 list-style 규칙이 전혀 없어 마커가 기본 들여쓰기/마진과 함께 튀어나와 레이아웃이 깨짐.
+- **`index.html`**: Experience 섹션의 `.experience-desc` 블록(Kakao, Research Intern) — 깨진 `<li>...</li>` 마크업을 제거하고 `cv.html` L123의 동일 항목이 이미 쓰고 있는 관례(줄바꿈 `<br>` + 플레인 텍스트)로 통일. `Research Intern  \n  <li>Worked on...</li>` → `Research Intern<br>Worked on Text-to-Speech research, repurposing Whisper features as a continuous tokenizer for TTS`. CSS 변경 없음(`.experience-desc`는 원래 플레인 텍스트 흐름용으로 스타일되어 있었음).
+
+### 2026-07-07 — SE-NeRF·RAIN-GS 실제 링크 채움 (Paper/Project Page/Code)
+- 배경: 사용자가 두 논문의 실제 Paper/Project Page/Code URL을 제공 — SE-NeRF(arXiv 2312.01003, cvlab-kaist.github.io/SE-NeRF, github.com/cvlab-kaist/SE-NeRF), RAIN-GS(arXiv 2403.09413, cvlab-kaist.github.io/RAIN-GS, github.com/cvlab-kaist/RAIN-GS). 확인해보니 `index.html`·`cv.html`은 이미 대부분 채워져 있었고(둘 다 Project Page 링크가 타이틀에 있었음; RAIN-GS는 index.html에 4버튼 전부 존재), 빠진 건 (a) `CV_LATEX/CV.tex`의 두 `\pubitem` 링크 슬롯(둘 다 `{}` placeholder였음)과 (b) `index.html` SE-NeRF 카드의 Code 버튼뿐이었음.
+- **`CV_LATEX/CV.tex`**: `[W1]`(SE-NeRF) 링크 슬롯 `{} % TODO: add links` → `{\publinks{https://arxiv.org/abs/2312.01003}{https://cvlab-kaist.github.io/SE-NeRF/}{https://github.com/cvlab-kaist/SE-NeRF}}`. `[P1]`(RAIN-GS) 링크 슬롯(빈 `{}` + 죽은 주석 `% {...Code}`) → `{\publinks{https://arxiv.org/abs/2403.09413}{https://cvlab-kaist.github.io/RAIN-GS/}{https://github.com/cvlab-kaist/RAIN-GS}}`(죽은 주석 줄 제거).
+- **`index.html`**: SE-NeRF 카드의 `.publication-links` 블록(Project Page/PDF/arXiv 3버튼만 있었음)에 Code 버튼(`github.com/cvlab-kaist/SE-NeRF`) 추가. RAIN-GS는 이미 4버튼 전부 사용자 제공 URL과 일치 — 변경 없음.
+- **`cv.html`**: 두 항목 모두 이미 `.pub-title`이 Project Page로 링크되어 있어(다른 항목들과 동일한 단일-링크 관례) 변경 없음.
+- **PDF 동기화**: `latexmk -pdf CV.tex` 재빌드(2페이지) → `cp CV_LATEX/CV.pdf JiwonCV.pdf` → `md5` 일치 확인.
+
+### 2026-07-07 — Transferability 논문 Project Page 링크 추가 + Whisper(Kakao) preprint 카드 3곳 모두 주석 처리
+- 배경: 사용자 요청 — (1) `https://cvlab-kaist.github.io/UMM_Transferability/` 프로젝트 페이지 개설 → Paper/Project Page/Code 3개 링크 모두 이 URL로 임시 연결(실제 arXiv/코드 저장소 아직 없음). CV·HTML 모두 반영. (2) HTML의 Preprint 섹션에서 Kakao 관련 카드(Whisper) 1개 주석 처리. Plan mode에서 두 가지 확정: (a) Whisper 항목은 `CV_LATEX/CV.tex`(이미 이전 세션에 주석 처리됨`[P2]`, L227-233)와 동기화되도록 `index.html`·`cv.html` 양쪽 모두에서 주석 처리. (b) `index.html` 버튼 라벨/순서는 사용자 지정대로 **Paper, Project Page, Code** 순(=`\publinks` 매크로가 렌더링하는 문구와 동일하게, 기존 다른 카드들의 "Project Page/PDF/arXiv/Code" 4버튼 관례 대신 3버튼 사용 — arXiv 미등재 상태를 오인시키지 않기 위함).
+- **`CV_LATEX/CV.tex`**: `[C4]`(Transferability) `\pubitem`의 3번째 인자(links)를 `{} % TODO: add links` → `{\publinks{https://cvlab-kaist.github.io/UMM_Transferability/}{https://cvlab-kaist.github.io/UMM_Transferability/}{https://cvlab-kaist.github.io/UMM_Transferability/}}`로 채움(3개 URL 모두 동일, 임시).
+- **`index.html`**: Transferability 카드의 `.publication-desc-list` 뒤에 `.publication-links.buttons.field.has-addons` 블록 신규 추가 — Paper(fa-file-pdf) / Project Page(fa-globe-asia) / Code(fab fa-github) 3버튼, href 전부 위 프로젝트 페이지 URL. Whisper 카드(`id="Whisper"`, 기존 L492-529)는 전체를 `<!-- -->`로 주석 처리(다음 RAIN-GS 카드는 그대로 유지).
+- **`cv.html`**: Transferability 항목의 `.pub-title` 텍스트를 `<a href="https://cvlab-kaist.github.io/UMM_Transferability/">…</a>`로 감쌈. Whisper `.publication-compact` 항목(기존 L269-288)을 전체 `<!-- -->`로 주석 처리(다음 RAIN-GS 컴팩트 항목은 유지).
+- **PDF 동기화**: `latexmk -pdf CV.tex` 재빌드(3페이지, 기존 30pt Overfull 경고만 잔존·무해) → `cp CV_LATEX/CV.pdf JiwonCV.pdf` → `md5` 일치 확인.
+- **후속(사용자 결정 대기)**: Transferability의 실제 arXiv/PDF·GitHub 코드 저장소가 공개되면 위 3개 링크(및 `\publinks` 3개 인자)를 실제 URL로 교체 필요 — 현재는 전부 프로젝트 페이지로 임시 연결된 placeholder 상태.
+
+### 2026-07-06 — 논문 설명 bullet 시제 통일(과거형)·문법 수정 + HTML CV 동기화 (커밋 예정)
+- 배경: 사용자가 `CV.tex`의 bullet 설명을 직접 더 상세한 버전(논문당 2불릿)으로 재작성 → 현재형/과거형 혼재. 요청: 시제 통일 추천 + 문법 검사. 이후 "HTML에도 이 상세 버전 반영" 승인.
+- **`CV_LATEX/CV.tex` 시제·문법**: 모든 논문 bullet의 리드 동사를 **과거형**으로 통일(성과 서술 관례). 문법/오타 수정: [C4] `Investigate…can be transferred`→`Investigated how…transfer`, `UMM`→`unified multimodal models`, `proposed practical`→`proposed a practical`; [C3] `focus`→`focused`, `pareto-optimal`→`Pareto-optimal`; [C2] `Proposedapproach enables…`(오타)→`Enabled…, highlighting…`; [C1] `via proposed framework`→`via the proposed framework`(이전 라운드 `Emprically`→`Empirically`, `systemically`→`systematically`, `layer/heads`→`layers/heads` 유지); [W1] `Self-training framework that…`(동사 없음)→`Proposed a self-training framework…`; [P1] `Relax`→`Relaxed`. (사용자가 병렬 편집 중이라 매 편집 전 파일 재-read로 최신 상태 확인.)
+- **HTML CV 동기화**: `index.html`·`cv.html`의 `.publication-desc-list`에 있던 이전 라운드의 짧은 1불릿 초안 6건을 CV.tex의 최신 2불릿 상세 버전으로 교체([C4]/[C3]/[C2]/[C1] 2불릿, [W1]/[P1] 1불릿). Whisper[P2]는 CV.tex에서 주석 처리(PDF 미포함)되어 있으나 HTML 카드는 유지 — 기존 tokenizer 설명 + "Work done…at Kakao." 2불릿 그대로 보존. 옛 초안 잔존 0건(grep), 양쪽 `publication-desc-list` 각 7건.
+- **검증**: 로컬 서버(`:8123`)+헤드리스 Chrome로 `index.html`/`cv.html` 재렌더 — 모든 논문에 2불릿 상세 설명 표시, venue 배지·링크·썸네일 레이아웃 정상.
+- **미완/후속(사용자 결정 대기)**: (a) CV.pdf가 사용자의 `\largesection`(\LARGE 헤더) 추가로 **3페이지**가 됨 — 2페이지 복원 여부. (b) `JiwonCV.pdf`(사이트 사본) 아직 미동기화 — CV.pdf 확정 후 `cp`. HTML 동기화만 이번에 선행 진행.
+
+### 2026-07-06 — 각 논문에 Work 설명 bullet 추가 (`\pubitem` 6번째 인자) + CV 3중 동기화 (커밋 예정)
+- 배경: 사용자 요청 — CV의 각 논문(Work)에 "무엇을 했는지" 간단한 bullet 설명을 붙이고 싶다. 사용자 제안대로 `\pubitem` 매크로에 **6번째 인자(bullets)** 를 추가하는 방향. 문구는 Claude가 초안 작성, HTML CV에도 미러링(사용자 선택). Plan mode에서 확정.
+- **`CV_LATEX/CV.tex` 매크로 확장**: `\pubitem`를 5→6 인자로(`{label}{title}{links}{authors}{venue}{bullets}`). `\pub@desc`/`\@empty` 빈-인자 테스트를 위해 정의를 `\makeatletter…\makeatother`로 감쌈(파일 내 `\cventry`와 동일 패턴 재사용) — `#6`가 비면 리스트를 그리지 않음. `#6`는 기존 `cvbullets` 환경에 그대로 주입(신규 리스트 정의 없음). 7개 `\pubitem` 호출 각각에 `\item …` 설명 추가(Whisper[P2]는 tokenizer 설명 + "Work done…at Kakao." 2개 bullet). `\lastupdate` → `July 6, 2026`.
+- **페이지 수 복원(2p 유지)**: bullet 8줄 추가로 Extracurricular 섹션이 3페이지로 밀림 → 스페이싱 미세조정으로 2페이지 복원. `cvbullets` topsep 2→1·itemsep 1→0, `\pubitem` 말미 `\vspace` 6pt→1pt(항목 간 간격은 `parskip`가 유지하므로 안전), `\titlespacing*{\section}` 10/6→8/4pt, `\pubgroup` 선두 `\vspace` 4→2pt, Education 두 학력 사이 `\vspace` 4→2pt. gs 렌더로 각 논문 bullet 위치·전체 2페이지 육안 확인.
+- **`index.html`**: 각 논문 카드의 빈 `<p class="publication-description"></p>` 7개를 `<ul class="publication-desc-list"><li>…</li></ul>`로 교체(내용 삽입). Whisper는 기존 "Work done during a research internship at Kakao." 문구를 2번째 `<li>`로 보존(+ tokenizer 설명 `<li>` 추가). 빈 description 슬롯 잔존 0건(grep 확인).
+- **`cv.html`**: 7개 `.publication-compact`의 `.pub-main` 안, `.pub-authors` 다음에 동일 `<ul class="publication-desc-list">` 삽입(문구는 index.html과 동일하게 동기화).
+- **`css/index.css`**: `.publication-desc-list` 규칙 신규(em 기반 크기 → 홈 카드/CV 컴팩트 양쪽에서 자연 축소, `list-style:disc`로 Bulma 기본 마진/불릿 명시 재설정). `.publication-compact .publication-desc-list`로 CV 페이지만 약간 더 작게(0.85em, `--gray-500`).
+- **PDF 동기화**: `latexmk -pdf CV.tex` 재빌드(2페이지, 기존 30pt Overfull 경고만 잔존·무해) → `cp CV_LATEX/CV.pdf JiwonCV.pdf` → `shasum` 일치 확인.
+- **검증**: gs로 CV.pdf 2페이지 렌더(각 논문 venue 바로 밑 bullet·Extracurricular 2페이지 내 수용 확인), 로컬 서버(`:8123`)+헤드리스 Chrome로 `index.html`/`cv.html` 렌더 스크린샷(7개 논문 모두 설명 리스트 표시, Whisper Kakao 문구 보존, 레이아웃 비-cramped 확인). index/cv 각 `publication-desc-list` 7건.
+- **미완/후속**: bullet 문구는 Claude 초안이므로 **사용자 사실관계 검토 필요**(부정확 시 수정). 논문당 bullet 개수(현재 대부분 1개, Whisper 2개)는 다중 `\item`으로 언제든 확장 가능.
+
 ### 2026-06-23 — 본문 폰트를 Lato로 교체 (커밋 예정)
 - 사용자 요청: "지금 상태에서 font Lato로 바꿔봐줄수 있니?" — Noto Sans 유지로 확정했던 직전 결정을 뒤집고 Lato로 변경.
 - `index.html` / `cv.html` Google Fonts import에서 `Noto+Sans:wght@400;500;600;700`를 `Lato:wght@400;700`로 교체. Lato는 Google Fonts에서 100/300/400/700/900 weight만 제공(500/600 없음) — 본문에서 강조용으로 쓰던 `font-weight:600` 규칙(`.venue-badge`, `.award-badge`, `.publication-title`, `.author-me`, `.experience-title`, `.cv-entry-title`, `.cv-subsection-title` 등)은 브라우저가 로드된 weight 중 가장 가까운 700으로 매칭해 렌더링됨 — 별도 CSS 수정 없이 자연스럽게 처리됨.

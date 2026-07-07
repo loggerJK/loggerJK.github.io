@@ -42,7 +42,7 @@
 \titleformat{\section}
   {\large\bfseries}{}{0em}{}
   [\vspace{2pt}{\color{rulegray}\titlerule[0.8pt]}]
-\titlespacing*{\section}{0pt}{10pt}{6pt}
+\titlespacing*{\section}{0pt}{8pt}{4pt}
 
 %==================== HYPERLINKS (load last) ====================
 \usepackage[hidelinks,breaklinks=true]{hyperref}
@@ -57,7 +57,7 @@
 
 %==================== MACROS ====================
 % Update this whenever you edit the CV content (do NOT use \today).
-\newcommand{\lastupdate}{June 23, 2026}
+\newcommand{\lastupdate}{July 6, 2026}
 \newcommand{\cvgap}{\hspace{1.5em}}
 
 \newcommand{\cvheader}{%
@@ -92,8 +92,8 @@
 \makeatother
 
 \newlist{cvbullets}{itemize}{1}
-\setlist[cvbullets]{label=\textbullet, leftmargin=1.4em, topsep=2pt,
-                    itemsep=1pt, parsep=0pt, before=\small}
+\setlist[cvbullets]{label=\textbullet, leftmargin=1.4em, topsep=1pt,
+                    itemsep=0pt, parsep=0pt, before=\small}
 
 % Publication helpers
 \newcommand{\me}[1]{\textbf{\textit{\uline{#1}}}}   % CV owner's name
@@ -103,7 +103,7 @@
   {\color{cvgray}\small *: Equal Contribution,\quad \dag: Corresponding Author}\par
   \vspace{4pt}%
 }
-\newcommand{\pubgroup}[1]{\vspace{4pt}{\large\bfseries #1}\par\vspace{2pt}}
+\newcommand{\pubgroup}[1]{\vspace{2pt}{\Large\bfseries #1}\par\vspace{2pt}}
 
 % Reusable full link blob (Paper | Project Page | Code). Inline a subset if some URLs are unknown.
 \newcommand{\publinks}[3]{%
@@ -111,21 +111,34 @@
   \href{#1}{Paper}~\textbar~\href{#2}{Project Page}~\textbar~\href{#3}{Code}%
 }
 
-% \pubitem{label}{title}{links}{authors}{venue}
+% \pubitem{label}{title}{links}{authors}{venue}{bullets}
 % Title (bold) wraps in the flexible X column; links pin top-right on line 1.
-\newcommand{\pubitem}[5]{%
+% #6 = one or more \item lines describing the work; pass {} to omit
+% (empty test mirrors \cventry, hence the \makeatletter wrapper for \pub@desc/\@empty).
+\makeatletter
+\newcommand{\pubitem}[6]{%
   \begingroup
   \setlength{\tabcolsep}{0pt}%
   \noindent
   \begin{tabularx}{\linewidth}{@{}>{\RaggedRight\arraybackslash}X @{\hspace{1.5em}} r@{}}
     \textbf{#1\ #2} & #3
   \end{tabularx}\par
-  \vspace{1pt}%
+  \vspace{-4pt}%
   #4\par
+  \vspace{-4pt}%
+  \def\pub@desc{#6}%
+  \ifx\pub@desc\@empty\else
+    \begin{cvbullets}#6\end{cvbullets}%
+  \fi
+  \vspace{-4pt}%
   \textit{#5}\par
-  \vspace{6pt}%
   \endgroup
 }
+
+% to LARGE section headers
+\newcommand{\largesection}[1]{\vspace{5pt} \section{\LARGE#1} \vspace{5pt}}
+
+\makeatother
 
 %==================== DOCUMENT ====================
 \begin{document}
@@ -134,23 +147,26 @@
 \cvheader
 
 %-------------------- RESEARCH INTERESTS --------------------
-\section{Research Interests}
-My research focuses on generative models---particularly diffusion- and flow-based
-methods---and their applications across vision, 3D, and multimodal domains.
-I am broadly interested in:
+\largesection{Research Interests}
+
+% I am broadly interested in generative models, world modeling, and multimodal learning. 
+
+My research focuses on generative models, particularly diffusion/flow-based methods and their applications across vision, 3D, and multimodal domains.
+Specifically:
 \begin{cvbullets}
-  \item Diffusion \& Generative AI (Guidance, Sampling, Image / Audio generation)
-  \item 3D Vision (Novel View Synthesis, NeRF, Gaussian Splatting)
+  \vspace{-5pt}
+  \item Diffusion \& Generative AI (Guidance, Sampling, Image Generation)
   \item Unified Multimodal Models
+  \item 3D Vision (Novel View Synthesis, NeRF, Gaussian Splatting)
 \end{cvbullets}
 
 %-------------------- EDUCATION --------------------
-\section{Education}
-\cventry{Integrated M.S./Ph.D. in Artificial Intelligence}{Mar. 2025 -- Present}
+\largesection{Education}
+\cventry{M.S. in Artificial Intelligence}{Mar. 2025 -- Feb. 2027 (Expected)}
         {Kim Jaechul Graduate School of AI, KAIST}{Advisor: \href{https://cvlab.kaist.ac.kr}{Seungryong Kim} (CVLAB)}
-\vspace{4pt}
+\vspace{2pt}
 \cventry{B.S. in Computer Science and Engineering}{Mar. 2019 -- Feb. 2025}
-        {Korea University, Seoul}{}
+        {Korea University}{}
 \begin{cvbullets}
   \item GPA: 4.24 / 4.5
   \item Double Major in Statistics
@@ -159,29 +175,32 @@ I am broadly interested in:
 \end{cvbullets}
 
 %-------------------- EXPERIENCE --------------------
-\section{Experience}
+\largesection{Experience}
 \cventry{Kakao, Seoul}{Mar. 2026 -- May 2026}{Research Intern}{}
 \begin{cvbullets}
-  \item Worked on \textit{Exploring Whisper as a Continuous Tokenizer for Text-to-Speech} (under review).
+  \item Worked on Text-to-Speech research, repurposing Whisper features as a continuous tokenizer for TTS.
 \end{cvbullets}
 
 %-------------------- PUBLICATIONS --------------------
-\section{Publications}
+\largesection{Publications}
 \publegend
 
 \pubgroup{International Conference}
 
 \pubitem{[C4]}
   {Transferability Between Understanding and Generation in Unified Multimodal Models}
-  {} % TODO: add links
+  {\publinks{https://cvlab-kaist.github.io/UMM_Transferability/}{https://cvlab-kaist.github.io/UMM_Transferability/}{https://cvlab-kaist.github.io/UMM_Transferability/}}
   {\me{Jiwon Kang}\eqc, Heeji Yoon\eqc, Jaewoo Jung, Jaewon Min, Minkyeong Jeon, Biyeon Hwang, Sangwon Jung, Seungryong Kim\corr}
   {European Conference on Computer Vision (ECCV 2026).}
+  {\item Investigated how understanding and generation capabilities (e.g., counting) transfer to one another within unified multimodal models. \item Showed that transferability depends on the model architecture, and proposed a practical post-training strategy for unified multimodal models that leverages transferability.}
 
+\clearpage
 \pubitem{[C3]}
   {APPLE: Attribute-Preserving Pseudo-Labeling for Diffusion-Based Face Swapping}
   {\publinks{https://arxiv.org/abs/2601.15288}{https://cvlab-kaist.github.io/APPLE/}{https://github.com/cvlab-kaist/APPLE}}
   {\me{Jiwon Kang}\eqc, Yeji Choi\eqc, JoungBin Lee, Wooseok Jang, Jinhyeok Choi, Taekeun Kang, Yongjae Park, Myungin Kim, Seungryong Kim\corr}
   {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026).}
+  {\item Prior diffusion-based face swapping methods focused on changing facial identity, failing to preserve facial attributes. \item Proposed a novel pseudo-labeling framework that preserves facial attributes while swapping identities, achieving Pareto-optimal results.}
   % {\small\color{linkblue}\href{https://arxiv.org/abs/2601.15288}{Paper}~\textbar~\href{https://cvlab-kaist.github.io/APPLE/}{Project Page}}
 
 \pubitem{[C2]}
@@ -189,35 +208,40 @@ I am broadly interested in:
   {\publinks{https://arxiv.org/abs/2412.03895}{https://cvlab-kaist.github.io/NoiseRefine/}{https://github.com/cvlab-kaist/NoiseRefine}}
   {Donghoon Ahn\eqc, \me{Jiwon Kang}\eqc, Sanghyun Lee, Jaewon Min, Wooseok Jang, Minjae Kim, Hyungwon Cho, Sayak Paul, SeonHwa Kim, Eunju Cha\corr, Kyong Hwan Jin\corr, Seungryong Kim\corr}
   {International Conference on Learning Representations (ICLR 2026).}
+  {\item Showed that classifier-free guidance can be replaced by refining the initial noise. \item Enabled high-quality generation without a guidance pass, highlighting the importance of the initial noise in diffusion models.}
 
 \pubitem{[C1]}
   {Where and How to Perturb: On the Design of Perturbation Guidance in Diffusion and Flow Models}
   {\publinks{https://arxiv.org/abs/2506.10978}{https://cvlab-kaist.github.io/HeadHunter/}{https://github.com/cvlab-kaist/HeadHunter}}
   {Donghoon Ahn\eqc, \me{Jiwon Kang}\eqc, Sanghyun Lee, Minjae Kim, Wooseok Jang, Jaewon Min, Sangwu Lee, Sayak Paul, Seungryong Kim\corr}
   {Conference on Neural Information Processing Systems (NeurIPS 2025).}
+  {\item Systematically studied perturbation guidance in diffusion and flow models. \item Showed that perturbing different layers/heads in a diffusion model exhibits different effects on the generated samples, which can be systematically combined to improve user-specified attributes via the proposed framework.}
 
 \pubgroup{Workshop}
 
 \pubitem{[W1]}
   {Self-Evolving Neural Radiance Fields}
-  {} % TODO: add links
+  {\publinks{https://arxiv.org/abs/2312.01003}{https://cvlab-kaist.github.io/SE-NeRF/}{https://github.com/cvlab-kaist/SE-NeRF}}
   {Jaewoo Jung\eqc, Jisang Han\eqc, \me{Jiwon Kang}\eqc, Seongchan Kim, Min-Seop Kwak, Seungryong Kim\corr}
   {ICCV 2025 Workshop on Wild3D: 3D Modeling, Reconstruction, and Generation in the Wild.}
+  {\item Proposed a self-training framework that lets a NeRF improve itself from few input views via pseudo-label distillation.}
 
 \pubgroup{Preprints \& Under Review}
 
-\pubitem{[P2]}
-  {Exploring Whisper as a Continuous Tokenizer for Text-to-Speech}
-  {} % TODO: add links
-  {\me{Jiwon Kang}, Heeji Yoon, Woo-Young Kang, Sunghun Kang, Jihwan Eom, Jaeyeol Jeon, Byungseok Roh, Seungryong Kim\corr}
-  {Under Review.}
+% \pubitem{[P2]}
+%   {Exploring Whisper as a Continuous Tokenizer for Text-to-Speech}
+%   {} % TODO: add links
+%   {\me{Jiwon Kang}, Heeji Yoon, Woo-Young Kang, Sunghun Kang, Jihwan Eom, Jaeyeol Jeon, Byungseok Roh, Seungryong Kim\corr}
+%   {Under Review.}
+%   {\item Repurpose Whisper encoder features as a continuous tokenizer for text-to-speech.
+%    \item Work done during a research internship at Kakao.}
 
 \pubitem{[P1]}
   {RAIN-GS: Relaxing Accurate Initialization Constraint for 3D Gaussian Splatting}
-  % {\small\color{linkblue}\href{https://github.com/cvlab-kaist/RAIN-GS}{Code}}
-  {}
+  {\publinks{https://arxiv.org/abs/2403.09413}{https://cvlab-kaist.github.io/RAIN-GS/}{https://github.com/cvlab-kaist/RAIN-GS}}
   {Jaewoo Jung\eqc, Jisang Han\eqc, Honggyu An\eqc, \me{Jiwon Kang}\eqc, Seonghoon Park\eqc, Seungryong Kim\corr}
   {Under Review.}
+  {\item Relaxed the accurate point-cloud initialization requirement of 3D Gaussian Splatting, enabling training from sparse or random initialization.}
 
 %-------------------- HONORS (TODO: confirm accuracy before un-commenting) --------------------
 % \section{Honors \& Awards}
@@ -243,12 +267,13 @@ I am broadly interested in:
 % \end{cvbullets}
 
 %-------------------- EXTRACURRICULAR --------------------
-\section{Extracurricular Activities}
+\largesection{Extracurricular Activities}
 \cventry{AIKU (Artificial Intelligence Society of Korea University)}{Sep. 2022 -- Aug. 2023}
-        {Co-founder and Vice President}{}
-\begin{cvbullets}
-  \item Academic research society for undergraduate students
-\end{cvbullets}
+        {Co-founder \& Vice President of academic research society for undergraduate students}{}
+% \begin{cvbullets}
+%   % \vspace{-5pt}
+%   \item Academic research society for undergraduate students
+% \end{cvbullets}
 
 %-------------------- TECHNICAL SKILLS / COURSEWORK (TODO) --------------------
 % \section{Technical Skills}
