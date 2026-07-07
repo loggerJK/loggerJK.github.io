@@ -23,6 +23,26 @@
 
 ## Changelog
 
+### 2026-07-08 — cv.html Education 항목의 Leave of Absence/Research Intern 줄 불릿 처리
+- 배경: 직전 수정(바로 아래 항목)에서 `cv.html` Education의 Korea University desc에 `<br>`로만 줄바꿈해 추가했던 "Leave of Absence..."·"Undergraduate Research Intern..." 두 줄을 사용자가 불릿 포인트로 바꿔달라고 요청.
+- 조사: `.cv-entry-desc`에는 리스트 스타일 override가 없고, Bulma 기본 리셋(`ul{margin:0;padding:0} ul{list-style:none}`)이 전역 적용되어 있어 raw `<ul><li>`는 불릿이 안 보임. 동일한 문제를 이미 `.experience-desc-list`(`css/index.css` L94)·`.publication-desc-list`(L160)에서 override 클래스로 해결한 전례가 있어 같은 패턴 재사용.
+- **`css/index.css`**: `.cv-entry-desc` 규칙 블록 바로 뒤에 `.cv-entry-desc-list` 신규 추가 — `list-style: disc; margin: 0.15em 0 0 1.1em; padding: 0;` (색상·글자크기는 `.cv-entry-desc`에서 상속, `.experience-desc-list`와 동일한 최소 override 방식).
+- **`cv.html`**: Korea University 항목의 desc를 "B.S. ... GPA: 4.24/4.5" 평문 첫 줄 + `<ul class="cv-entry-desc-list">` 안에 Leave of Absence·Undergraduate Research Intern 두 `<li>`로 재구성.
+- 참고: 숨겨진(주석 처리된) Research Interests 블록도 동일한 raw `<ul>` 문제를 갖고 있으나 현재 미노출 상태라 이번 스코프에서는 손대지 않음.
+
+### 2026-07-08 — CV.tex 변경사항 cv.html/index.html 동기화 + JiwonCV.pdf 중복 제거
+- 배경: 사용자 요청 — (1) 직전 `CV_LATEX/CV.tex` 변경사항(KATUSA 불릿화, 사용자가 직접 수정한 Research Interests 문단/불릿 순서, Education "Leave of Absence" 불릿)을 `cv.html`·`index.html`에도 반영. (2) 루트의 `JiwonCV.pdf`는 중복 파일이니 삭제하고 `CV_LATEX/CV.pdf`로 연결되게 정리. 조사 결과 `index.html`의 "CV" 버튼은 이미 `./CV_LATEX/CV.pdf`를 직접 링크하고 있었고(과거 커밋 `da693669`에서 `JiwonCV.pdf`가 git 추적에서 제외됨), `JiwonCV.pdf`를 참조하는 HTML/JS가 전혀 없어 완전히 죽은 파일이었음. index.html 소개 문구를 CV.tex 새 문단으로 교체할지는 Plan mode에서 사용자에게 확인 후 "교체" 선택.
+- **`cv.html`**: (a) Education의 Korea University 항목 desc에 `Leave of Absence for R.O.K. Military Service (Dec. 2020 – Jun. 2022)` 줄 추가(GPA/Double Major와 Research Intern 사이, CV.tex 불릿 순서와 동일). (b) Extracurricular Activities에 KATUSA 항목 신규 추가(기존엔 AIKU만 있었음) — 형제 항목(AIKU, Kakao Experience)과 동일한 plain-text `.cv-entry-desc` 패턴 사용(`.cv-entry-desc`에 리스트 스타일이 없어 `<ul>` 대신 단일 문장으로). (c) 주석 처리된(숨김) Research Interests 블록의 문단/불릿 순서를 CV.tex 최신 내용으로 갱신(계속 숨김 유지, 재활성화 안 함).
+- **`index.html`**: 소개 문구(intro bio, 두 번째 문장)를 CV.tex의 새 Research Interests 문단("Starting my research career in 3D vision...")으로 교체.
+- **`JiwonCV.pdf` 삭제**: `rm JiwonCV.pdf`(비추적 파일이라 git 상 영향 없음).
+- **`CLAUDE.md`**: "CV exists in three places" 섹션을 "두 곳"으로 수정(`JiwonCV.pdf` 단계 제거, `CV_LATEX/CV.pdf`가 사이트 CV 버튼이 직접 링크하는 대상임을 명시). Commands 섹션에서 `cp CV_LATEX/CV.pdf JiwonCV.pdf` 단계 제거.
+
+### 2026-07-08 — CV.tex: KATUSA 소속 정보를 불릿 포인트로 변경
+- 배경: 사용자가 `CV_LATEX/CV.tex`의 Extracurricular Activities 섹션에서 KATUSA 항목의 부대 정보("194th DSSB, 2nd Infantry Division, Eighth U.S. Army, Camp Humphreys")를 불릿 포인트로 바꿔달라고 요청. 기존에는 `\cventry`의 3번째 인자(plain 2nd-line)로 렌더링되고 있었음.
+- **`CV_LATEX/CV.tex`** (L273): `\cventry{KATUSA...}{Dec. 2020 -- Jun. 2022}{194th DSSB, ...}{}` → 3/4번째 인자를 빈 값으로 바꾸고, 부대 정보를 `\begin{cvbullets}\item ...\end{cvbullets}`로 이동. Education/Experience 섹션에서 이미 쓰이던 동일한 `cvbullets` 패턴을 재사용(신규 마크업 없음). AIKU 항목은 변경하지 않음(사용자가 KATUSA만 지정).
+- **PDF 동기화**: `latexmk -pdf CV.tex` 재빌드(2페이지, 기존 30pt Overfull 경고만 잔존·무해) → `cp CV_LATEX/CV.pdf JiwonCV.pdf` → md5 일치 확인.
+- 참고: 이 작업 도중 사용자가 Research Interests 문단 재작성(3D vision → Master's 확장 스토리), 해당 불릿 순서 변경(Image Generation을 맨 앞으로), Education 섹션에 "Leave of Absence for R.O.K. Military Service" 불릿 추가를 에디터에서 직접 수행한 것을 확인. 이 변경들은 사용자가 외부에서 직접 수정한 것이며 그대로 유지, PDF 재빌드에 함께 반영됨.
+
 ### 2026-07-07 — Experience 항목 role/desc 구분용 불릿 추가
 - 배경: 직전 수정(바로 아래 항목)에서 `<br>`로만 줄바꿈했더니 "Research Intern"과 "Worked on..." 두 줄이 시각적으로 구분되지 않는다는 피드백. 원본 `<li>` 시도의 의도(불릿으로 구분)는 맞았으나 `<ul>` 없이 썼던 게 문제였으므로, 이번엔 제대로 된 `<ul>`로 감싸 disc 불릿을 정상 렌더링.
 - **`index.html`**: `.experience-desc` 안에서 `Research Intern<br>Worked on...` → `Research Intern` 텍스트 다음에 `<ul class="experience-desc-list"><li>Worked on...</li></ul>` 중첩 구조로 변경.

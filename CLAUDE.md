@@ -29,12 +29,11 @@ The repo holds three independent parts:
 - **Toggle-by-comment pattern:** sections that don't apply yet are kept in the HTML inside `<!-- ... -->` so they can be switched on later. Currently commented out: the **Experience** section, **X/LinkedIn** buttons, **Google Analytics** snippet, and **favicon** links. Re-enable by removing the comment wrapper (and filling the `G-XXXXXXX` / URL placeholders).
 - **Thumbnails:** `images/SE-NeRF.png` and `images/RAIN-GS.png` are real teasers (Jiwon co-authored those); every other publication uses `images/placeholder.svg`. Swap in real teasers by replacing the `src`.
 
-## The CV exists in three places — keep them in sync
+## The CV exists in two places — keep them in sync
 
-A change to publications/education must be mirrored across all three:
-1. `CV_LATEX/CV.tex` → compiles to `CV_LATEX/CV.pdf` (the canonical CV).
-2. `JiwonCV.pdf` (repo root) — the copy the site's "CV" button links to. Update it from the LaTeX output (see commands).
-3. `cv.html` and the Publications block in `index.html` — the HTML rendering.
+A change to publications/education must be mirrored across both:
+1. `CV_LATEX/CV.tex` → compiles to `CV_LATEX/CV.pdf` (the canonical CV; the site's "CV" button on `index.html` links directly to this file — there is no separate root-level copy).
+2. `cv.html` and the Publications block in `index.html` — the HTML rendering.
 
 ## Commands
 
@@ -44,9 +43,6 @@ python3 -m http.server 8000
 
 # Rebuild the CV PDF from LaTeX
 cd CV_LATEX && latexmk -pdf CV.tex      # (latexmk is already in use here; or: pdflatex CV.tex)
-
-# After rebuilding, update the site's linked CV copy
-cp CV_LATEX/CV.pdf JiwonCV.pdf
 
 # Deploy: GitHub Pages serves master directly — just commit & push, no build.
 git add -A && git commit && git push origin master
