@@ -62,17 +62,17 @@
 
 \newcommand{\cvheader}{%
   {\Huge\bfseries Jiwon Kang}\par
-  \vspace{2pt}
+  % \vspace{2pt}
   {\color{cvgray}\small Last update: \lastupdate}\par
-  \vspace{6pt}
+  % \vspace{6pt}
   {\small
-    % \href{https://TODO.github.io}{\faGlobe\ Personal Website}\cvgap   % TODO: personal website
+    \href{https://loggerjk.github.io/}{\faHome\ Personal Website}\cvgap
     \href{https://scholar.google.com/citations?user=A2PurdIAAAAJ}{\faGraduationCap\ Google Scholar}\cvgap
     \href{mailto:jiwon7258@kaist.ac.kr}{\faEnvelope\ jiwon7258@kaist.ac.kr}\cvgap
     \href{https://github.com/loggerJK}{\faGithub\ loggerJK}\cvgap
     \href{https://www.linkedin.com/in/jiwon-kang-b02b0911b/}{\faLinkedin\ LinkedIn}%
   }\par
-  \vspace{10pt}
+  % \vspace{10pt}
 }
 
 % Education / Experience entry: \cventry{Title}{Date}{2nd-line-left}{2nd-line-right}
@@ -87,7 +87,11 @@
 \newcommand{\cventry}[4]{%
   \cv@line{\textbf{#1}}{#2}%
   \def\cv@second{#3}%
-  \ifx\cv@second\@empty\else\cv@line{#3}{#4}\fi
+  \ifx\cv@second\@empty\else
+    \vspace{-7pt}%
+    \cv@line{#3}{#4}%
+  \fi
+  \vspace{-5pt}%
 }
 \makeatother
 
@@ -136,7 +140,7 @@
 }
 
 % to LARGE section headers
-\newcommand{\largesection}[1]{\vspace{5pt} \section{\LARGE#1} \vspace{5pt}}
+\newcommand{\largesection}[1]{\vspace{3pt} \section{\LARGE#1} \vspace{3pt}}
 
 \makeatother
 
@@ -177,11 +181,15 @@ Key research areas include:
 
 %-------------------- EXPERIENCE --------------------
 \largesection{Experience}
-\cventry{Kakao, Seoul}{Mar. 2026 -- May 2026}{Research Intern}{}
+\cventry{Kakao}{Mar. 2026 -- May 2026}{Research Intern}{\textit{Seoul, Korea}}
 \begin{cvbullets}
   \item Worked on Text-to-Speech research, repurposing Whisper as a continuous tokenizer for autoregressive diffusion-based TTS model.
 \end{cvbullets}
 
+\cventry{SAMSUNG}{Aug. 2026 -- Oct. 2026}{Research Collaboration}{\textit{Seoul, Korea}}
+\begin{cvbullets}
+  \item Collaborated with Samsung Electronics on background face anonymization via generative face-swapping \hyperref[APPLE]{[C3]}.
+\end{cvbullets}
 %-------------------- PUBLICATIONS --------------------
 \largesection{Publications}
 \publegend
@@ -195,7 +203,7 @@ Key research areas include:
   {European Conference on Computer Vision (ECCV 2026).}
   {\item Investigated how understanding and generation capabilities (e.g., counting) transfer to one another within unified multimodal models. \item Showed that transferability depends on the model architecture, and proposed a practical post-training strategy for unified multimodal models that leverages transferability.}
 
-\clearpage
+\label{APPLE}
 \pubitem{[C3]}
   {APPLE: Attribute-Preserving Pseudo-Labeling for Diffusion-Based Face Swapping}
   {\publinks{https://arxiv.org/abs/2601.15288}{https://cvlab-kaist.github.io/APPLE/}{https://github.com/cvlab-kaist/APPLE}}
@@ -279,7 +287,6 @@ Key research areas include:
 \cventry{AIKU (Artificial Intelligence Society of Korea University)}{Sep. 2022 -- Aug. 2023}
         {}{}
 \begin{cvbullets}
-  % \vspace{-5pt}
   \item Co-founder \& Vice President of academic research society for undergraduate students
 \end{cvbullets}
 

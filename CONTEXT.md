@@ -23,6 +23,29 @@
 
 ## Changelog
 
+### 2026-07-08 — 전체 문서 압축(3페이지 → 2페이지 복귀): `\largesection` 간격 축소
+- 배경: SAMSUNG Experience 항목·KATUSA MOS 불릿 등 콘텐츠가 늘면서 CV.pdf가 2페이지에서 3페이지로 늘어남. 사용자가 "한 줄씩만 위로 올리고 싶다"고 요청 — 확인 결과 실제로 페이지 3에는 AIKU 항목의 불릿 한 줄("Co-founder & Vice President...")만 넘어가 있었고, 페이지 2는 바닥까지 꽉 찬 상태였음(ghostscript로 각 페이지 PNG 렌더해서 확인).
+- Plan mode에서 "전체 문서 압축(2페이지 복귀 목표)" vs "특정 섹션만" 중 사용자가 전자를 선택.
+- **`CV_LATEX/CV.tex`** (L143): `\largesection` 매크로(모든 `\section` 앞뒤에 붙는 공용 간격, `Research Interests/Education/Experience/Publications/Extracurricular Activities` 5개 섹션에 전부 적용)의 `\vspace{5pt} ... \vspace{5pt}` → `\vspace{3pt} ... \vspace{3pt}`로 축소. 섹션당 앞뒤 각 2pt씩, Extracurricular 이전에 이미 4개 섹션(8회 적용)을 지나므로 필요한 한 줄(~12pt) 분량을 넉넉히 확보 — 개별 항목이 아니라 이미 존재하는 단일 공용 매크로를 살짝 조정하는 방식이라 전체 문서에 고르게, 눈에 띄지 않게 분산 적용됨.
+- **검증**: `latexmk -pdf CV.tex` 재빌드 → 3페이지 → **2페이지**로 복귀 확인. ghostscript로 1·2페이지 렌더 → AIKU 불릿이 2페이지 안에 들어옴, 전체 여백감도 부자연스럽게 좁아지지 않음 확인.
+
+### 2026-07-08 — `\cventry` 매크로: 2번째 줄 생략 시 줄간격 이중 적용 버그 수정
+- 배경: 사용자가 KATUSA/AIKU(Extracurricular) 항목과 Kakao/SAMSUNG(Experience) 항목이 같은 `\cventry` 매크로를 쓰는데도 불릿 리스트와의 줄간격이 확연히 다르다고 리포트(스크린샷 비교) — KATUSA/AIKU는 타이틀 줄과 불릿이 거의 겹칠 정도로 붙어 있었음.
+- 원인: `\cventry`(`CV_LATEX/CV.tex:87-93`, 사용자가 직전에 직접 추가한 `\vspace{-7pt}`/`\vspace{-5pt}` 튜닝)에서 두 `\vspace`가 2번째 줄(`#3`/`#4`) 존재 여부와 무관하게 항상 실행됨. Kakao/SAMSUNG처럼 2번째 줄이 있으면 `-7pt`는 줄1↔줄2 사이, `-5pt`는 줄2↔불릿 사이로 각각 분산되어 정상으로 보이지만, KATUSA/AIKU처럼 2번째 줄을 `{}{}`로 생략하면(`L280`, `L286-287`) `\ifx...\else...\fi` 분기가 스킵되면서 두 `\vspace`가 연달아 그대로 실행되어 줄1↔불릿 사이에 합계 -12pt가 몰빵됨 — 이게 겹쳐 보이는 원인.
+- **`CV_LATEX/CV.tex`** (L87-93): `\vspace{-7pt}`를 `\ifx\cv@second\@empty\else ... \fi` 분기 안으로 옮겨 2번째 줄이 실제로 렌더링될 때만 실행되도록 수정. 마지막 `\vspace{-5pt}`는 그대로 무조건 실행(2번째 줄이 있든 없든 그다음 콘텐츠와의 간격을 담당). 결과: 2번째 줄이 있는 항목(Kakao/SAMSUNG/Education)은 기존과 동일, 2번째 줄이 없는 항목(KATUSA/AIKU)은 `-5pt` 하나만 적용되어 정상적인 간격으로 보임.
+- **검증**: `latexmk -pdf CV.tex` 재빌드(3페이지, 기존 30pt Overfull 경고만 잔존) → ghostscript(`gs`)로 Extracurricular 페이지 PNG 렌더 → KATUSA/AIKU 불릿이 더 이상 타이틀과 겹치지 않고 Kakao 스타일과 일관된 간격으로 나오는 것 확인.
+
+### 2026-07-08 — CV.tex Experience(Kakao) 항목: 지역명을 우측 하단으로 이동
+- 배경: 사용자가 다른 CV의 "PROJECT" 섹션 스크린샷을 참고로, 지역명(예: "Seoul, Korea")을 항목 2번째 줄 우측에 이탤릭체로 배치하는 형식을 요청. `CV_LATEX/CV.tex`에서 지역명이 타이틀에 섞여 있던 곳은 Experience 섹션의 Kakao 항목("Kakao, Seoul")이 유일(Education 항목들은 기관명만 있고 별도 지역명 없음).
+- **`CV_LATEX/CV.tex`** (L180): `\cventry{Kakao, Seoul}{Mar. 2026 -- May 2026}{Research Intern}{}` → `\cventry{Kakao}{Mar. 2026 -- May 2026}{Research Intern}{\textit{Seoul}}`. 기존 `\cventry{Title}{Date}{2nd-line-left}{2nd-line-right}` 매크로의 4번째 인자(이미 Education/KAIST 항목의 "Advisor: ..."에 쓰이던 우측 정렬 슬롯)를 재사용 — 신규 매크로 없이 "Seoul"을 이동 후 `\textit{}`로 이탤릭 처리.
+- **PDF 동기화**: `latexmk -pdf CV.tex` 재빌드(2페이지, 기존 30pt Overfull 경고만 잔존·무해).
+- **스코프 제외**: `cv.html`·`index.html`의 Experience 항목은 여전히 "Kakao, Seoul"로 결합되어 있음 — 사용자가 이번 요청을 CV.tex로 한정했으므로 HTML은 미변경.
+
+### 2026-07-08 — CV.tex 헤더에 Personal Website 링크 추가
+- 배경: 사용자가 `CV_LATEX/CV.tex` 헤더에 개인 홈페이지 링크(`https://loggerjk.github.io/`)를 아이콘과 함께 Google Scholar 왼쪽에 추가해달라고 요청.
+- **`CV_LATEX/CV.tex`** (`\cvheader` 매크로, L69): 이미 존재하던 주석 처리된 placeholder `% \href{https://TODO.github.io}{\faGlobe\ Personal Website}\cvgap % TODO: personal website`를 주석 해제하고 실제 URL로 교체 → `\href{https://loggerjk.github.io/}{\faHome\ Personal Website}\cvgap`. 위치상 Google Scholar 바로 앞이라 요청대로 왼쪽에 배치됨. 아이콘은 처음엔 기존 placeholder의 `\faGlobe`를 그대로 썼으나, 사용자가 곧바로 집 아이콘으로 바꿔달라고 요청하여 `\faHome`으로 교체(둘 다 fontawesome5 fallback 블록(L35-38)에 이미 정의되어 있어 신규 의존성 없음).
+- **PDF 동기화**: `latexmk -pdf CV.tex` 재빌드 2회(아이콘 변경 반영, 최종 2페이지, 기존 30pt Overfull 경고만 잔존·무해).
+
 ### 2026-07-08 — cv.html Education 항목의 Leave of Absence/Research Intern 줄 불릿 처리
 - 배경: 직전 수정(바로 아래 항목)에서 `cv.html` Education의 Korea University desc에 `<br>`로만 줄바꿈해 추가했던 "Leave of Absence..."·"Undergraduate Research Intern..." 두 줄을 사용자가 불릿 포인트로 바꿔달라고 요청.
 - 조사: `.cv-entry-desc`에는 리스트 스타일 override가 없고, Bulma 기본 리셋(`ul{margin:0;padding:0} ul{list-style:none}`)이 전역 적용되어 있어 raw `<ul><li>`는 불릿이 안 보임. 동일한 문제를 이미 `.experience-desc-list`(`css/index.css` L94)·`.publication-desc-list`(L160)에서 override 클래스로 해결한 전례가 있어 같은 패턴 재사용.
