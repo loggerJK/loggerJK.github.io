@@ -10,7 +10,7 @@
 %==================== GEOMETRY & ENCODING ====================
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[letterpaper,left=0.75in,right=0.75in,top=0.75in,bottom=0.75in]{geometry}
+\usepackage[letterpaper,left=0.75in,right=0.75in,top=0.6in,bottom=0.75in]{geometry}
 
 %==================== FONTS ====================
 \usepackage{lmodern}              % math symbols stay Latin Modern (matches reference)
@@ -42,7 +42,7 @@
 \titleformat{\section}
   {\large\bfseries}{}{0em}{}
   [\vspace{2pt}{\color{rulegray}\titlerule[0.8pt]}]
-\titlespacing*{\section}{0pt}{8pt}{4pt}
+\titlespacing*{\section}{0pt}{6pt}{4pt}
 
 %==================== HYPERLINKS (load last) ====================
 \usepackage[hidelinks,breaklinks=true]{hyperref}
@@ -140,7 +140,7 @@
 }
 
 % to LARGE section headers
-\newcommand{\largesection}[1]{\vspace{3pt} \section{\LARGE#1} \vspace{3pt}}
+\newcommand{\largesection}[1]{\vspace{1pt} \section{\LARGE#1} \vspace{1pt}}
 
 \makeatother
 
@@ -155,11 +155,11 @@
 
 % I am broadly interested in generative models, world modeling, and multimodal learning. 
 
-Starting my research career in 3D vision, I expanded my focus during my Master's to Generative AI, practical applications, and Unified Multimodal Models (UMMs). Recently, I am interested in the challenge of world modeling by combining 3D vision capabilities with generative knowledge, which can be extended to real world robotics and immersive gaming environments.
+Having started my research career in 3D vision, I expanded my focus during my Master's to Generative AI, including its practical applications, and Unified Multimodal Models (UMMs). Recently, I have become interested in the challenge of world modeling by combining 3D vision capabilities with generative knowledge, which can be extended to real-world robotics and immersive gaming environments.
 Key research areas include:
 \begin{cvbullets}
   \vspace{-5pt}
-  \item Diffusion \& Generative AI (Image Generation, Guidance, Sampling)
+  \item Diffusion \& Generative AI (Image Generation, Guidance, Sampling, Facial Generation)
   \item Unified Multimodal Models
   \item 3D Vision (Novel View Synthesis, NeRF, Gaussian Splatting)
 \end{cvbullets}
@@ -183,10 +183,11 @@ Key research areas include:
 \largesection{Experience}
 \cventry{Kakao}{Mar. 2026 -- May 2026}{Research Intern}{\textit{Seoul, Korea}}
 \begin{cvbullets}
-  \item Worked on Text-to-Speech research, repurposing Whisper as a continuous tokenizer for autoregressive diffusion-based TTS model.
+  \item Worked on Text-to-Speech research, repurposing Whisper as a continuous tokenizer for autoregressive diffusion-based TTS model \hyperref[Whisper]{[P2]}.
 \end{cvbullets}
 
-\cventry{SAMSUNG}{Aug. 2026 -- Oct. 2026}{Research Collaboration}{\textit{Seoul, Korea}}
+\largesection{Projects}
+\cventry{SAMSUNG}{Aug. 2025 -- Oct. 2025}{Research Collaboration}{\textit{Seoul, Korea}}
 \begin{cvbullets}
   \item Collaborated with Samsung Electronics on background face anonymization via generative face-swapping \hyperref[APPLE]{[C3]}.
 \end{cvbullets}
@@ -237,13 +238,14 @@ Key research areas include:
 
 \pubgroup{Preprints \& Under Review}
 
-% \pubitem{[P2]}
-%   {Exploring Whisper as a Continuous Tokenizer for Text-to-Speech}
-%   {} % TODO: add links
-%   {\me{Jiwon Kang}, Heeji Yoon, Woo-Young Kang, Sunghun Kang, Jihwan Eom, Jaeyeol Jeon, Byungseok Roh, Seungryong Kim\corr}
-%   {Under Review.}
-%   {\item Repurpose Whisper encoder features as a continuous tokenizer for text-to-speech.
-%    \item Work done during a research internship at Kakao.}
+\label{Whisper}
+\pubitem{[P2]}
+  {Exploring Whisper as a Continuous Tokenizer for Text-to-Speech}
+  {} % TODO: add links
+  {\me{Jiwon Kang}, Heeji Yoon, Woo-Young Kang, Sunghun Kang, Jihwan Eom, Jaeyeol Jeon, Byungseok Roh, Seungryong Kim\corr}
+  {Under Review.}
+  {\item Inspired by the success of RAE in the vision domain, we explored whether ASR-supervised audio representations (Whisper) could be repurposed as generative representations on top of an autoregressive diffusion-based TTS model.}
+  %  \item Work done during a research internship at Kakao.}
 
 \pubitem{[P1]}
   {RAIN-GS: Relaxing Accurate Initialization Constraint for 3D Gaussian Splatting}

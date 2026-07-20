@@ -23,6 +23,31 @@
 
 ## Changelog
 
+### 2026-07-21 — CV.tex [C4] venue 줄을 1페이지로 끌어올림 (3페이지 유지·내용 무변경)
+- 배경: `CV_LATEX/CV.pdf`가 3페이지인데 **[C4] Transferability 항목이 페이지 경계에서 쪼개져** venue 줄("European Conference on Computer Vision (ECCV 2026).") 한 줄만 2페이지 최상단에 orphan으로 넘어가 있었음. 사용자가 "1페이지 딱 한 줄 올리고 싶다, 내용은 지금 그대로"라고 요청. AskUserQuestion으로 목표(=이 venue 줄을 1페이지로 올려 [C4] 전체가 1페이지에 담기게, 3페이지 유지)와 방식(=Claude가 최소 변경으로 빌드·렌더 검증하며 조정) 확정.
+- 진단: `top` 여백 `0.75in→0.6in`만으로는 1페이지에서 ≈10.8pt 확보했으나 **임계치(한 줄 ≈13pt)를 못 넘겨** venue 줄이 여전히 2페이지 최상단에 남음(gs 렌더로 확인). `\largesection` 간격을 추가로 줄여 임계치를 넘김 — CONTEXT.md 2026-07-08 기록대로 페이지 나눔은 "줄"이 아니라 "블록/임계치" 단위라 두 레버를 합쳐야 넘어옴.
+- **`CV_LATEX/CV.tex`** 최종 변경(스페이싱 값 2곳):
+  - L13 `\usepackage[...]{geometry}`: `top=0.75in` → `top=0.6in` (left/right/bottom 0.75in 유지). 섹션 리듬은 그대로 두고 페이지 높이만 확보하는 가장 자연스러운 레버.
+  - L143 `\largesection`: `\vspace{2pt} ... \vspace{2pt}` → `\vspace{1pt} ... \vspace{1pt}` (1페이지 5개 largesection 공용: Research Interests/Education/Experience/Projects/Publications, 각 앞뒤 1pt씩 절약).
+  - 문구·불릿·내용은 전혀 안 건드림 — diff는 이 스페이싱 값 2개뿐.
+- **검증**: `latexmk -pdf CV.tex` 재빌드 로그 `3 pages` 유지(기존 30pt Overfull 경고만 잔존·무해). gs로 1·2페이지 렌더 → 1페이지 맨 끝이 [C4] venue 줄로 끝나며 **[C4] 전체가 1페이지에 담김**, 2페이지 맨 위가 [C3] APPLE 제목부터 시작(orphan 해소), 1페이지 섹션 간격도 여전히 자연스러움(촘촘해 보이지 않음) 확인. 3페이지 Extracurricular는 무변경.
+- **HTML 미변경**: 순수 LaTeX 레이아웃 스페이싱이라 `index.html`/`cv.html` 동기화 불필요(논문/교육 내용 무변경).
+
+### 2026-07-08 — 섹션 간격 미세 축소로 3페이지 → 2페이지 복귀 (내용 무변경)
+- 배경: 헤더 원복 후에도 CV.pdf가 3페이지였고, 페이지 3에는 AIKU 항목 불릿("Co-founder & Vice President...") 딱 한 줄만 넘어가 있었음. 사용자가 "AIKU 한 줄을 2페이지로 넣고 싶다, 1페이지에서 줄이면 좋겠다"고 요청. AskUserQuestion으로 (문단 압축 / 불릿 문장통합 / **섹션 간격 전역 축소**) 중 **내용·문구 무변경인 섹션 간격 축소**를 사용자가 선택.
+- 진단(중요): 처음엔 `\largesection`(3→2pt)만 줄였으나 **여전히 3페이지**. `\titlespacing` before도 8→7pt 추가해도 3페이지. 페이지 1·3 렌더로 확인해 보니, 페이지 1에서 확보한 공간이 페이지 하단 여백으로만 쌓이고 다음 블록([C4] venue 줄 "European Conference on Computer Vision (ECCV 2026).")을 페이지 1로 끌어올릴 만큼은 아니어서 페이지 경계가 안 움직였음 — 즉 페이지 나눔은 "줄" 단위가 아니라 "블록" 단위라 임계치를 넘겨야 한 줄이 넘어옴.
+- **`CV_LATEX/CV.tex`** 최종 변경(스페이싱 값 2곳):
+  - L143 `\largesection`: `\vspace{3pt} ... \vspace{3pt}` → `\vspace{2pt} ... \vspace{2pt}` (섹션 6곳 공용, 각 앞뒤 1pt씩).
+  - L45 `\titlespacing*{\section}{0pt}{8pt}{4pt}` → `{0pt}{6pt}{4pt}` (섹션 헤더 위 여백 8→6pt). 7pt에선 임계치 못 넘겨 6pt에서 넘어감.
+  - 문구/불릿/내용은 전혀 안 건드림 — diff는 이 스페이싱 값 2개뿐.
+- **검증**: `latexmk` 로그 `2 pages` 확인. 페이지 2 렌더 → AIKU 제목 줄 + "Co-founder & Vice President..." 불릿이 페이지 2 하단에 함께 들어옴, 페이지 3 없음. 페이지 1 렌더 → 섹션 헤더 간격 여전히 자연스럽고(룰선 위 여백 충분) 촘촘해 보이지 않음 확인.
+
+### 2026-07-08 — CV 헤더 링크 우측 세로 배치 시도 후 원복(단일 라인 복귀)
+- 배경: 페이지 수를 더 줄여보려고 사용자 제안대로 헤더의 5개 링크를 이름(Huge) 오른쪽에 세로 3줄로 그룹 배치(two-`minipage` 레이아웃, `\raggedleft`, "Personal Website"→"Website" 축약)해 봄. 이름 블록 높이 안에 링크 열을 흡수시켜 약 1줄 절약을 노림.
+- 결과: `latexmk` 재빌드·ghostscript 렌더로 확인 → 레이아웃 자체는 깔끔했으나 여전히 **3페이지**, AIKU 불릿("Co-founder & Vice President...") 한 줄이 페이지 3으로 넘어가는 상태가 해소되지 않음. 사용자가 "여전히 안되네, 원래대로 one line으로 복구하자"로 결정. (추가로 검토하던 링크 라인 justify(양쪽정렬) 아이디어는 사용자가 취소.)
+- **`CV_LATEX/CV.tex`** (`\cvheader`, L63~): two-minipage 버전을 **원래의 단일 라인 스택 레이아웃**으로 원복 — `\Huge` 이름 → 회색 "Last update" → `\cvgap`로 구분된 5개 링크 한 줄. 축약했던 라벨도 "Personal Website"로 원복. CV.tex의 다른 편집(`\cventry`/`\largesection`/`\hyperref[APPLE]` 등)은 그대로 유지.
+- **검증**: 재빌드 후 1페이지 렌더로 헤더가 이름+Last update+링크 한 줄(전부 파란 링크, 정확한 URL)로 복구됨 확인. 페이지 수는 3페이지 유지(이번 작업은 페이지 축소가 목적이 아니라 헤더 실험 원복이므로 의도된 결과).
+
 ### 2026-07-08 — 전체 문서 압축(3페이지 → 2페이지 복귀): `\largesection` 간격 축소
 - 배경: SAMSUNG Experience 항목·KATUSA MOS 불릿 등 콘텐츠가 늘면서 CV.pdf가 2페이지에서 3페이지로 늘어남. 사용자가 "한 줄씩만 위로 올리고 싶다"고 요청 — 확인 결과 실제로 페이지 3에는 AIKU 항목의 불릿 한 줄("Co-founder & Vice President...")만 넘어가 있었고, 페이지 2는 바닥까지 꽉 찬 상태였음(ghostscript로 각 페이지 PNG 렌더해서 확인).
 - Plan mode에서 "전체 문서 압축(2페이지 복귀 목표)" vs "특정 섹션만" 중 사용자가 전자를 선택.
