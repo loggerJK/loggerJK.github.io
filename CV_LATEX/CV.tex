@@ -57,7 +57,7 @@
 
 %==================== MACROS ====================
 % Update this whenever you edit the CV content (do NOT use \today).
-\newcommand{\lastupdate}{August 6, 2026}
+\newcommand{\lastupdate}{August 13, 2026}
 \newcommand{\cvgap}{\hspace{1.5em}}
 
 \newcommand{\cvheader}{%
@@ -107,7 +107,10 @@
   {\color{cvgray}\small *: Equal Contribution,\quad \dag: Corresponding Author}\par
   \vspace{4pt}%
 }
-\newcommand{\pubgroup}[1]{\vspace{2pt}{\Large\bfseries #1}\par\vspace{2pt}}
+\newcommand{\pubgroup}[1]{%
+  \vspace{2pt}{\Large\bfseries #1}\par
+  \nobreak\vspace{2pt}\nobreak
+}
 
 % Reusable full link blob (Paper | Project Page | Code). Inline a subset if some URLs are unknown.
 \newcommand{\publinks}[3]{%
@@ -122,20 +125,21 @@
 \makeatletter
 \newcommand{\pubitem}[6]{%
   \begingroup
+  \setlength{\parfillskip}{0pt}%
+  \noindent\begin{minipage}{\linewidth}%
   \setlength{\tabcolsep}{0pt}%
   \noindent
   \begin{tabularx}{\linewidth}{@{}>{\RaggedRight\arraybackslash}X @{\hspace{1.5em}} r@{}}
     \textbf{#1\ #2} & #3
   \end{tabularx}\par
-  \vspace{-4pt}%
   #4\par
-  \vspace{-4pt}%
   \def\pub@desc{#6}%
   \ifx\pub@desc\@empty\else
     \begin{cvbullets}#6\end{cvbullets}%
   \fi
-  \vspace{-4pt}%
   \textit{#5}\par
+  \end{minipage}%
+  \par
   \endgroup
 }
 
@@ -155,7 +159,7 @@
 
 % I am broadly interested in generative models, world modeling, and multimodal learning. 
 
-Having started my research career in 3D vision, I expanded my focus during my Master's to Generative AI, including its practical applications and Unified Multimodal Models (UMMs). Recently, I have become interested in the challenge of world modeling by combining 3D vision capabilities with generative knowledge, which can be extended to real-world robotics and immersive gaming environments.
+Having started my research career in 3D vision, I expanded my focus during my M.S. to Generative AI and Unified Multimodal Models (UMMs), leading to four first-author papers at NeurIPS, ICLR, CVPR, and ECCV. Building on these experiences, I am now interested in world modeling that combines 3D visual capabilities with generative knowledge, with potential applications to real-world robotics and immersive gaming environments.
 Key research areas include:
 \begin{cvbullets}
   \vspace{-5pt}
@@ -202,15 +206,14 @@ Key research areas include:
   {\publinks{https://arxiv.org/abs/2607.04423}{https://cvlab-kaist.github.io/UMM_Transferability/}{https://github.com/cvlab-kaist/UMM_Transferability}}
   {\me{Jiwon Kang}\eqc, Heeji Yoon\eqc, Jaewoo Jung, Jaewon Min, Minkyeong Jeon, Biyeon Hwang, Sangwon Jung, Seungryong Kim\corr}
   {European Conference on Computer Vision (ECCV 2026).}
-  {\item Investigated how understanding and generation capabilities (e.g., counting) transfer to one another within unified multimodal models. \item Showed that transferability depends on the model architecture, and proposed a practical post-training strategy for unified multimodal models that leverages transferability.}
+  {\item Investigated cross-task transferability between image understanding and generation in Unified Multimodal Models, revealing that its strength strongly depends on architecture and emerges most clearly with a fully shared Transformer backbone and unified visual encoder. \item Leveraged understanding-to-generation transfer as a practical post-training strategy to improve targeted generative capabilities, including counting, spatial relations, and text rendering, while mitigating the distribution shift and quality degradation caused by direct generation fine-tuning.}
 
-\label{APPLE}
 \pubitem{[C3]}
-  {APPLE: Attribute-Preserving Pseudo-Labeling for Diffusion-Based Face Swapping}
+  {\label{APPLE}APPLE: Attribute-Preserving Pseudo-Labeling for Diffusion-Based Face Swapping}
   {\publinks{https://arxiv.org/abs/2601.15288}{https://cvlab-kaist.github.io/APPLE/}{https://github.com/cvlab-kaist/APPLE}}
   {\me{Jiwon Kang}\eqc, Yeji Choi\eqc, JoungBin Lee, Wooseok Jang, Jinhyeok Choi, Taekeun Kang, Yongjae Park, Myungin Kim, Seungryong Kim\corr}
   {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026).}
-  {\item Prior diffusion-based face swapping methods focused on changing facial identity, failing to preserve facial attributes. \item Proposed a novel pseudo-labeling framework that preserves facial attributes while swapping identities, achieving Pareto-optimal results.}
+  {\item Identified attribute loss in diffusion-based face swapping caused by masked inpainting conditions, and designed an attribute-preserving teacher using conditional deblurring and attribute-aware inversion to retain both global and fine-grained target attributes. \item Constructed high-fidelity pseudo-triplets from the teacher to train a direct-editing student on clean attribute conditions, achieving state-of-the-art attribute preservation with competitive identity transfer and consistently lying on or near the Pareto frontier across datasets.}
   % {\small\color{linkblue}\href{https://arxiv.org/abs/2601.15288}{Paper}~\textbar~\href{https://cvlab-kaist.github.io/APPLE/}{Project Page}}
 
 \pubitem{[C2]}
@@ -218,14 +221,14 @@ Key research areas include:
   {\publinks{https://arxiv.org/abs/2412.03895}{https://cvlab-kaist.github.io/NoiseRefine/}{https://github.com/cvlab-kaist/NoiseRefine}}
   {Donghoon Ahn\eqc, \me{Jiwon Kang}\eqc, Sanghyun Lee, Jaewon Min, Wooseok Jang, Minjae Kim, Hyungwon Cho, Sayak Paul, SeonHwa Kim, Eunju Cha\corr, Kyong Hwan Jin\corr, Seungryong Kim\corr}
   {International Conference on Learning Representations (ICLR 2026).}
-  {\item Showed that classifier-free guidance can be replaced by refining the initial noise. \item Enabled high-quality generation without a guidance pass, highlighting the importance of the initial noise in diffusion models.}
+  {\item Revealed that high-quality guidance-free diffusion is largely determined by the initial noise, identifying small low-magnitude, low-frequency components that transform Gaussian noise into a favorable noise space for unguided denoising. \item Proposed NoiseRefine, which learns to refine the initial noise once before sampling, reproducing guidance-level generation quality without additional guidance passes while reducing inference cost and requiring only 50K text-image pairs for training.}
 
 \pubitem{[C1]}
   {Where and How to Perturb: On the Design of Perturbation Guidance in Diffusion and Flow Models}
   {\publinks{https://arxiv.org/abs/2506.10978}{https://cvlab-kaist.github.io/HeadHunter/}{https://github.com/cvlab-kaist/HeadHunter}}
   {Donghoon Ahn\eqc, \me{Jiwon Kang}\eqc, Sanghyun Lee, Minjae Kim, Wooseok Jang, Jaewon Min, Sangwu Lee, Sayak Paul, Seungryong Kim\corr}
   {Conference on Neural Information Processing Systems (NeurIPS 2025).}
-  {\item Systematically studied perturbation guidance in diffusion and flow models. \item Showed that perturbing different layers/heads in a diffusion model exhibits different effects on the generated samples, which can be systematically combined to improve user-specified attributes via the proposed framework.}
+  {\item Conducted the first head-level analysis of attention perturbation guidance in Diffusion Transformers, revealing that individual attention heads exhibit specialized and compositional effects on visual concepts such as structure, lighting, style, and texture. \item Proposed HeadHunter to iteratively select attention heads for arbitrary user-defined objectives and SoftPAG to continuously control perturbation strength, enabling fine-grained quality and style guidance on SD3 and FLUX.1 with compact head subsets and negligible inference overhead.}
 
 \pubgroup{Workshop}
 
@@ -234,13 +237,12 @@ Key research areas include:
   {\publinks{https://arxiv.org/abs/2312.01003}{https://cvlab-kaist.github.io/SE-NeRF/}{https://github.com/cvlab-kaist/SE-NeRF}}
   {Jaewoo Jung\eqc, Jisang Han\eqc, \me{Jiwon Kang}\eqc, Seongchan Kim, Min-Seop Kwak, Seungryong Kim\corr}
   {ICCV 2025 Workshop on Wild3D: 3D Modeling, Reconstruction, and Generation in the Wild.}
-  {\item Proposed a self-training framework that lets a NeRF improve itself from few input views via pseudo-label distillation.}
+  {\item Formulated few-shot NeRF as an iterative teacher-student self-training problem, progressively expanding supervision with pseudo-labeled novel views generated by the teacher and promoting each trained student to the next teacher. \item Introduced cross-view semantic consistency based ray reliability estimation and reliability-aware distillation, allowing existing NeRF models to learn more robust geometry from sparse views without external 3D priors or architectural modifications.}
 
 \pubgroup{Preprints \& Under Review}
 
-\label{Whisper}
 \pubitem{[P2]}
-  {Exploring Whisper as a Continuous Tokenizer for Text-to-Speech}
+  {\label{Whisper}Exploring Whisper as a Continuous Tokenizer for Text-to-Speech}
   {} % TODO: add links
   {\me{Jiwon Kang}, Heeji Yoon, Woo-Young Kang, Sunghun Kang, Jihwan Eom, Jaeyeol Jeon, Byungseok Roh, Seungryong Kim\corr}
   {Under Review.}
@@ -254,7 +256,7 @@ Key research areas include:
   {\publinks{https://arxiv.org/abs/2403.09413}{https://cvlab-kaist.github.io/RAIN-GS/}{https://github.com/cvlab-kaist/RAIN-GS}}
   {Jaewoo Jung\eqc, Jisang Han\eqc, Honggyu An\eqc, \me{Jiwon Kang}\eqc, Seonghoon Park\eqc, Seungryong Kim\corr}
   {Under Review.}
-  {\item Relaxed the accurate point-cloud initialization requirement of 3D Gaussian Splatting, enabling training from sparse or random initialization.}
+  {\item Analyzed why 3D Gaussian Splatting critically depends on accurate SfM initialization, showing that limited Gaussian transport and missing low-frequency scene structure prevent robust coarse-to-fine optimization from random or noisy point clouds. \item Proposed RAIN-GS with Sparse-Large-Variance initialization, progressive Gaussian low-pass filtering, and Adaptive Bound-Expanding Split, enabling 3DGS to train from sub-optimal or random point clouds with performance comparable to or better than SfM initialization.}
 
 %-------------------- INVITED TALKS (TODO) --------------------
 % \section{Invited Talks}
