@@ -57,7 +57,7 @@
 
 %==================== MACROS ====================
 % Update this whenever you edit the CV content (do NOT use \today).
-\newcommand{\lastupdate}{August 13, 2026}
+\newcommand{\lastupdate}{August 20, 2026}
 \newcommand{\cvgap}{\hspace{1.5em}}
 
 \newcommand{\cvheader}{%
@@ -157,9 +157,9 @@
 %-------------------- RESEARCH INTERESTS --------------------
 \largesection{Research Interests}
 
-% I am broadly interested in generative models, world modeling, and multimodal learning. 
 
-Having started my research career in 3D vision, I expanded my focus during my M.S. to Generative AI and Unified Multimodal Models (UMMs), leading to four first-author papers at NeurIPS, ICLR, CVPR, and ECCV. Building on these experiences, I am now interested in world modeling that combines 3D visual capabilities with generative knowledge, with potential applications to real-world robotics and immersive gaming environments.
+%%%%%%% General
+Having started my research career in 3D vision, I expanded my focus during my M.S. to Generative AI and Unified Multimodal Models (UMMs), leading to four first-author papers at NeurIPS, ICLR, CVPR, and ECCV. My work spans diffusion-based visual generation and editing, as well as multimodal understanding and generation. Building on these experiences, recently I am interested in world modeling that combines 3D visual capabilities with generative knowledge, with potential applications to real-world robotics and immersive gaming environments.
 Key research areas include:
 \begin{cvbullets}
   \vspace{-5pt}
@@ -167,6 +167,28 @@ Key research areas include:
   \item Unified Multimodal Models
   \item 3D Vision (Novel View Synthesis, NeRF, Gaussian Splatting)
 \end{cvbullets}
+
+
+%%%%%%% ByteDance
+% Having started my research career in 3D vision, I expanded my focus during my M.S. to Generative AI and Unified Multimodal Models (UMMs), leading to four first-author or equal-contribution papers at NeurIPS, ICLR, CVPR, and ECCV. Building on these experiences, I am particularly interested in multimodal models that tightly integrate understanding and generation, with a focus on intelligent editing and content creation that can interpret user intent, preserve relevant visual information, and generate precise modifications across images and videos. 
+% Key research areas include:
+% \begin{cvbullets}
+%   \vspace{-5pt}
+%   \item Diffusion \& Multimodal Generative AI (Image/Video/Action/Audio Generation, Guidance, Sampling)
+%   \item Unified Multimodal Models
+%   \item 3D Vision (Novel View Synthesis, NeRF, Gaussian Splatting)
+% \end{cvbullets}
+
+
+% %%%%%%%%%%%%% Apple
+% Having started my research career in 3D vision, I expanded my focus during my M.S. to Generative AI and Unified Multimodal Models (UMMs), leading to four first-author or equal-contribution papers at NeurIPS, ICLR, CVPR, and ECCV. Building on these experiences, I am particularly interested in multimodal foundation models that tightly integrate understanding and generation across vision, language, and other sensory modalities. My long-term goal is to develop models that can leverage rich perceptual inputs, reason about the physical world, and translate multimodal understanding into useful generation and interaction for real-world applications. Key research areas include:
+% \begin{cvbullets}
+%   \vspace{-5pt}
+%   \item Multimodal Foundation Models (Vision-Language Models, Unified Understanding \& Generation, Multimodal Alignment)
+%   \item Generative AI \& Post-Training (Image/Video Generation, Diffusion Models, Guidance, Fine-Tuning)
+%   \item Multimodal Perception \& Interaction (Video, 3D, Multi-Sensor Understanding)
+%   \item 3D Vision (Novel View Synthesis, NeRF, Gaussian Splatting)
+% \end{cvbullets}
 
 %-------------------- EDUCATION --------------------
 \largesection{Education}
@@ -195,11 +217,42 @@ Key research areas include:
 \begin{cvbullets}
   \item Collaborated with Samsung Electronics on background face anonymization via generative face-swapping \hyperref[APPLE]{[C3]}.
 \end{cvbullets}
+
+%-------------------- HONORS --------------------
+\largesection{Honors}
+
+\cventry{Outstanding Paper Silver Award, \textit{IPIU 2024}}{2024}{}{}
+\begin{cvbullets}
+  \item \textbf{Paper:} \textit{Self-Evolving Neural Radiance Fields}
+\end{cvbullets}
+
+% TODO(confirm): \cventry{1st Place, Seoul Asan Hospital HeLP Challenge (Stroke DWI Segmentation)}{Oct. 2021}{}{}
+
+%-------------------- EXTRACURRICULAR --------------------
+\largesection{Extracurricular Activities}
+
+\cventry{Military Service (KATUSA, Korean Augmentation to the U.S. Army)}{Dec. 2020 -- Jun. 2022}{}{}
+\begin{cvbullets}
+  \item MOS : 92Y (Unit Supply Specialist)
+  \item 194th DSSB, 2nd Infantry Division, Eighth U.S. Army, Camp Humphreys
+\end{cvbullets}
+
+\cventry{AIKU (Artificial Intelligence Society of Korea University)}{Sep. 2022 -- Aug. 2023}
+        {}{}
+\begin{cvbullets}
+  \item Co-founder \& Vice President of academic research society for undergraduate students
+\end{cvbullets}
+
+
 %-------------------- PUBLICATIONS --------------------
+\clearpage
 \largesection{Publications}
 \publegend
 
+
+% \vspace{-10pt}
 \pubgroup{International Conference}
+% \vspace{-3pt}
 
 \pubitem{[C4]}
   {Transferability Between Understanding and Generation in Unified Multimodal Models}
@@ -213,7 +266,7 @@ Key research areas include:
   {\publinks{https://arxiv.org/abs/2601.15288}{https://cvlab-kaist.github.io/APPLE/}{https://github.com/cvlab-kaist/APPLE}}
   {\me{Jiwon Kang}\eqc, Yeji Choi\eqc, JoungBin Lee, Wooseok Jang, Jinhyeok Choi, Taekeun Kang, Yongjae Park, Myungin Kim, Seungryong Kim\corr}
   {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026).}
-  {\item Identified attribute loss in diffusion-based face swapping caused by masked inpainting conditions, and designed an attribute-preserving teacher using conditional deblurring and attribute-aware inversion to retain both global and fine-grained target attributes. \item Constructed high-fidelity pseudo-triplets from the teacher to train a direct-editing student on clean attribute conditions, achieving state-of-the-art attribute preservation with competitive identity transfer and consistently lying on or near the Pareto frontier across datasets.}
+  {\item Identified poor attribute preservation in diffusion-based face swapping caused by masked inpainting conditions, and designed an attribute-preserving teacher using conditional deblurring and attribute-aware inversion to retain both global and fine-grained target attributes. \item Constructed high-fidelity pseudo-triplets from the teacher to train a direct-editing student on clean attribute conditions, achieving state-of-the-art attribute preservation with competitive identity transfer and consistently lying on or near the Pareto frontier across datasets.}
   % {\small\color{linkblue}\href{https://arxiv.org/abs/2601.15288}{Paper}~\textbar~\href{https://cvlab-kaist.github.io/APPLE/}{Project Page}}
 
 \pubitem{[C2]}
@@ -276,30 +329,6 @@ Key research areas include:
 %   \item Teaching Assistant, Visual Question Answering, Samsung Electronics (Sep. 2023)
 % \end{cvbullets}
 
-%-------------------- HONORS --------------------
-\largesection{Honors}
-
-\cventry{Outstanding Paper Silver Award, \textit{IPIU 2024}}{2024}{}{}
-\begin{cvbullets}
-  \item \textbf{Paper:} \textit{Self-Evolving Neural Radiance Fields}
-\end{cvbullets}
-
-% TODO(confirm): \cventry{1st Place, Seoul Asan Hospital HeLP Challenge (Stroke DWI Segmentation)}{Oct. 2021}{}{}
-
-%-------------------- EXTRACURRICULAR --------------------
-\largesection{Extracurricular Activities}
-
-\cventry{Military Service (KATUSA, Korean Augmentation to the U.S. Army)}{Dec. 2020 -- Jun. 2022}{}{}
-\begin{cvbullets}
-  \item MOS : 92Y (Unit Supply Specialist)
-  \item 194th DSSB, 2nd Infantry Division, Eighth U.S. Army, Camp Humphreys
-\end{cvbullets}
-
-\cventry{AIKU (Artificial Intelligence Society of Korea University)}{Sep. 2022 -- Aug. 2023}
-        {}{}
-\begin{cvbullets}
-  \item Co-founder \& Vice President of academic research society for undergraduate students
-\end{cvbullets}
 
 %-------------------- TECHNICAL SKILLS / COURSEWORK (TODO) --------------------
 % \section{Technical Skills}
