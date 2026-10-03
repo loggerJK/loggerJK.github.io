@@ -57,7 +57,7 @@
 
 %==================== MACROS ====================
 % Update this whenever you edit the CV content (do NOT use \today).
-\newcommand{\lastupdate}{August 20, 2026}
+\newcommand{\lastupdate}{September 20, 2026}
 \newcommand{\cvgap}{\hspace{1.5em}}
 
 \newcommand{\cvheader}{%
@@ -159,15 +159,32 @@
 
 
 %%%%%%% General
-Having started my research career in 3D vision, I expanded my focus during my M.S. to Generative AI and Unified Multimodal Models (UMMs), leading to four first-author papers at NeurIPS, ICLR, CVPR, and ECCV. My work spans diffusion-based visual generation and editing, as well as multimodal understanding and generation. Building on these experiences, recently I am interested in world modeling that combines 3D visual capabilities with generative knowledge, with potential applications to real-world robotics and immersive gaming environments.
+Having started my research career in 3D vision, I expanded my focus during my M.S. to Visual Generative AI and Unified Multimodal Models (UMMs), leading to four (co-)first-author papers at NeurIPS, ICLR, CVPR, and ECCV. My work primarily spans diffusion-based visual generation and editing and the interaction between multimodal understanding and generation. Building on my experience, my current research interests extend toward video diffusion or world (action) models, as well as multimodal generative models that bridge perception and generation across images, video, audio, and action.
+% Building on these experiences, recently I am interested in world modeling that combines 3D visual capabilities with generative knowledge, with potential applications to real-world robotics and immersive gaming environments.
+
+% Key research areas include:
+% \begin{cvbullets}
+%   \vspace{-5pt}
+%   \item Diffusion \& Multimodal Generative AI (Image/Audio Generation, Guidance, Sampling)
+%   \item Multimodal Understanding \& Generation (VLMs, UMMs)
+%   \item 3D Vision (Novel View Synthesis, NeRF, Gaussian Splatting)
+% \end{cvbullets}
+
 Key research areas include:
 \begin{cvbullets}
-  \vspace{-5pt}
-  \item Diffusion \& Multimodal Generative AI (Image/Video/Action/Audio Generation, Guidance, Sampling)
-  \item Unified Multimodal Models
-  \item 3D Vision (Novel View Synthesis, NeRF, Gaussian Splatting)
+  \item Diffusion \& Multimodal Generative AI
+  (Image/Audio Generation, Guidance, Sampling)
+  [\hyperref[HeadHunter]{NeurIPS'25}, \hyperref[NoiseRefine]{ICLR'26},
+   \hyperref[APPLE]{CVPR'26}, \hyperref[Whisper]{Kakao}]
+  \item Multimodal Understanding \& Generation
+  (VLMs, UMMs)
+  [\hyperref[UMM]{ECCV'26}]
+  \item 3D Vision
+  (Novel View Synthesis, NeRF, Gaussian Splatting)
+  [\hyperref[senerf]{ICCVW'25}, \hyperref[RAIN-GS]{RAIN-GS}]
 \end{cvbullets}
 
+\noindent\textbf{Availability:} Available for full-time roles after completing my M.S. in February 2027. Open to internship or other pre-graduation opportunities before then.
 
 %%%%%%% ByteDance
 % Having started my research career in 3D vision, I expanded my focus during my M.S. to Generative AI and Unified Multimodal Models (UMMs), leading to four first-author or equal-contribution papers at NeurIPS, ICLR, CVPR, and ECCV. Building on these experiences, I am particularly interested in multimodal models that tightly integrate understanding and generation, with a focus on intelligent editing and content creation that can interpret user intent, preserve relevant visual information, and generate precise modifications across images and videos. 
@@ -218,31 +235,6 @@ Key research areas include:
   \item Collaborated with Samsung Electronics on background face anonymization via generative face-swapping \hyperref[APPLE]{[C3]}.
 \end{cvbullets}
 
-%-------------------- HONORS --------------------
-\largesection{Honors}
-
-\cventry{Outstanding Paper Silver Award, \textit{IPIU 2024}}{2024}{}{}
-\begin{cvbullets}
-  \item \textbf{Paper:} \textit{Self-Evolving Neural Radiance Fields}
-\end{cvbullets}
-
-% TODO(confirm): \cventry{1st Place, Seoul Asan Hospital HeLP Challenge (Stroke DWI Segmentation)}{Oct. 2021}{}{}
-
-%-------------------- EXTRACURRICULAR --------------------
-\largesection{Extracurricular Activities}
-
-\cventry{Military Service (KATUSA, Korean Augmentation to the U.S. Army)}{Dec. 2020 -- Jun. 2022}{}{}
-\begin{cvbullets}
-  \item MOS : 92Y (Unit Supply Specialist)
-  \item 194th DSSB, 2nd Infantry Division, Eighth U.S. Army, Camp Humphreys
-\end{cvbullets}
-
-\cventry{AIKU (Artificial Intelligence Society of Korea University)}{Sep. 2022 -- Aug. 2023}
-        {}{}
-\begin{cvbullets}
-  \item Co-founder \& Vice President of academic research society for undergraduate students
-\end{cvbullets}
-
 
 %-------------------- PUBLICATIONS --------------------
 \clearpage
@@ -255,9 +247,9 @@ Key research areas include:
 % \vspace{-3pt}
 
 \pubitem{[C4]}
-  {Transferability Between Understanding and Generation in Unified Multimodal Models}
+  {\label{UMM}Transferability Between Understanding and Generation in Unified Multimodal Models}
   {\publinks{https://arxiv.org/abs/2607.04423}{https://cvlab-kaist.github.io/UMM_Transferability/}{https://github.com/cvlab-kaist/UMM_Transferability}}
-  {\me{Jiwon Kang}\eqc, Heeji Yoon\eqc, Jaewoo Jung, Jaewon Min, Minkyeong Jeon, Biyeon Hwang, Sangwon Jung, Seungryong Kim\corr}
+  {\me{Jiwon Kang}\eqc, Heeji Yoon\eqc, Jaewoo Jung, Jaewon Min, Minkyeong Jeon, Biyeon Hwang, Sangwon Jung\corr, Seungryong Kim\corr}
   {European Conference on Computer Vision (ECCV 2026).}
   {\item Investigated cross-task transferability between image understanding and generation in Unified Multimodal Models, revealing that its strength strongly depends on architecture and emerges most clearly with a fully shared Transformer backbone and unified visual encoder. \item Leveraged understanding-to-generation transfer as a practical post-training strategy to improve targeted generative capabilities, including counting, spatial relations, and text rendering, while mitigating the distribution shift and quality degradation caused by direct generation fine-tuning.}
 
@@ -266,18 +258,19 @@ Key research areas include:
   {\publinks{https://arxiv.org/abs/2601.15288}{https://cvlab-kaist.github.io/APPLE/}{https://github.com/cvlab-kaist/APPLE}}
   {\me{Jiwon Kang}\eqc, Yeji Choi\eqc, JoungBin Lee, Wooseok Jang, Jinhyeok Choi, Taekeun Kang, Yongjae Park, Myungin Kim, Seungryong Kim\corr}
   {IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR 2026).}
-  {\item Identified poor attribute preservation in diffusion-based face swapping caused by masked inpainting conditions, and designed an attribute-preserving teacher using conditional deblurring and attribute-aware inversion to retain both global and fine-grained target attributes. \item Constructed high-fidelity pseudo-triplets from the teacher to train a direct-editing student on clean attribute conditions, achieving state-of-the-art attribute preservation with competitive identity transfer and consistently lying on or near the Pareto frontier across datasets.}
+  {\item Identified poor attribute preservation in diffusion-based face swapping caused by masked inpainting conditions, and designed an attribute-preserving teacher using conditional deblurring and attribute-aware inversion to retain both global and fine-grained target attributes.
+  \item Constructed high-fidelity pseudo-triplets with the teacher and used them to train a direct-editing student under clean attribute conditions. The resulting model achieved state-of-the-art attribute preservation with competitive identity transfer, consistently performing on or near the Pareto frontier across datasets.}
   % {\small\color{linkblue}\href{https://arxiv.org/abs/2601.15288}{Paper}~\textbar~\href{https://cvlab-kaist.github.io/APPLE/}{Project Page}}
 
 \pubitem{[C2]}
-  {A Noise is Worth Diffusion Guidance}
+  {\label{NoiseRefine}A Noise is Worth Diffusion Guidance}
   {\publinks{https://arxiv.org/abs/2412.03895}{https://cvlab-kaist.github.io/NoiseRefine/}{https://github.com/cvlab-kaist/NoiseRefine}}
   {Donghoon Ahn\eqc, \me{Jiwon Kang}\eqc, Sanghyun Lee, Jaewon Min, Wooseok Jang, Minjae Kim, Hyungwon Cho, Sayak Paul, SeonHwa Kim, Eunju Cha\corr, Kyong Hwan Jin\corr, Seungryong Kim\corr}
   {International Conference on Learning Representations (ICLR 2026).}
   {\item Revealed that high-quality guidance-free diffusion is largely determined by the initial noise, identifying small low-magnitude, low-frequency components that transform Gaussian noise into a favorable noise space for unguided denoising. \item Proposed NoiseRefine, which learns to refine the initial noise once before sampling, reproducing guidance-level generation quality without additional guidance passes while reducing inference cost and requiring only 50K text-image pairs for training.}
 
 \pubitem{[C1]}
-  {Where and How to Perturb: On the Design of Perturbation Guidance in Diffusion and Flow Models}
+  {\label{HeadHunter}Where and How to Perturb: On the Design of Perturbation Guidance in Diffusion and Flow Models}
   {\publinks{https://arxiv.org/abs/2506.10978}{https://cvlab-kaist.github.io/HeadHunter/}{https://github.com/cvlab-kaist/HeadHunter}}
   {Donghoon Ahn\eqc, \me{Jiwon Kang}\eqc, Sanghyun Lee, Minjae Kim, Wooseok Jang, Jaewon Min, Sangwu Lee, Sayak Paul, Seungryong Kim\corr}
   {Conference on Neural Information Processing Systems (NeurIPS 2025).}
@@ -286,7 +279,7 @@ Key research areas include:
 \pubgroup{Workshop}
 
 \pubitem{[W1]}
-  {Self-Evolving Neural Radiance Fields}
+  {\label{senerf}Self-Evolving Neural Radiance Fields}
   {\publinks{https://arxiv.org/abs/2312.01003}{https://cvlab-kaist.github.io/SE-NeRF/}{https://github.com/cvlab-kaist/SE-NeRF}}
   {Jaewoo Jung\eqc, Jisang Han\eqc, \me{Jiwon Kang}\eqc, Seongchan Kim, Min-Seop Kwak, Seungryong Kim\corr}
   {ICCV 2025 Workshop on Wild3D: 3D Modeling, Reconstruction, and Generation in the Wild.}
@@ -300,12 +293,16 @@ Key research areas include:
   {\me{Jiwon Kang}, Heeji Yoon, Woo-Young Kang, Sunghun Kang, Jihwan Eom, Jaeyeol Jeon, Byungseok Roh, Seungryong Kim\corr}
   {Under Review.}
   {\item Inspired by the success of RAE in the vision domain, explored whether ASR-supervised audio representations (Whisper) could be repurposed as generative representations for TTS.
-  \item Developed (1) a Whisper-based continuous tokenizer and (2) a autoregressive diffusion-based TTS model that generates Whisper tokens, enabling high-quality speech synthesis with controllable prosody.
+  % \item Developed (1) a Whisper-based continuous tokenizer and (2) an autoregressive diffusion-based TTS model that generates Whisper features, enabling intelligible speech synthesis.
+  \item Demonstrated that frozen Whisper features support feed-forward, variable-length, multi-speaker reconstruction, showing that ASR-supervised semantic representations retain acoustic information for direct waveform reconstruction.
+
+  \item Built an autoregressive diffusion-based TTS system that directly models Whisper features and showed that RAE-inspired adaptations for high-dimensional representations improve their training efficiency, enabling intelligible speech generation.
+
   }
   %  \item Work done during a research internship at Kakao.}
 
 \pubitem{[P1]}
-  {RAIN-GS: Relaxing Accurate Initialization Constraint for 3D Gaussian Splatting}
+  {\label{RAIN-GS}RAIN-GS: Relaxing Accurate Initialization Constraint for 3D Gaussian Splatting}
   {\publinks{https://arxiv.org/abs/2403.09413}{https://cvlab-kaist.github.io/RAIN-GS/}{https://github.com/cvlab-kaist/RAIN-GS}}
   {Jaewoo Jung\eqc, Jisang Han\eqc, Honggyu An\eqc, \me{Jiwon Kang}\eqc, Seonghoon Park\eqc, Seungryong Kim\corr}
   {Under Review.}
@@ -336,5 +333,32 @@ Key research areas include:
 %   \item Programming: Python, C/C++
 %   \item Frameworks: PyTorch, JAX
 % \end{cvbullets}
+
+%-------------------- HONORS --------------------
+\vspace{5pt}
+\largesection{Honors}
+
+\cventry{Outstanding Paper Silver Award, \textit{IPIU 2024}}{2024}{}{}
+\begin{cvbullets}
+  \item \textbf{Paper:} \textit{Self-Evolving Neural Radiance Fields}
+\end{cvbullets}
+
+% TODO(confirm): \cventry{1st Place, Seoul Asan Hospital HeLP Challenge (Stroke DWI Segmentation)}{Oct. 2021}{}{}
+
+%-------------------- EXTRACURRICULAR --------------------
+\largesection{Extracurricular Activities}
+
+\cventry{Military Service (KATUSA, Korean Augmentation to the U.S. Army)}{Dec. 2020 -- Jun. 2022}{}{}
+\begin{cvbullets}
+  \item MOS : 92Y (Unit Supply Specialist)
+  \item 194th DSSB, 2nd Infantry Division, Eighth U.S. Army, Camp Humphreys
+\end{cvbullets}
+
+\cventry{AIKU (Artificial Intelligence Society of Korea University)}{Sep. 2022 -- Aug. 2023}
+        {}{}
+\begin{cvbullets}
+  \item Co-founder \& Vice President of academic research society for undergraduate students
+\end{cvbullets}
+
 
 \end{document}
