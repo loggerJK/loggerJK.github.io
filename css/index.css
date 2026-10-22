@@ -78,6 +78,13 @@ html { scroll-behavior: smooth; }
 
 .portrait { border-radius: var(--radius-card); overflow: hidden; }
 .portrait img { transform: scale(1.0); }
+.hero-title { margin-bottom: 0.75rem !important; }
+.hero-copy { line-height: 1.5; }
+.hero-copy .hero-summary { margin: 0; }
+.hero-copy .hero-summary + .hero-summary { margin-top: 0.75rem; }
+.hero-copy .hero-availability { margin: 1rem 0 0; padding: 0.9rem 0; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); color: var(--gray-700); }
+.hero-copy .hero-availability strong { color: var(--gray-900); }
+.hero-copy .hero-actions { margin: 1rem 0 0; }
 
 .footer .footer-links a { font-size: 25px; color: var(--gray-900); display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; transition: color var(--dur-normal) var(--ease-snap); }
 .footer .footer-links a:hover { color: var(--brand); }
@@ -101,6 +108,7 @@ html { scroll-behavior: smooth; }
 .title-logo.logo-eth { height: 14px; }
 .title-logo.logo-cvg { height: 28px; }
 .title-logo.logo-kakao { height: 15px; margin-left: 4px; }
+.title-logo.logo-samsung { height: 18px; }
 .publication-card.columns { align-items: center; margin-left: 0 !important; margin-right: 0 !important; padding: 1.25rem 1.5rem; margin-bottom: 1.25rem; }
 .publication-card.columns:last-child { margin-bottom: 0; }
 
@@ -162,7 +170,6 @@ html { scroll-behavior: smooth; }
 .publication-compact .publication-desc-list { font-size: 0.85em; color: var(--gray-500); }
 .publication-card .publication-links { margin: 0 !important; }
 .publication-card .publication-links .button:hover { color: var(--brand); }
-.publication-card.new-publication { border: 1px solid var(--brand); }
 .publication-card:target { animation: highlight-fade 2s ease; }
 
 .lightbox-error { color: #fff; background: var(--gray-700); padding: 2em 3em; border-radius: var(--radius-card); font-size: 1rem; }
