@@ -57,7 +57,7 @@
 
 %==================== MACROS ====================
 % Update this whenever you edit the CV content (do NOT use \today).
-\newcommand{\lastupdate}{October 23, 2026}
+\newcommand{\lastupdate}{October 30, 2026}
 \newcommand{\cvgap}{\hspace{1.5em}}
 
 \newcommand{\cvheader}{%
@@ -159,7 +159,7 @@
 
 
 %%%%%%% General
-Having started my research career in 3D vision as an undergraduate researcher, I expanded my focus during my M.S. to Visual Generative AI and Unified Multimodal Models (UMMs), leading to four (co-)first-author papers at NeurIPS, ICLR, CVPR, and ECCV. My work primarily spans diffusion-based visual generation and editing and the interaction between multimodal understanding and generation. Building on my experience, my current research interests extend toward video diffusion or world (action) models, as well as multimodal generative models that bridge perception and generation across images, video, audio, and action.
+Having started my research career in 3D vision as an undergraduate researcher, I expanded my focus during my M.S. to Visual Generative AI and Unified Multimodal Models (UMMs), leading to four (co-)first-author papers at NeurIPS, ICLR, CVPR, and ECCV. My work primarily spans diffusion-based visual generation and the interaction between multimodal understanding and generation. Building on my experience, my current research interests extend toward video diffusion or world (action) models, as well as multimodal generative models that bridge perception and generation across images, video, audio, and action.
 % Building on these experiences, recently I am interested in world modeling that combines 3D visual capabilities with generative knowledge, with potential applications to real-world robotics and immersive gaming environments.
 
 % Key research areas include:
@@ -172,7 +172,7 @@ Having started my research career in 3D vision as an undergraduate researcher, I
 
 Key research areas include:
 \begin{cvbullets}
-  \item Diffusion \& Multimodal Generative AI
+  \item Diffusion \& Flow-based Generative AI
   (Image/Audio Generation, Guidance, Sampling)
   [\hyperref[HeadHunter]{NeurIPS'25}, \hyperref[NoiseRefine]{ICLR'26},
    \hyperref[APPLE]{CVPR'26}, \hyperref[Whisper]{Kakao}]
@@ -226,13 +226,13 @@ Key research areas include:
 \largesection{Experience}
 \cventry{Kakao}{Mar. 2026 -- Jun. 2026}{Research Intern}{\textit{Seoul, Korea}}
 \begin{cvbullets}
-  \item Developed a Whisper-based continuous speech tokenizer and an autoregressive diffusion TTS system, adapting diffusion modeling to high-dimensional speech representations \hyperref[Whisper]{[P2]}.
+  \item Developed a Whisper-based continuous speech tokenizer and an autoregressive diffusion TTS system, adapting diffusion modeling to high-dimensional speech representations \hyperref[Whisper]{[P1]}.
 \end{cvbullets}
 
 \largesection{Projects}
 \cventry{SAMSUNG}{Aug. 2025 -- Oct. 2025}{Research Collaboration}{\textit{Seoul, Korea}}
 \begin{cvbullets}
-  \item Developed an diffusion-based attribute-preserving face-swapping framework with Samsung Electronics for background face anonymization \hyperref[APPLE]{[C3]}.
+  \item Developed a diffusion-based attribute-preserving face-swapping framework with Samsung Electronics for background face anonymization \hyperref[APPLE]{[C3]}.
 \end{cvbullets}
 
 
@@ -275,7 +275,7 @@ Key research areas include:
   {\publinks{https://arxiv.org/abs/2412.03895}{https://cvlab-kaist.github.io/NoiseRefine/}{https://github.com/cvlab-kaist/NoiseRefine}}
   {Donghoon Ahn\eqc, \me{Jiwon Kang}\eqc, Sanghyun Lee, Jaewon Min, Wooseok Jang, Minjae Kim, Hyungwon Cho, Sayak Paul, SeonHwa Kim, Eunju Cha\corr, Kyong Hwan Jin\corr, Seungryong Kim\corr}
   {International Conference on Learning Representations (ICLR 2026).}
-  {\item Revealed that high-quality guidance-free diffusion is largely determined by the initial noise, identifying small low-magnitude, low-frequency components that transform Gaussian noise into a favorable noise space for unguided denoising. \item Proposed \textit{NoiseRefine}, which learns to refine the initial noise once before sampling, reproducing guidance-level generation quality without additional guidance passes while reducing inference cost and requiring only 50K text-image pairs for training.}
+  {\item Revealed that high-quality guidance-free generation is largely determined by the initial noise, showing that low-frequency components transform Gaussian noise into a favorable noise space for unguided denoising. \item Proposed \textit{NoiseRefine}, which learns to refine the initial noise once before sampling, reproducing guidance-level generation quality without additional guidance passes while reducing inference cost and requiring only 50K text-image pairs for training.}
 
 \pubitem{[C1]}
   {\label{HeadHunter}Where and How to Perturb: On the Design of Perturbation Guidance in Diffusion and Flow Models}
